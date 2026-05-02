@@ -16,18 +16,22 @@ class JSONData:
 
     def _load_data(self):
         """Load and return JSON data from the program.json file."""
+        
+        # Get the path to the JSON data file from the paths module
         _, data_path, _, _, _= get_paths()
-        with data_path.open("r", encoding="utf-8") as f:
-            return orjson.loads(f.read())
+
+        try:
+            with data_path.open("r", encoding="utf-8") as f:
+                return orjson.loads(f.read())
+        except FileNotFoundError:
+            raise JSONDataError(f"Data file not found: {data_path}")
+        except orjson.JSONDecodeError as e:
+            raise JSONDataError(f"Error decoding JSON data: {e}")
 
     def _get_speakers(self):
         """
         Return an ordered list of unique authors from nested dict/list JSON data.
         Uses set for uniqueness and map to build the uniqueness key.
-        """
-        """
-        Return a list of unique authors ordered by name.
-        Uses set for uniqueness and map for key extraction.
         """
         author_set = set()
         fields = ("title", "name", "affiliation", "role")
