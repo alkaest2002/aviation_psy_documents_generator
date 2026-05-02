@@ -1,6 +1,7 @@
 import orjson
 
-from lib.paths import get_paths
+from lib.paths import PathEnum, get_paths
+from lib.utils import pluck_nested
 
 
 class JSONDataError(Exception):
@@ -10,6 +11,8 @@ class JSONDataError(Exception):
 class JSONData:
     """Class to handle loading and processing of JSON data."""
 
+    SPEAKER_FIELDS = ("title", "name", "affiliation", "role")
+    
     def __init__(self) -> None:
         """Initialize JSONData instance."""
         self.data = None
@@ -18,7 +21,7 @@ class JSONData:
         """Load and return JSON data from the program.json file."""
         
         # Get the path to the JSON data file from the paths module
-        _, data_path, _, _, _= get_paths()
+        data_path = get_paths(PathEnum.DATA)[PathEnum.DATA]
 
         try:
             with data_path.open("r", encoding="utf-8") as f:
@@ -28,37 +31,15 @@ class JSONData:
         except orjson.JSONDecodeError as e:
             raise JSONDataError(f"Error decoding JSON data: {e}")
 
-    def _get_speakers(self):
-        """
-        Return an ordered list of unique authors from nested dict/list JSON data.
-        Uses set for uniqueness and map to build the uniqueness key.
-        """
-        author_set = set()
-        fields = ("title", "name", "affiliation", "role")
-
-        def walk(node):
-            if isinstance(node, dict):
-                authors = node.get("authors")
-                if isinstance(authors, list):
-                    for a in authors:
-                        if isinstance(a, dict):
-                            author_set.add(tuple(map(a.get, fields)))
-                for v in node.values():
-                    walk(v)
-
-            elif isinstance(node, list):
-                for item in node:
-                    walk(item)
-
-        walk(self.data)
-
-        # set[tuple] -> list[dict]
-        result = [dict(zip(fields, t)) for t in author_set]
-
-        # order by name
-        result.sort(key=lambda a: (a.get("name") or "").lower())
-        return result
-    
+    def _get_speakers(self) -> list[dict]:
+        authors = pluck_nested(self.data, "authors")
+        unique = { tuple(map(a.get, self.SPEAKER_FIELDS)) for a in authors }
+        
+        return sorted(
+            [dict(zip(self.SPEAKER_FIELDS, t)) for t in unique],
+            key=lambda a: (a.get("name") or "").lower(),
+        )
+        
     def get_data(self):
         """Return the loaded JSON data."""
         self.data = self._load_data()
