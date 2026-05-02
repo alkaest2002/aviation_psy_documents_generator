@@ -6,5 +6,6 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "jinja2>=3.1.6",
+    "orjson>=3.11.8",
     "weasyprint>=68.1",
 ]
