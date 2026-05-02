@@ -21,7 +21,6 @@ def get_jinja_env() -> Environment:
 
     # Check if the templates directory exists
     if not templates_path.exists():
-        print(f"Templates directory not found: {templates_path}")
         raise JinjaError(f"Templates directory not found: {templates_path}")
 
     # Create the Jinja2 environment with the FileSystemLoader pointing to the templates directory
