@@ -1,4 +1,4 @@
-import json
+import orjson
 
 from lib.paths import get_paths
 
@@ -10,17 +10,17 @@ class JSONDataError(Exception):
 class JSONData:
     """Class to handle loading and processing of JSON data."""
 
-    def __init__(self):
-        self.data = self.load_data()
+    def __init__(self) -> None:
+        """Initialize JSONData instance."""
+        self.data = None
 
-    def load_data(self):
+    def _load_data(self):
         """Load and return JSON data from the program.json file."""
         _, data_path, _, _, _= get_paths()
         with data_path.open("r", encoding="utf-8") as f:
-            return json.load(f)
+            return orjson.loads(f.read())
 
-
-    def get_speakers(self):
+    def _get_speakers(self):
         """
         Return an ordered list of unique authors from nested dict/list JSON data.
         Uses set for uniqueness and map to build the uniqueness key.
@@ -54,3 +54,9 @@ class JSONData:
         # order by name
         result.sort(key=lambda a: (a.get("name") or "").lower())
         return result
+    
+    def get_data(self):
+        """Return the loaded JSON data."""
+        self.data = self._load_data()
+        self.data["speakers"] = self._get_speakers()
+        return self.data
