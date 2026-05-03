@@ -32,12 +32,20 @@ class JSONData:
             raise JSONDataError(f"Error decoding JSON data: {e}")
 
     def _get_speakers(self) -> list[dict]:
-        authors = pluck_nested(self.data, "authors")
-        unique = { tuple(map(a.get, self.SPEAKER_FIELDS)) for a in authors }
-        
+        # Define the fields to extract for each speaker
+        fields = ("title", "name", "affiliation", "role")
+
+        # Use a set comprehension to collect unique tuples of speaker 
+        # information from the nested "authors" key in the data
+        unique = {
+            tuple(map(a.get, fields))
+                for a in pluck_nested(self.data, "authors")
+        }
+
+        # Convert the unique tuples back into dictionaries 
+        # and sort them by the "name" field (case-insensitive)
         return sorted(
-            [dict(zip(self.SPEAKER_FIELDS, t)) for t in unique],
-            key=lambda a: (a.get("name") or "").lower(),
+            [dict(zip(fields, t)) for t in unique], key=lambda a: (a.get("name") or "").lower(),
         )
         
     def get_data(self):
