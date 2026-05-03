@@ -25,7 +25,7 @@ def render(template_name: str, output_html: bool) -> None:
     output_path: Path = paths[PathEnum.OUTPUT]
 
     env: Environment = get_jinja_env()
-    template = env.get_template(f"{template_name}/template.html")
+    template = env.get_template(f"{template_name}_template.html")
     rendered_html: str = template.render(JSONData().get_data())
 
     output_path.mkdir(parents=True, exist_ok=True)
