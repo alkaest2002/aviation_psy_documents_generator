@@ -5,24 +5,31 @@
 
 @page {
   size: A4;
-  margin: 14mm 20mm 14mm 20mm;
+  margin: 20mm;
+
+  @bottom-center {
+    content: element(footer);
+    width: 100%;
+    vertical-align: bottom;
+  }
 }
 
 :root {
   --font-display: "Georgia", "Times New Roman", serif;
-  --font-body:    "Times New Roman", Georgia, serif;
+  --font-body: "Times New Roman", Georgia, serif;
 
-  --gold:       #8B6F3E;
+  --gold: #8B6F3E;
   --gold-light: #C4A882;
-  --gold-rule:  #D4B896;
-  --text:       #1a1a1a;
-  --muted:      #4a4a4a;
-  --faint:      #7a7a7a;
+  --gold-rule: #D4B896;
+  --text: #1a1a1a;
+  --muted: #4a4a4a;
+  --faint: #7a7a7a;
 }
 
 /* ─── Reset ──────────────────────────────────────────────── */
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -55,7 +62,7 @@ body {
 }
 
 .letterhead__crest {
-  width: 32mm;
+  width: 28mm;
   height: auto;
   margin-bottom: 0.4em;
 }
@@ -83,7 +90,7 @@ body {
 
 .event-title {
   text-align: center;
-  margin: 0.8em 0 0.9em;
+  margin: 0.8em 0 2em;
 }
 
 .event-title__label {
@@ -112,14 +119,6 @@ body {
   margin: 0;
 }
 
-.event-title__ornament {
-  display: block;
-  margin-top: 0.5em;
-  color: var(--gold-light);
-  letter-spacing: 0.45em;
-  font-size: 8pt;
-}
-
 /* ─── Meta ───────────────────────────────────────────────── */
 
 .letter__meta {
@@ -139,9 +138,7 @@ body {
 
 .recipient {
   margin-bottom: 0.9em;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  text-align: right;
 }
 
 .recipient__name {
@@ -164,7 +161,6 @@ body {
 
 .salutation {
   font-family: var(--font-display);
-  font-size: 10pt;
   font-style: italic;
   margin-bottom: 0.6em;
   color: var(--text);
@@ -181,10 +177,37 @@ body {
 /* ─── Event detail box ───────────────────────────────────── */
 
 .event-detail {
-  margin: 0.7em 0;
-  padding: 0.5em 0.9em;
+  margin: 1.2em 0;
+  padding: 0.6em 0.9em;
   border-left: 2px solid var(--gold);
   background: #faf8f4;
+}
+
+.event-detail+.event-detail {
+  margin-top: 0.8em;
+}
+
+.event-detail__day {
+  font-size: 8.5pt;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+.event-detail__badge {
+  display: inline-block;
+  font-size: 6.5pt;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 0.5px solid var(--gold-light);
+  padding: 0.1em 0.4em;
+  margin-left: 0.4em;
+  vertical-align: middle;
 }
 
 .event-detail__row {
@@ -206,44 +229,14 @@ body {
   padding-top: 0.15em;
 }
 
-/* ─── Event detail box — additions ───────────────────────── */
-
-.event-detail + .event-detail {
-  margin-top: 0.5em;
-}
-
-.event-detail__day {
-  font-size: 8.5pt;
-  font-weight: 600;
-  color: var(--text);
-  margin: 0 0 0.4em;
-  font-family: var(--font-display);
-  font-style: italic;
-}
-
-.event-detail__badge {
-  display: inline-block;
-  font-size: 6.5pt;
-  font-style: normal;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border: 0.5px solid var(--gold-light);
-  padding: 0.1em 0.4em;
-  margin-left: 0.4em;
-  vertical-align: middle;
-}
-
 /* ─── Closing ────────────────────────────────────────────── */
 
 .closing {
-  margin-top: 0.9em;
+  margin-top: 1.2em;
 }
 
 .closing__formula {
   font-family: var(--font-display);
-  font-size: 9.5pt;
   font-style: italic;
   color: var(--muted);
   margin-bottom: 1.6em;
@@ -264,11 +257,11 @@ body {
   line-height: 1.3;
 }
 
-/* ─── Footer ─────────────────────────────────────────────── */
-
+/* ─── Footer — pinned to page bottom via running element ─── */
 .letter__footer {
-  margin-top: 1.2em;
-  padding-top: 0.5em;
+  position: running(footer);
+  margin: 0;             
+  padding: 3mm 0 10mm;    
   border-top: 0.5px solid var(--gold-rule);
   text-align: center;
   font-size: 7pt;
