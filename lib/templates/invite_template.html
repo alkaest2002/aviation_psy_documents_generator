@@ -24,43 +24,41 @@
             <p class="event-title__date">27 – 28 Ottobre 2026 · Milano</p>
         </div>
 
-        <!-- Recipient -->
-        <!--
-        <div class="recipient">
-            <p class="recipient__name">Gen. S.A. Antonio Converva</p>
-            <p class="recipient__role">Capo di Stato Maggiore</p>
-            <p class="recipient__org">Aeronautica Militare Italiana</p>
-            <p class="recipient__org">Viale dell'Università, 4 - 00185 Roma</p>
-        </div>
-        -->
-
         <!-- Salutation -->
-        <p class="salutation">Egregio Gen. S.A. Antonio Converva,</p>
+        <p class="salutation">{{ appellation }},</p>
 
         <!-- Body -->
         <div class="letter__body">
 
             <p>
-                È con profondo onore che mi pregio di invitarLa a partecipare al
-                <strong>III Convegno Nazionale di Psicologia dell'Aviazione</strong>,
-                che avrà luogo a Milano nei giorni <strong>27 e 28 ottobre 2026</strong>.
+                {% if mode == 'extremely_formal' %}
+                    Mi onoro di rivolgere alla S.V. il presente invito a presenziare al
+                    <strong>III Convegno Nazionale di Psicologia dell'Aviazione</strong>,
+                    che avrà luogo a Milano nei giorni <strong>27 e 28 ottobre 2026</strong>.
+                {% elif mode == 'formal' %}
+                    È con piacere che mi pregio di invitarLa a presenziare al
+                    <strong>III Convegno Nazionale di Psicologia dell'Aviazione</strong>,
+                    che avrà luogo a Milano nei giorni <strong>27 e 28 ottobre 2026</strong>.
+                {% else %}
+                    Sono lieto di invitarti a presenziare al
+                    <strong>III Convegno Nazionale di Psicologia dell'Aviazione</strong>,
+                    che si terrà a Milano nei giorni <strong>27 e 28 ottobre 2026</strong>.
+                {% endif %}
+            </p>
+
+            <p>
+               Il Convegno, per la rilevanza dei temi affrontati, si preannuncia come un appuntamento scientifico di primo piano. La cornice milanese non mancherà di arricchire ulteriormente l'incontro, offrendo ai partecipanti il fascino vibrante di una città sempre viva e in continua trasformazione.
             </p>
 
             <p>
                 La serata del 27 ottobre sarà impreziosita da una visita esclusiva al
-                <em>Cenacolo Vinciano</em> &mdash; capolavoro di Leonardo da Vinci esposto
-                nel refettorio di Santa Maria delle Grazie &mdash; cui seguirà una cena di gala.
+                <em>Cenacolo Vinciano</em> &mdash; insigne capolavoro di Leonardo da Vinci
+                conservato nel refettorio di Santa Maria delle Grazie &mdash;
+                alla quale farà seguito una cena di gala.
             </p>
 
             <p>
-                I lavori congressuali del 28 ottobre si svolgeranno presso la
-                <em>Veneranda Biblioteca Ambrosiana</em>, fondata dal Cardinale
-                Federico Borromeo nel 1609, che annovera tra i propri tesori manoscritti,
-                codici miniati e opere d'arte di inestimabile valore.
-            </p>
-
-            <p>
-                Il Convegno, per la rilevanza scientifica dei temi trattati, rappresenta un'occasione di primo piano; la scelta di Milano come sede aggiunge all'incontro professionale il piacere di una città vibrante, cosmopolita che sa offrire, a chi la visita, una straordinaria ricchezza di esperienze culturali.
+               I lavori congressuali del 28 ottobre avranno per sede la Veneranda Biblioteca Ambrosiana, fondata dal Cardinale Borromeo nel 1609. Si tratta di una delle istituzioni culturali più prestigiose d'Italia, il cui patrimonio spazia da manoscritti e codici miniati fino ai capolavori pittorici di Caravaggio, Botticelli, Tiziano e Raffaello.
             </p>
 
             <!-- Day 1 detail box -->
@@ -68,11 +66,11 @@
                 <p class="event-detail__day">27 ottobre 2026 · Serata inaugurale</p>
                 <div class="event-detail__row">
                     <span class="event-detail__label">Sede</span>
-                    <span>Comando Squadra Aerea · 1^ R.A. · Piazza Ermete Novelli, 1 · Milano</span>
+                    <span>Comando Squadra Aerea · 1^ R.A. · Piazza Ermete Novelli, 1 · 20129 Milano</span>
                 </div>
                 <div class="event-detail__row">
                     <span class="event-detail__label">Orario</span>
-                    <span>18:00 – 22:00</span>
+                    <span>{{ day1_time }}</span>
                 </div>
             </div>
 
@@ -81,47 +79,59 @@
                 <p class="event-detail__day">28 ottobre 2026 · Convegno scientifico</p>
                 <div class="event-detail__row">
                     <span class="event-detail__label">Sede</span>
-                    <span>Veneranda Biblioteca Ambrosiana · Piazza Pio XI, 2 · Milano</span>
+                    <span>Veneranda Biblioteca Ambrosiana · Piazza Pio XI, 2 · 20123 Milano</span>
                 </div>
                 <div class="event-detail__row">
                     <span class="event-detail__label">Orario</span>
-                    <span>08:00 – 14:30</span>
-                </div>
-            </div>
-
-            <!-- Details detail box -->
-            <div class="event-detail">
-                <p class="event-detail__day">Informazioni</p>
-                <div class="event-detail__row">
-                    <span class="event-detail__label">Sito web</span>
-                    <span><a href="https://aviation-psy.com">https://aviation-psy.com</a></span>
-                </div>
-                <div class="event-detail__row">
-                    <span class="event-detail__label">Contatti</span>
-                    <span><a href="mailto:aeropsy@am.difesa.it">aeropsy@am.difesa.it</a></span>
+                    <span>{{ day2_time }}</span>
                 </div>
             </div>
 
             <p>
-                Nel pieno rispetto degli impegni connessi al Suo alto incarico,
-                mi permetto di rivolgerLe il presente invito, con l'auspicio di
-                poterLa annoverare tra gli Ospiti d'Onore dell'evento.
+                {% if mode == 'extremely_formal' %}
+                    Nel doveroso rispetto delle molteplici responsabilità che il Suo altissimo incarico
+                    impone, mi permetto di rivolgerLe il presente invito, con l'auspicio
+                    che Ella voglia onorare l'evento con la Sua autorevole presenza.
+                {% elif mode == 'formal' %}
+                    Nel pieno rispetto degli impegni connessi al Suo alto incarico,
+                    mi permetto di rivolgerLe il presente invito, con l'auspicio di
+                    poterLa annoverare tra gli ospiti d'onore dell'evento.
+                {% else %}
+                    Consapevole dei tuoi numerosi impegni, ti estendo questo invito con la
+                    speranza di poterti avere tra i nostri graditi ospiti.
+                {% endif %}
             </p>
 
             <p>
-                Per le esigenze organizzative connesse alla Sua partecipazione,
-                La prego di voler incaricare un Suo collaboratore di prendere contatto
-                con la Segreteria del Convegno entro il <strong>30 settembre 2026</strong>:
-                <a href="mailto:aeropsy@am.difesa.it">aeropsy@am.difesa.it</a>.
+                {% if mode == 'extremely_formal' %}
+                    Per le esigenze di ordine logistico e protocollare connesse all'eventuale
+                    partecipazione della S.V., La prego di voler disporre che un Suo delegato
+                    prenda contatto con la Segreteria del Convegno
+                {% elif mode == 'formal' %}
+                    Per le esigenze organizzative connesse alla Sua partecipazione,
+                    La prego di voler incaricare un Suo collaboratore di prendere contatto
+                    con la Segreteria del Convegno
+                {% else %}
+                    Per qualsiasi esigenza organizzativa, ti chiedo di contattare
+                    la Segreteria del Convegno
+                {% endif %}
+                entro il <strong>30 settembre 2026</strong>, al seguente indirizzo di 
+                posta elettronica: <strong><a href="mailto:aeropsy@am.difesa.it" >aeropsy@am.difesa.it</a></strong>.
             </p>
         </div>
 
         <!-- Closing -->
         <div class="closing">
             <p class="closing__formula">
-                Confidando di poterLa accogliere a Milano, Le porgo i miei più calorosi saluti.
+                {% if mode == 'extremely_formal' %}
+                    Nella speranza di averLa ospite a Milano, Le porgo i miei più cordiali e deferenti saluti.
+                {% elif mode == 'formal' %}
+                    In attesa di avere il piacere di accoglierLa a Milano, Le porgo i miei più cordiali saluti.
+                {% else %}
+                    Spero di poterti accogliere a Milano e ti mando i miei più calorosi saluti.
+                {% endif %}
             </p>
-            <p class="closing__signature-name">Gen. B.A. CSArn Pietro Perelli</p>
+            <p class="closing__signature-name">Gen. Ispettore Capo CSArn Pietro Perelli</p>
             <p class="closing__signature-role">Capo del Corpo Sanitario dell'Aeronautica Militare</p>
         </div>
 

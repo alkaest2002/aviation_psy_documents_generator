@@ -5,7 +5,7 @@
 
 @page {
   size: A4;
-  margin: 20mm;
+  margin: 20mm 30mm;
 
   @bottom-center {
     content: element(footer);

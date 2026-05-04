@@ -10,41 +10,80 @@ from weasyprint import HTML
 from lib.jinja import get_jinja_env, JinjaError
 from lib.data import JSONData, JSONDataError
 from lib.paths import get_paths, PathEnum, PathsError
+from lib.data_hooks.program import hook as program_hook
+from lib.data_hooks.invite import hook as invite_hook
 
+
+HOOKS : dict[str, callable] = {
+    "program": program_hook,
+    "invite": invite_hook,
+}
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Render a Jinja2 template to PDF.")
     parser.add_argument("-t", "--template", type=str, required=True, help="Template name")
+    parser.add_argument("-o", "--options", type=str, help="Additional options for future use")
     parser.add_argument("-x", "--html", action="store_true", help="Output HTML alongside PDF for debugging")
     return parser.parse_args()
 
 
-def render(template_name: str, output_html: bool) -> None:
+def generate_docs(args: argparse.Namespace) -> None:
+
+    # Extract arguments
+    template_name: str = args.template
+    options: str | None = args.options
+    output_html: bool = args.html
+    
+    # Get paths
     paths: dict[PathEnum, Path] = get_paths(PathEnum.TEMPLATES, PathEnum.OUTPUT)
     templates_path: Path = paths[PathEnum.TEMPLATES]
     output_path: Path = paths[PathEnum.OUTPUT]
 
+    # Load and render template
     env: Environment = get_jinja_env()
+
+    # Get the template and render it with data from JSONData
     template = env.get_template(f"{template_name}_template.html")
-    rendered_html: str = template.render(JSONData().get_data())
 
-    output_path.mkdir(parents=True, exist_ok=True)
+    # Call the appropriate hook if it exists
+    if template_name in HOOKS:
+        data = JSONData().get_data()
+        data = HOOKS[template_name](data, options)
+    
+    # Ensure data is a list for consistent processing
+    if not isinstance(data, list):
+        data = [data]
 
-    HTML(string=rendered_html, base_url=str(templates_path)).write_pdf(
-        str(output_path / f"{template_name}.pdf")
-    )
+    # Loop through each item in the list and render a separate PDF for each
+    for i, item in enumerate(data):
 
-    if output_html:
-        (output_path / f"{template_name}.html").write_text(rendered_html, encoding="utf-8")
+        [filename, item_data] = item
 
-    print(f"Created {template_name}.pdf in {output_path}")
+        # Render the template for the current item
+        rendered_html: str = template.render(item_data)  
+
+        # Write the rendered HTML to PDF using WeasyPrint#
+        HTML(string=rendered_html, base_url=str(templates_path)).write_pdf(
+            str(output_path / f"{template_name}_{filename}.pdf")
+        )
+
+        # Optionally write the rendered HTML to a file for debugging
+        if output_html:
+            (output_path / f"{template_name}_{filename}.html").write_text(rendered_html, encoding="utf-8")
+
+    # Print success message
+    print(f"finished rendering {template_name}.pdf")
 
 
 def main() -> None:
+    
+    # Parse command-line arguments
     args = parse_args()
 
     try:
-        render(args.template, args.html)
+        # Generate the docs on the provided template and options
+        generate_docs(args)
+    
     except (JSONDataError, JinjaError, PathsError) as e:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
