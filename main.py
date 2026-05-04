@@ -64,12 +64,12 @@ def generate_docs(args: argparse.Namespace) -> None:
 
         # Write the rendered HTML to PDF using WeasyPrint#
         HTML(string=rendered_html, base_url=str(templates_path)).write_pdf(
-            str(output_path / f"{template_name}_{filename}.pdf")
+            str(output_path / f"{filename}.pdf")
         )
 
         # Optionally write the rendered HTML to a file for debugging
         if output_html:
-            (output_path / f"{template_name}_{filename}.html").write_text(rendered_html, encoding="utf-8")
+            (output_path / f"{filename}.html").write_text(rendered_html, encoding="utf-8")
 
     # Print success message
     print(f"finished rendering {template_name}.pdf")
