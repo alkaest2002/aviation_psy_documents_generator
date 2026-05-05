@@ -1,4 +1,7 @@
+import sys
+
 import jq
+import orjson
 from lib.data import JSONData
 from typing import Any
 
@@ -33,4 +36,6 @@ def get_data(options: str | None = None) -> dict[str, Any]:
     return processed_invitations
 
 if __name__ == "__main__":
-    print(get_data())
+    data = get_data()
+    sys.stdout.buffer.write(orjson.dumps(data))
+    sys.stdout.buffer.write(b"\n")
