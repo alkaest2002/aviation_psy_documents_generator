@@ -8,17 +8,17 @@ from jinja2 import Environment
 from weasyprint import HTML
 
 from lib.jinja import get_jinja_env, JinjaError
-from lib.data import JSONData, JSONDataError
+from lib.data import JSONDataError
 from lib.paths import get_paths, PathEnum, PathsError
-from lib.data_hooks.program import hook as program_hook
-from lib.data_hooks.invite_guest import hook as invite_guest_hook
-from lib.data_hooks.invite_speaker import hook as invite_speaker_hook
+from lib.data_program import get_data as program_data
+from lib.data_invite_gues import get_data as invite_guest_data
+from lib.data_invite_speaker import get_data as invite_speaker_data
 
 
 HOOKS : dict[str, callable] = {
-    "program": program_hook,
-    "invite_guest": invite_guest_hook,
-    "invite_speaker": invite_speaker_hook,
+    "program": program_data,
+    "invite_guest": invite_guest_data,
+    "invite_speaker": invite_speaker_data,
 }
 
 def parse_args() -> argparse.Namespace:
@@ -49,8 +49,9 @@ def generate_docs(args: argparse.Namespace) -> None:
 
     # Call the appropriate hook if it exists
     if template_name in HOOKS:
-        data = JSONData().get_data()
-        data = HOOKS[template_name](data, options)
+        data = HOOKS[template_name](options)
+    else:
+        raise ValueError(f"No hook defined for template: {template_name}")
     
     # Ensure data is a list for consistent processing
     if not isinstance(data, list):
@@ -86,7 +87,7 @@ def main() -> None:
         # Generate the docs on the provided template and options
         generate_docs(args)
     
-    except (JSONDataError, JinjaError, PathsError) as e:
+    except (JSONDataError, JinjaError, PathsError, ValueError) as e:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
 

@@ -1,8 +1,12 @@
 import jq
+from lib.data import JSONData
 from typing import Any
 
 
-def hook(data: dict[str, Any], options: str | None = None) -> dict[str, Any]:
+def get_data(options: str | None = None) -> dict[str, Any]:
+
+    # Load data from JSONData
+    data = JSONData().get_data()
 
     # Initialize vars
     processed_invitations = []
@@ -27,3 +31,6 @@ def hook(data: dict[str, Any], options: str | None = None) -> dict[str, Any]:
         ])
         
     return processed_invitations
+
+if __name__ == "__main__":
+    print(get_data())
