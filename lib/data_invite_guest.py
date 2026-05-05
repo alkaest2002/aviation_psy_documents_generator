@@ -13,7 +13,7 @@ def get_data(options: str | None = None) -> dict[str, Any]:
 
     # Initialize vars
     processed_invitations = []
-    all_invitees =  data["invitations"]
+    all_invitees = data["invitations"]
 
     # In this context, options is expected to be a jq filter 
     # that selects specific invitees from the list of all invitees.

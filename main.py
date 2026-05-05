@@ -11,7 +11,7 @@ from lib.jinja import get_jinja_env, JinjaError
 from lib.data import JSONDataError
 from lib.paths import get_paths, PathEnum, PathsError
 from lib.data_program import get_data as program_data
-from lib.data_invite_gues import get_data as invite_guest_data
+from lib.data_invite_guest import get_data as invite_guest_data
 from lib.data_invite_speaker import get_data as invite_speaker_data
 
 
