@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Lettera di Invito</title>
-    <link rel="stylesheet" href="invite_style.css">
+    <title>Lettera di Accettazione Contributo</title>
+    <link rel="stylesheet" href="style_invite.css">
 </head>
 
 <body>
@@ -12,7 +12,7 @@
 
         <!-- Letterhead -->
         <header class="letterhead">
-            <img class="letterhead__crest" src="csan.svg" alt="Stemma Aeronautica Militare">
+            <img class="letterhead__crest" src="img_csan.svg" alt="Stemma Aeronautica Militare">
             <p class="letterhead__org">Corpo Sanitario<br />dell'Aeronautica Militare Italiana</p>
             <p class="letterhead__sub"></p>
         </header>
@@ -25,111 +25,91 @@
         </div>
 
         <!-- Salutation -->
-        <p class="salutation">{{ appellation }},</p>
+        <p class="salutation">Gentile {{ author_title }} {{ author_name }},</p>
 
         <!-- Body -->
         <div class="letter__body">
 
             <p>
-                {% if mode == 'extremely_formal' %}
-                    Mi onoro di rivolgere alla S.V. il presente invito a presenziare al
-                    <strong>III Convegno Nazionale di Psicologia dell'Aviazione</strong>,
-                    che avrà luogo a Milano nei giorni <strong>27 e 28 ottobre 2026</strong>.
-                {% elif mode == 'formal' %}
-                    È con piacere che mi pregio di invitarLa a presenziare al
-                    <strong>III Convegno Nazionale di Psicologia dell'Aviazione</strong>,
-                    che avrà luogo a Milano nei giorni <strong>27 e 28 ottobre 2026</strong>.
-                {% else %}
-                    Sono lieto di invitarti a presenziare al
-                    <strong>III Convegno Nazionale di Psicologia dell'Aviazione</strong>,
-                    che si terrà a Milano nei giorni <strong>27 e 28 ottobre 2026</strong>.
+                È con piacere che mi pregio di comunicarLe che il contributo scientifico
+                da Lei proposto è stato valutato positivamente dal Comitato Scientifico del
+                <strong>III Convegno Nazionale di Psicologia dell'Aviazione</strong>
+                e sarà incluso nel programma dei lavori del <strong>28 ottobre 2026</strong>.
+            </p>
+
+            <!-- Accepted talk detail box -->
+            <div class="event-detail">
+                <div class="event-detail__stack" style="margin-bottom:.3em">
+                    <span><strong><em>{{ talk_title }}.</em></strong></span>
+                </div>
+
+                {% if author_collaborate_with %}
+                <div class="event-detail__stack">
+                    <span class="event-detail__label">
+                        Co-{{ 'autori' if author_collaborate_with | length > 1 else 'autore' }}
+                    </span>
+                    <span>
+                        {% for co in author_collaborate_with %}
+                        {% if co.title %}{{ co.title }} {% endif %}{{ co.name }}
+                        {%- if co.affiliation %} · {{ co.affiliation }}{% endif %}
+                        {%- if not loop.last %}; {% else %}.{% endif %}
+                        {% endfor %}
+                    </span>
+                </div>
                 {% endif %}
-            </p>
 
-            <p>
-               Il Convegno, per la rilevanza dei temi affrontati, si preannuncia come un appuntamento scientifico di primo piano. La cornice milanese non mancherà di arricchire ulteriormente l'incontro, offrendo ai partecipanti il fascino vibrante di una città sempre viva e in continua trasformazione.
-            </p>
-
-            <p>
-                La serata del 27 ottobre sarà impreziosita da una visita esclusiva al
-                <em>Cenacolo Vinciano</em> &mdash; insigne capolavoro di Leonardo da Vinci
-                conservato nel refettorio di Santa Maria delle Grazie &mdash;
-                alla quale farà seguito una cena di gala.
-            </p>
-
-            <p>
-               I lavori congressuali del 28 ottobre avranno per sede la Veneranda Biblioteca Ambrosiana, fondata dal Cardinale Borromeo nel 1609. Si tratta di una delle istituzioni culturali più prestigiose d'Italia, il cui patrimonio spazia da manoscritti e codici miniati fino ai capolavori pittorici di Caravaggio, Botticelli, Tiziano e Raffaello.
-            </p>
-
-            <!-- Day 1 detail box -->
-            <div class="event-detail">
-                <p class="event-detail__day">27 ottobre 2026 · Serata inaugurale</p>
-                <div class="event-detail__row">
-                    <span class="event-detail__label">Sede</span>
-                    <span>Comando Squadra Aerea · 1^ R.A. · Piazza Ermete Novelli, 1 · 20129 Milano</span>
-                </div>
-                <div class="event-detail__row">
-                    <span class="event-detail__label">Orario</span>
-                    <span>{{ day1_time }}</span>
-                </div>
-            </div>
-
-            <!-- Day 2 detail box -->
-            <div class="event-detail">
-                <p class="event-detail__day">28 ottobre 2026 · Convegno scientifico</p>
-                <div class="event-detail__row">
-                    <span class="event-detail__label">Sede</span>
-                    <span>Veneranda Biblioteca Ambrosiana · Piazza Pio XI, 2 · 20123 Milano</span>
-                </div>
-                <div class="event-detail__row">
-                    <span class="event-detail__label">Orario</span>
-                    <span>{{ day2_time }}</span>
+                <div class="event-detail__stack" style="display:flex;gap:1em">
+                    <div>
+                        <span class="event-detail__label">Sessione</span>
+                        <span>{{ talk_panel }}</span>
+                    </div>
+                    <div>
+                        <span class="event-detail__label">Data</span>
+                        <span>
+                            {{talk_date}} · {{ talk_timeWindow }} ({{ talk_duration }} minuti)
+                        </span>
+                    </div>
                 </div>
             </div>
 
             <p>
-                {% if mode == 'extremely_formal' %}
-                    Nel doveroso rispetto delle molteplici responsabilità che il Suo altissimo incarico
-                    impone, mi permetto di rivolgerLe il presente invito, con l'auspicio
-                    che Ella voglia onorare l'evento con la Sua autorevole presenza.
-                {% elif mode == 'formal' %}
-                    Nel pieno rispetto degli impegni connessi al Suo alto incarico,
-                    mi permetto di rivolgerLe il presente invito, con l'auspicio di
-                    poterLa annoverare tra gli ospiti d'onore dell'evento.
-                {% else %}
-                    Consapevole dei tuoi numerosi impegni, ti estendo questo invito con la
-                    speranza di poterti avere tra i nostri graditi ospiti.
-                {% endif %}
+                Per garantire la qualità degli atti congressuali e il corretto svolgimento
+                delle procedure di accreditamento ECM, La prego di voler trasmettere
+                la seguente documentazione rispettando le scadenze indicate.
             </p>
 
             <p>
-                {% if mode == 'extremely_formal' %}
-                    Per le esigenze di ordine logistico e protocollare connesse all'eventuale
-                    partecipazione della S.V., La prego di voler disporre che un Suo delegato
-                    prenda contatto con la Segreteria del Convegno
-                {% elif mode == 'formal' %}
-                    Per le esigenze organizzative connesse alla Sua partecipazione,
-                    La prego di voler incaricare un Suo collaboratore di prendere contatto
-                    con la Segreteria del Convegno
-                {% else %}
-                    Per qualsiasi esigenza organizzativa, ti chiedo di contattare
-                    la Segreteria del Convegno
-                {% endif %}
-                entro il <strong>30 settembre 2026</strong>, al seguente indirizzo di 
-                posta elettronica: <strong><a href="mailto:aeropsy@am.difesa.it" >aeropsy@am.difesa.it</a></strong>.
+                Entro il <strong>{{ submissionAbstractDate }}</strong> dovranno pervenire:
+                l'<em>Abstract</em> in formato docx (titolo, nome dell'autore/degli autori e testo
+                per un massimo di 500 parole);
+                <em>Curriculum Vitae</em> datato e firmato;
+                <em>Professione e Disciplina di appartenenza</em>;
+                <em>Codice Fiscale</em>;
+                <em>Consenso al trattamento dei dati personali</em>.
             </p>
+
+            <p>
+                Entro il <strong>{{ submissionFullPaperDate }}</strong> dovranno pervenire:
+                la <em>Presentazione del contributo</em> in formato pdf;
+                i <em>3 Quesiti ECM</em> in formato docx (ciascuno con
+                4 alternative di risposta, di cui una sola corretta e contrassegnata da un asterisco).
+            </p>
+
+            <p>
+                Tutta la documentazione dovrà essere inviata alla Segreteria del Convegno
+                al seguente indirizzo:
+                <strong><a href="mailto:aeropsy@am.difesa.it">aeropsy@am.difesa.it</a></strong>.
+                La Segreteria rimane a Sua disposizione per qualsiasi chiarimento
+                di carattere organizzativo o scientifico.
+            </p>
+
         </div>
 
         <!-- Closing -->
         <div class="closing">
             <p class="closing__formula">
-                {% if mode == 'extremely_formal' %}
-                    Nella speranza di averLa ospite a Milano, Le porgo i miei più cordiali e deferenti saluti.
-                {% elif mode == 'formal' %}
-                    In attesa di avere il piacere di accoglierLa a Milano, Le porgo i miei più cordiali saluti.
-                {% else %}
-                    Spero di poterti accogliere a Milano e ti mando i miei più calorosi saluti.
-                {% endif %}
+                Con la certezza che il Suo contributo arricchirà i lavori del Convegno,
+                Le porgo i miei più cordiali saluti.
             </p>
             <p class="closing__signature-name">Gen. Ispettore Capo CSArn Pietro Perelli</p>
             <p class="closing__signature-role">Capo del Corpo Sanitario dell'Aeronautica Militare</p>
