@@ -32,6 +32,7 @@ def get_data(options: str | None = None) -> dict[str, Any]:
     # ensuring that speakers with the name "Autore da definire" are excluded.
     for talk in all_talks:        
         authors = talk.get("authors", []) or []
+        authors = [{ **author, "is_first": i == 0 } for i, author in enumerate(authors)]
         for author in authors:
             if not author.get("name") == "Autore da definire":
                 all_speakers.append({
@@ -40,8 +41,8 @@ def get_data(options: str | None = None) -> dict[str, Any]:
                     "talk_title": talk.get("title"), 
                     "talk_panel": talk.get("panel"),
                     "talk_duration": talk.get("duration"),
-                    **{f"author_{k}": v for k, v in author.items()}, 
-                    "author_collaborate_with": [ a for a in authors if a != author ],
+                    **{f"author_{k}": v for k, v in author.items()},
+                    "author_collaborates_with": [ a for a in authors if a != author ],
                     **paperDates
                 })
 
@@ -59,7 +60,7 @@ def get_data(options: str | None = None) -> dict[str, Any]:
     # Process each speaker and prepare data for rendering
     for speaker in speakers:
         processed_speakers.append([
-            f"{re.sub(r'[^\w]', '_', speaker['author_name'].lower()).strip('_')}", 
+            f"lettera_relatori_{re.sub(r'[^\w]', '_', speaker['author_name'].lower()).strip('_')}", 
             speaker
         ])
         
