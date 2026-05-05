@@ -11,12 +11,14 @@ from lib.jinja import get_jinja_env, JinjaError
 from lib.data import JSONData, JSONDataError
 from lib.paths import get_paths, PathEnum, PathsError
 from lib.data_hooks.program import hook as program_hook
-from lib.data_hooks.invite import hook as invite_hook
+from lib.data_hooks.invite_guest import hook as invite_guest_hook
+from lib.data_hooks.invite_speaker import hook as invite_speaker_hook
 
 
 HOOKS : dict[str, callable] = {
     "program": program_hook,
-    "invite": invite_hook,
+    "invite_guest": invite_guest_hook,
+    "invite_speaker": invite_speaker_hook,
 }
 
 def parse_args() -> argparse.Namespace:
@@ -43,7 +45,7 @@ def generate_docs(args: argparse.Namespace) -> None:
     env: Environment = get_jinja_env()
 
     # Get the template and render it with data from JSONData
-    template = env.get_template(f"{template_name}_template.html")
+    template = env.get_template(f"tpl_{template_name}.html")
 
     # Call the appropriate hook if it exists
     if template_name in HOOKS:
