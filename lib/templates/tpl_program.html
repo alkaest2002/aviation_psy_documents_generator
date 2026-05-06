@@ -1,15 +1,15 @@
 {% macro event_table(date, event_data) %}
-    <div style="margin: 12px 0; border-bottom: 1px solid #ccc; padding-bottom: 6px; break-inside: avoid;">
-        <p class="text-muted text-sm text-justify" style="margin-bottom:0">
+    <div class="event-block">
+        <p class="text-muted text-sm text-justify event-block__meta">
             {%- set from_time = event_data.timeWindow.split(" - ")[0] %}
             {%- set to_time = event_data.timeWindow.split(" - ")[1] %}
-            {{ date }} dalle {{ from_time  }} alle {{to_time}} ({{ event_data.duration }} minuti)
+            {{ date }} dalle {{ from_time }} alle {{ to_time }} ({{ event_data.duration }} minuti)
         </p>
-        <p class="text-bold text-justify" style="margin-bottom:0">
+        <p class="text-bold text-justify event-block__title">
             {{ event_data.title }}
         </p>
         {%- if event_data.authors is not none and event_data.authors | length > 0 %}
-        <p class="italic text-sm text-justify">
+        <p class="italic text-sm text-justify event-block__authors">
             {%- for author in event_data.authors %}
                 {{ author.values() | join(", ") | strip_cs }}{% if not loop.last %} | {% endif %}
             {%- endfor %}
@@ -25,6 +25,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Program</title>
+    <link rel="stylesheet" href="style_base.css" />
     <link rel="stylesheet" href="style_program.css" />
 </head>
 
@@ -32,13 +33,13 @@
     <main>
         {% set counter = 1 %}
         <h1>{{ title }}</h1>
-        <h2>{{counter}}. Descrizione</h2>
-        <p style="text-align: justify;">
+        <h2>{{ counter }}. Descrizione</h2>
+        <p class="description">
             {{ description | safe }}
         </p>
 
         {% set counter = counter + 1 %}
-        <h2>{{counter}}. Obiettivi</h2>
+        <h2>{{ counter }}. Obiettivi</h2>
         <ul>
             {%- for objective in objectives %}
             <li>{{ objective }}{% if not loop.last %};{% else %}.{% endif %}</li>
@@ -46,18 +47,18 @@
         </ul>
 
         {% set counter = counter + 1 %}
-        <h2>{{counter}}. Data e luogo</h2>
+        <h2>{{ counter }}. Data e luogo</h2>
         <ul>
             <li>
-                {{ days[0].date }} ({{ days[0].timeWindow}}): {{ days[0].venue.values() | join(", ") | replace("<br/>", " ") }};
+                {{ days[0].date }} ({{ days[0].timeWindow }}): {{ days[0].venue.values() | join(", ") | replace("<br/>", " ") }};
             </li>
             <li>
-                {{ days[1].date }} ({{ days[1].timeWindow}}): {{ days[1].venue.values() | join(", ") | replace("<br/>", " ") }}.
+                {{ days[1].date }} ({{ days[1].timeWindow }}): {{ days[1].venue.values() | join(", ") | replace("<br/>", " ") }}.
             </li>
         </ul>
 
         {% set counter = counter + 1 %}
-        <h2>{{counter}}. Comitato scientifico</h2>
+        <h2>{{ counter }}. Comitato scientifico</h2>
         <ul>
             {% for member in scientificCommittee %}
             <li>
@@ -67,12 +68,12 @@
         </ul>
 
         {% set counter = counter + 1 %}
-        <h2>{{counter}}. ECM</h2>
+        <h2>{{ counter }}. ECM</h2>
         <p>{{ registration.ecm.amount }} crediti ECM validi per {{ registration.ecm.validFor | join(", ") }}.</p>
 
         {% set counter = counter + 1 %}
-        <h2>{{counter}}. Patrocini richiesti</h2>
-        <p style="text-align:justify;">I temi trattati nel convegno, incentrati sulla psicologia dell'aviazione e sulle sue applicazioni in ambito operativo e della sicurezza del volo, si allineano pienamente con i fini istituzionali degli Enti a cui è stato richiesto il patrocinio, i quali perseguono obiettivi di promozione della ricerca scientifica, di tutela della salute del personale e di incremento degli standard di sicurezza nel settore aeronautico e della difesa.</p>
+        <h2>{{ counter }}. Patrocini richiesti</h2>
+        <p class="patronage-intro">I temi trattati nel convegno, incentrati sulla psicologia dell'aviazione e sulle sue applicazioni in ambito operativo e della sicurezza del volo, si allineano pienamente con i fini istituzionali degli Enti a cui è stato richiesto il patrocinio, i quali perseguono obiettivi di promozione della ricerca scientifica, di tutela della salute del personale e di incremento degli standard di sicurezza nel settore aeronautico e della difesa.</p>
         <ul>
             {% for patron in patronage %}
             <li>
@@ -83,7 +84,7 @@
 
         <section class="page">
             {% set counter = counter + 1 %}
-            <h2>{{counter}}. Attività</h2>
+            <h2>{{ counter }}. Attività</h2>
             <div>
                 {%- for day in days %}
                     {%- for event in day.events %}
@@ -99,12 +100,12 @@
             </div>
 
             {% set counter = counter + 1 %}
-            <h2>{{counter}}. Elenco relatori</h2>
+            <h2>{{ counter }}. Elenco relatori</h2>
             <div>
                 {%- for speaker in speakers %}
-                    <p style="margin-bottom: 0; break-inside: avoid;">
+                    <p class="speaker-entry">
                         {% if speaker.name != "Autore da definire" %}
-                            {{ speaker.title }} {{ speaker.name }} ({%- if speaker.role %}{{ speaker.role + " " }} {%- endif%}{{ speaker.affiliation }}){% if not loop.last %};{% else %}.{% endif %}
+                            {{ speaker.title }} {{ speaker.name }} ({%- if speaker.role %}{{ speaker.role + " " }} {%- endif %}{{ speaker.affiliation }}){% if not loop.last %};{% else %}.{% endif %}
                         {% endif %}
                     </p>
                 {%- endfor %}

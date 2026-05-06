@@ -1,0 +1,77 @@
+/* style_talks.css
+   Talks report styles (WeasyPrint-friendly)
+   Uses CSS vars heavily for consistency/themeability
+*/
+
+:root {
+  /* Page */
+  --talks-page-size: A4;
+  --talks-page-margin: 20mm;
+
+  /* Typography */
+  --talks-updated-font-size: 9pt;
+  --talks-title-first-margin-top: 0;
+
+  /* Spacing */
+  --talks-updated-margin-bottom: 0.8em;
+  --talks-status-padding-y: 5px;
+  --talks-status-padding-x: 5px;
+  --talks-status-spaced-margin-top: 48pt;
+
+  --talks-item-margin-y: 12pt;
+  --talks-item-padding-bottom: 10px;
+
+  /* Colors */
+  --talks-status-bg: #ddd;
+  --talks-item-border-color: #ccc;
+  --talks-item-border-width: 1px;
+  --talks-item-border-style: solid;
+
+  /* Break behavior */
+  --talks-break-inside: avoid-page;
+  --talks-page-break-inside: avoid;
+}
+
+@page {
+  size: var(--talks-page-size);
+  margin: var(--talks-page-margin);
+}
+
+/* Remove extra top space on the document heading */
+main h2:first-of-type {
+  margin-top: var(--talks-title-first-margin-top);
+}
+
+/* "data ultimo aggiornamento" */
+.updated-at {
+  font-size: var(--talks-updated-font-size);
+  margin-bottom: var(--talks-updated-margin-bottom);
+}
+
+/* Status section heading */
+.status-heading {
+  background-color: var(--talks-status-bg);
+  padding: var(--talks-status-padding-y) var(--talks-status-padding-x);
+}
+
+/* Applied to all status headings except first */
+.status-heading--spaced {
+  margin-top: var(--talks-status-spaced-margin-top);
+}
+
+/* Single talk card/row */
+.talk {
+  margin: var(--talks-item-margin-y) 0;
+  break-inside: var(--talks-break-inside);
+  page-break-inside: var(--talks-page-break-inside);
+  border-bottom:
+    var(--talks-item-border-width)
+    var(--talks-item-border-style)
+    var(--talks-item-border-color);
+  padding-bottom: var(--talks-item-padding-bottom);
+}
+
+/* Explicit, though base already handles emphasis */
+.talk-title em {
+  font-style: italic;
+}

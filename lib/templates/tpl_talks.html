@@ -1,27 +1,27 @@
 {% macro get_status_label(status) %}
-{% if status == 'final' %}
-Definitivo
-{% elif status == 'toBeDefined' %}
-In attesa di definizione
-{% elif status == 'toBeConfirmed' %}
-In attesa di conferma
-{% else %}
-Sconosciuto
-{% endif %}
+    {% if status == 'final' %}
+        Definitivo
+    {% elif status == 'toBeDefined' %}
+        In attesa di definizione
+    {% elif status == 'toBeConfirmed' %}
+        In attesa di conferma
+    {% else %}
+        Sconosciuto
+    {% endif %}
 {% endmacro %}
 
 {% macro get_status_description(status) %}
-{% if status == 'final' %}
-I lavori sono definitivi e non sono previste modifiche.
-{% elif status == 'toBeDefined' %}
-I lavori sono in attesa di definizione (mancano informazioni essenziali come titolo e/o autori). Potrebbero subire
-cancellazioni e essere sostituiti da altri lavori.
-{% elif status == 'toBeConfirmed' %}
-I lavori sono in attesa di conferma. Potrebbero subire modifiche (es. titolo, autori, data), ma non sono previste
-cancellazioni.
-{% else %}
-Sconosciuto
-{% endif %}
+    {% if status == 'final' %}
+        I lavori sono definitivi e non sono previste modifiche.
+    {% elif status == 'toBeDefined' %}
+        I lavori sono in attesa di definizione (mancano informazioni essenziali come titolo e/o autori). Potrebbero subire
+    cancellazioni e essere sostituiti da altri lavori.
+    {% elif status == 'toBeConfirmed' %}
+        I lavori sono in attesa di conferma. Potrebbero subire modifiche (es. titolo, autori, data), ma non sono previste
+    cancellazioni.
+    {% else %}
+    Sconosciuto
+    {% endif %}
 {% endmacro %}
 
 <!doctype html>
@@ -31,31 +31,25 @@ Sconosciuto
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Program</title>
-    <link rel="stylesheet" href="style_program.css" />
-    <style>
-        @page {
-            size: A4;
-            margin: 20mm;
-        }
-    </style>
+    <link rel="stylesheet" href="style_base.css" />
+    <link rel="stylesheet" href="style_talks.css" />
 </head>
 
 <body>
     <main>
         <h2>Situazione aggiornata dei lavori del III Convegno di Psicologia dell'Aviazione</h2>
-        <p class="text-small">data ultimo aggiornamento: {{ updated_at }}</p>
+        <p class="updated-at">data ultimo aggiornamento: {{ updated_at }}</p>
         {% for status, talks in talks.items() %}
         <div class="page">
-            {% if loop.first%}
-            <h2 style="background-color: #ddd; padding: 5px;">{{ get_status_label(status) }}</h2>
+            {% if loop.first %}
+            <h2 class="status-heading">{{ get_status_label(status) }}</h2>
             {% else %}
-            <h2 style="margin-top: 48pt;background-color: #ddd; padding: 5px;">{{ get_status_label(status) }}</h2>
+            <h2 class="status-heading status-heading--spaced">{{ get_status_label(status) }}</h2>
             {% endif %}
             <p>{{ get_status_description(status) }}</p>
             {% for talk in talks %}
-            <div class="talk"
-                style="margin: 12pt 0; break-inside: avoid;border-bottom: 1px solid #ccc; padding-bottom: 10px;">
-                <p><strong>Titolo:</strong> <em>{{ talk.title }}</em></p>
+            <div class="talk">
+                <p class="talk-title"><strong>Titolo:</strong> <em>{{ talk.title }}</em></p>
                 <p><strong>Data:</strong> {{ talk.date }}</p>
                 <p><strong>Slot:</strong> {{ talk.timeWindow }}</p>
                 <p><strong>Panel:</strong> {{ talk.panel }}</p>
@@ -78,9 +72,8 @@ Sconosciuto
                 </ul>
             </div>
             {% endfor %}
-            {% endfor %}
-
         </div>
+        {% endfor %}
     </main>
 </body>
 

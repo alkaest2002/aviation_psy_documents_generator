@@ -4,16 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Lettera di Accettazione Contributo</title>
+    <link rel="stylesheet" href="style_base.css">
     <link rel="stylesheet" href="style_invite.css">
-    <style>
-        .event-detail__label {
-            min-width: 7em;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="letter">
+    <div class="letter letter--speaker">
 
         <!-- Letterhead -->
         <header class="letterhead">
@@ -45,17 +41,16 @@
 
             <!-- Accepted talk detail box -->
             <div class="event-detail">
-
                 <div class="event-detail__stack">
-                    
+
                     <div class="event-detail__row">
                         <span class="event-detail__label">Data e ora</span>
                         <span class="event-detail__value">
                             {{ talk_date }} ·
-                            {{ talk_timeWindow }} <span style="font-size:.8em">(provvisorio)</span>
+                            {{ talk_timeWindow }} <span class="provisional">(provvisorio)</span>
                         </span>
                     </div>
-                    
+
                     {% if talk_panel %}
                         <div class="event-detail__row">
                             <span class="event-detail__label">Sessione</span>
@@ -63,30 +58,26 @@
                         </div>
                     {% endif %}
 
-                    
                     {% if author_collaborates_with %}
                         <div class="event-detail__row">
-                            <span class="event-detail__label">
-                                Ruolo
-                            </span>
+                            <span class="event-detail__label">Ruolo</span>
                             <span class="event-detail__value">
                                 {% if author_is_first %}Autore principale{% else %}Co-Autore{% endif %}
                             </span>
                         </div>
                         <div class="event-detail__row">
-                            <span class="event-detail__label">
-                                Et alii
-                            </span>
+                            <span class="event-detail__label">Et alii</span>
                             <span class="event-detail__value">
                                 {% for co in author_collaborates_with %}
                                 {{ co.title }} {{ co.name }}
                                 {%- if co.affiliation %} · {{ co.affiliation }}{% endif %}
-                                {%- if co.is_first %} <em style="font-size:.8em">(autore principale)</em>{% endif %}
+                                {%- if co.is_first %} <em class="co-author-note">(autore principale)</em>{% endif %}
                                 {%- if not loop.last %}; {% endif %}
                                 {% endfor %}
                             </span>
                         </div>
                     {% endif %}
+
                 </div>
             </div>
 
@@ -96,15 +87,15 @@
                 la documentazione qui sotto specificata, rispettando le scadenze indicate.
             </p>
 
-            <ul style="padding-left: 1em;">
-                <li style="margin-bottom: .5em;padding-left:.5em">
+            <ul class="submission-list">
+                <li class="submission-list__item">
                     <strong>Entro il {{ submissionAbstractDate }} dovranno pervenire i seguenti documenti</strong>:
                     <em>[A] Abstract</em> in formato docx (titolo, nominativo e affiliazione degli autori, testo
                     per un massimo di 500 parole);
                     <em>[B] Curriculum Vitae</em> in formato pdf, datato, firmato, comprensivo di codice fiscale e con
                     il consenso al trattamento dei dati personali;
                 </li>
-                <li style="padding-left:.5em">
+                <li class="submission-list__item">
                     <strong>Entro il {{ submissionFullPaperDate }} dovranno pervenire i seguenti documenti</strong>:
                     <em>[C] Presentazione/Dispensa del contributo</em> in formato pptx/pdf;
                     <em>[D] 3 Quesiti ECM</em> in formato docx (ciascuno con

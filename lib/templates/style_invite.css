@@ -1,49 +1,104 @@
-/* invitation.css
+/* style_invite.css
    Elegant A4 invitation letter — single page
-   WeasyPrint-compatible
+   Requires: base.css
 */
 
+:root {
+  /* ── Page ───────────────────────────────────────────────── */
+  --page-margin-v:              20mm;
+  --page-margin-h:              30mm;
+
+  /* ── Typefaces ──────────────────────────────────────────── */
+  --font-display:               "Georgia", "Times New Roman", serif;
+
+  /* ── Colours ────────────────────────────────────────────── */
+  --color-gold:                 #8B6F3E;
+  --color-gold-light:           #C4A882;
+  --color-gold-rule:            #D4B896;
+  --color-muted:                #4a4a4a;
+  --color-faint:                #7a7a7a;
+  --color-detail-bg:            #faf8f4;
+
+  /* ── Font sizes ─────────────────────────────────────────── */
+  --font-size-org:              7.5pt;
+  --font-size-sub:              7pt;
+  --font-size-event-main:       13pt;
+  --font-size-recipient-name:   10pt;
+  --font-size-recipient-meta:   8.5pt;
+  --font-size-detail-day:       8.5pt;
+  --font-size-detail-badge:     6.5pt;
+  --font-size-detail-row:       8.5pt;
+  --font-size-detail-label:     7pt;
+  --font-size-sig-name:         10pt;
+  --font-size-sig-meta:         8pt;
+  --font-size-footer:           7pt;
+
+  /* ── Letter spacing ─────────────────────────────────────── */
+  --tracking-org:               0.16em;
+  --tracking-sub:               0.09em;
+  --tracking-event-label:       0.20em;
+  --tracking-event-date:        0.10em;
+  --tracking-detail-badge:      0.08em;
+  --tracking-detail-label:      0.07em;
+
+  /* ── Spacing — letterhead ───────────────────────────────── */
+  --space-letterhead-mb:        0.9em;
+  --space-letterhead-pb:        0.7em;
+  --space-crest-mb:             0.4em;
+  --crest-width:                28mm;
+
+  /* ── Spacing — event title ──────────────────────────────── */
+  --space-event-title-m:        0.8em 0 2em;
+  --space-event-label-mb:       0.25em;
+  --space-event-main-mb:        0.2em;
+
+  /* ── Spacing — recipient ────────────────────────────────── */
+  --space-recipient-mb:         0.9em;
+  --space-recipient-name-mb:    0.08em;
+  --line-height-recipient-meta: 1.3;
+
+  /* ── Spacing — salutation ───────────────────────────────── */
+  --space-salutation-mb:        0.6em;
+
+  /* ── Spacing — body ─────────────────────────────────────── */
+  --space-body-p-mb:            0.55em;
+
+  /* ── Spacing — event detail ─────────────────────────────── */
+  --space-detail-m:             1.2em 0;
+  --space-detail-m-stacked:     0.8em;
+  --space-detail-p:             0.6em 0.9em;
+  --space-detail-gap:           0.5em;
+  --space-detail-label-pt:      0.15em;
+  --detail-border-w:            2px;
+  --detail-label-min-w:         4.5em;
+  --space-detail-badge-ml:      0.4em;
+  --space-detail-badge-p:       0.1em 0.4em;
+  --detail-badge-border-w:      0.5px;
+  --line-height-detail-row:     1.45;
+
+  /* ── Spacing — closing ──────────────────────────────────── */
+  --space-closing-mt:           1.2em;
+  --space-closing-formula-mb:   1.6em;
+  --space-sig-name-mb:          0.08em;
+  --line-height-sig-meta:       1.3;
+
+  /* ── Spacing — footer ───────────────────────────────────── */
+  --space-footer-p:             3mm 0 10mm;
+  --footer-border-w:            0.5px;
+  --line-height-footer:         1.4;
+
+  /* ── Borders ────────────────────────────────────────────── */
+  --letterhead-border:          0.5px solid var(--color-gold-rule);
+}
+
 @page {
-  size: A4;
-  margin: 20mm 30mm;
+  margin: var(--page-margin-v) var(--page-margin-h);
 
   @bottom-center {
     content: element(footer);
     width: 100%;
     vertical-align: bottom;
   }
-}
-
-:root {
-  --font-display: "Georgia", "Times New Roman", serif;
-  --font-body: "Times New Roman", Georgia, serif;
-
-  --gold: #8B6F3E;
-  --gold-light: #C4A882;
-  --gold-rule: #D4B896;
-  --text: #1a1a1a;
-  --muted: #4a4a4a;
-  --faint: #7a7a7a;
-}
-
-/* ─── Reset ──────────────────────────────────────────────── */
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-/* ─── Body ───────────────────────────────────────────────── */
-
-body {
-  font-family: var(--font-body);
-  font-size: 9pt;
-  line-height: 1.45;
-  color: var(--text);
-  background: #fff;
-  widows: 2;
-  orphans: 2;
 }
 
 /* ─── Letter wrapper ─────────────────────────────────────── */
@@ -56,33 +111,34 @@ body {
 
 .letterhead {
   text-align: center;
-  margin-bottom: 0.9em;
-  padding-bottom: 0.7em;
-  border-bottom: 0.5px solid var(--gold-rule);
+  margin-bottom: var(--space-letterhead-mb);
+  padding-bottom: var(--space-letterhead-pb);
+  border-bottom: var(--letterhead-border);
 }
 
 .letterhead__crest {
-  width: 28mm;
+  display: block;
+  width: var(--crest-width);
   height: auto;
-  margin-bottom: 0.4em;
+  margin: 0 auto var(--space-crest-mb);
 }
 
 .letterhead__org {
   font-family: var(--font-display);
-  font-size: 7.5pt;
+  font-size: var(--font-size-org);
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: var(--tracking-org);
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--color-gold);
   margin: 0 0 0.1em;
 }
 
 .letterhead__sub {
   font-family: var(--font-display);
-  font-size: 7pt;
-  letter-spacing: 0.09em;
+  font-size: var(--font-size-sub);
+  letter-spacing: var(--tracking-sub);
   text-transform: uppercase;
-  color: var(--faint);
+  color: var(--color-faint);
   margin: 0;
 }
 
@@ -90,54 +146,52 @@ body {
 
 .event-title {
   text-align: center;
-  margin: 0.8em 0 2em;
+  margin: var(--space-event-title-m);
 }
 
 .event-title__label {
-  letter-spacing: 0.20em;
-  text-transform: uppercase;
-  color: var(--gold);
   display: block;
-  margin-bottom: 0.25em;
+  letter-spacing: var(--tracking-event-label);
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-event-label-mb);
 }
 
 .event-title__main {
-  font-size: 13pt;
   font-family: var(--font-display);
+  font-size: var(--font-size-event-main);
   font-weight: 400;
   font-style: italic;
   line-height: 1.2;
-  color: var(--text);
-  margin: 0 0 0.2em;
+  margin: 0 0 var(--space-event-main-mb);
 }
 
 .event-title__date {
-  letter-spacing: 0.10em;
-  color: var(--muted);
+  letter-spacing: var(--tracking-event-date);
+  color: var(--color-muted);
   margin: 0;
 }
 
 /* ─── Recipient ──────────────────────────────────────────── */
 
 .recipient {
-  margin-bottom: 0.9em;
+  margin-bottom: var(--space-recipient-mb);
   text-align: right;
 }
 
 .recipient__name {
   font-family: var(--font-display);
-  font-size: 10pt;
+  font-size: var(--font-size-recipient-name);
   font-weight: 600;
-  color: var(--text);
-  margin: 0 0 0.08em;
+  margin: 0 0 var(--space-recipient-name-mb);
 }
 
 .recipient__role,
 .recipient__org {
-  font-size: 8.5pt;
-  color: var(--muted);
+  font-size: var(--font-size-recipient-meta);
+  color: var(--color-muted);
   margin: 0;
-  line-height: 1.3;
+  line-height: var(--line-height-recipient-meta);
 }
 
 /* ─── Salutation ─────────────────────────────────────────── */
@@ -145,14 +199,13 @@ body {
 .salutation {
   font-family: var(--font-display);
   font-style: italic;
-  margin-bottom: 0.6em;
-  color: var(--text);
+  margin-bottom: var(--space-salutation-mb);
 }
 
 /* ─── Body paragraphs ────────────────────────────────────── */
 
 .letter__body p {
-  margin: 0 0 0.55em;
+  margin: 0 0 var(--space-body-p-mb);
   text-align: justify;
   hyphens: auto;
 }
@@ -160,109 +213,129 @@ body {
 /* ─── Event detail box ───────────────────────────────────── */
 
 .event-detail {
-  margin: 1.2em 0;
-  padding: 0.6em 0.9em;
-  border-left: 2px solid var(--gold);
-  background: #faf8f4;
+  margin: var(--space-detail-m);
+  padding: var(--space-detail-p);
+  border-left: var(--detail-border-w) solid var(--color-gold);
+  background: var(--color-detail-bg);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
-.event-detail+.event-detail {
-  margin-top: 0.8em;
+.event-detail + .event-detail {
+  margin-top: var(--space-detail-m-stacked);
 }
 
 .event-detail__day {
-  font-size: 8.5pt;
-  font-weight: 600;
-  color: var(--text);
-  margin: 0;
   font-family: var(--font-display);
+  font-size: var(--font-size-detail-day);
+  font-weight: 600;
   font-style: italic;
+  margin: 0;
 }
 
 .event-detail__badge {
   display: inline-block;
-  font-size: 6.5pt;
+  font-size: var(--font-size-detail-badge);
   font-style: normal;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--tracking-detail-badge);
   text-transform: uppercase;
-  color: var(--gold);
-  border: 0.5px solid var(--gold-light);
-  padding: 0.1em 0.4em;
-  margin-left: 0.4em;
+  color: var(--color-gold);
+  border: var(--detail-badge-border-w) solid var(--color-gold-light);
+  padding: var(--space-detail-badge-p);
+  margin-left: var(--space-detail-badge-ml);
   vertical-align: middle;
 }
 
 .event-detail__row {
   display: flex;
-  gap: 0.5em;
-  font-size: 8.5pt;
-  line-height: 1.45;
-  color: var(--muted);
+  gap: var(--space-detail-gap);
+  font-size: var(--font-size-detail-row);
+  line-height: var(--line-height-detail-row);
+  color: var(--color-muted);
 }
 
 .event-detail__label {
-  font-weight: 600;
-  color: var(--gold);
-  min-width: 4.5em;
+  min-width: var(--detail-label-min-w);
   flex-shrink: 0;
+  font-size: var(--font-size-detail-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-detail-label);
   text-transform: uppercase;
-  font-size: 7pt;
-  letter-spacing: 0.07em;
-  padding-top: 0.15em;
+  color: var(--color-gold);
+  padding-top: var(--space-detail-label-pt);
 }
 
 /* ─── Closing ────────────────────────────────────────────── */
 
 .closing {
-  margin-top: 1.2em;
+  margin-top: var(--space-closing-mt);
 }
 
 .closing__formula {
   font-family: var(--font-display);
   font-style: italic;
-  color: var(--muted);
-  margin-bottom: 1.6em;
+  color: var(--color-muted);
+  margin-bottom: var(--space-closing-formula-mb);
 }
 
 .closing__signature-name {
   font-family: var(--font-display);
-  font-size: 10pt;
+  font-size: var(--font-size-sig-name);
   font-weight: 600;
-  margin: 0 0 0.08em;
+  margin: 0 0 var(--space-sig-name-mb);
 }
 
 .closing__signature-role,
 .closing__signature-org {
-  font-size: 8pt;
-  color: var(--muted);
+  font-size: var(--font-size-sig-meta);
+  color: var(--color-muted);
   margin: 0;
-  line-height: 1.3;
+  line-height: var(--line-height-sig-meta);
 }
 
-/* ─── Footer — pinned to page bottom via running element ─── */
+/* ─── Footer ─────────────────────────────────────────────── */
+
 .letter__footer {
   position: running(footer);
-  margin: 0;             
-  padding: 3mm 0 10mm;    
-  border-top: 0.5px solid var(--gold-rule);
+  margin: 0;
+  padding: var(--space-footer-p);
+  border-top: var(--footer-border-w) solid var(--color-gold-rule);
   text-align: center;
-  font-size: 7pt;
-  color: var(--faint);
-  line-height: 1.4;
+  font-size: var(--font-size-footer);
+  color: var(--color-faint);
+  line-height: var(--line-height-footer);
 }
 
-/* ─── Print ──────────────────────────────────────────────── */
+/* ─── Speaker letter overrides ───────────────────────────── */
 
-@media print {
-  .event-detail {
-    background: #f9f7f3;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
+.letter--speaker .event-detail__label {
+  min-width: 7em;
+}
 
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
+/* ─── Submission list ────────────────────────────────────── */
+
+.submission-list {
+  padding-left: 1em;
+}
+
+.submission-list__item {
+  padding-left: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.submission-list__item:last-child {
+  margin-bottom: 0;
+}
+
+/* ─── Provisional label ──────────────────────────────────── */
+
+.provisional {
+  font-size: 0.8em;
+}
+
+/* ─── Co-author note ─────────────────────────────────────── */
+
+.co-author-note {
+  font-size: 0.8em;
 }
