@@ -8,6 +8,9 @@ class JinjaError(Exception):
     pass
 
 def regex_replace(value, pattern, replacement):
+    """Custom Jinja filter to perform regex replacement on a string."""
+    if not isinstance(value, str):
+        return value
     return re.sub(pattern, replacement, value)
 
 def get_jinja_env() -> Environment:

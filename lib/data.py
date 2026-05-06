@@ -25,6 +25,8 @@ class JSONData:
         try:
             with data_path.open("r", encoding="utf-8") as f:
                 return orjson.loads(f.read())
+        
+        # Handle specific exceptions
         except FileNotFoundError:
             raise JSONDataError(f"Data file not found: {data_path}")
         except orjson.JSONDecodeError as e:

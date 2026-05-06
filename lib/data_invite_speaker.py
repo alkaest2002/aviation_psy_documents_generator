@@ -8,7 +8,15 @@ from typing import Any
 
 
 def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
-    """Load and process speaker data from the program, applying optional jq filters."""
+    """Load and process speaker data from the program, applying optional jq filters.
+    
+    Args:
+        options (str | None): An optional jq filter to apply to the speaker data.
+
+    Returns:
+        list[tuple[str, dict[str, Any]]]: A list of tuples containing speaker identifiers and 
+            their corresponding data dictionaries, ready for rendering in templates.
+    """
 
     # Load data from JSONData
     data = JSONData().get_data()
