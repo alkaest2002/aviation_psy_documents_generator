@@ -1,3 +1,4 @@
+import datetime
 import sys
 
 from itertools import groupby
@@ -5,6 +6,7 @@ from typing import Any
 
 import jq
 import orjson
+import pytz
 
 from lib.data import JSONData
 from lib.utils import normalize_filename
@@ -38,7 +40,9 @@ def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
                         all_talks.append({**talk, "date": day.get("date"), "panel": event.get("title")})
 
     # Group talks by their status
-    data_sorted = sorted(all_talks, key=lambda x: x.get("status", "unknown"))
+    # sort order: tobeDefined, toBeConfirmed, final, unknown (use findIndex)
+    status_order = ["toBeDefined", "toBeConfirmed", "final", "unknown"]
+    data_sorted = sorted(all_talks, key=lambda x: status_order.index(x.get("status", "unknown")))
     processed_talks = {
         key: list(group) for key, group in groupby(data_sorted, key=lambda x: x.get("status", "unknown"))
     }
@@ -49,7 +53,13 @@ def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     else:
         talks = processed_talks
 
-    return [(normalize_filename("talks"), {"talks": talks})]
+    tz = pytz.timezone('Europe/Rome')
+    ct = datetime.datetime.now(tz)
+
+    return [(normalize_filename("talks"), {
+        "talks": talks,
+        "updated_at": ct
+    })]
 
 if __name__ == "__main__":
     data = get_data()

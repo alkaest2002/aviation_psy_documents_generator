@@ -235,6 +235,10 @@ hr {
   page-break-before: always;
 }
 
+.page:first-of-type {
+  page-break-before: auto;
+}
+
 .text-bold {
   font-weight: bold;
 }
