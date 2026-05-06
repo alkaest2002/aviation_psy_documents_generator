@@ -31,9 +31,10 @@
         <div class="letter__body">
 
             <p>
-                È con piacere che mi pregio di comunicarLe che il contributo dal titolo <strong><q>{{ talk_title }}</q></strong>
+                È con piacere che mi pregio di comunicarLe che il contributo dal titolo <strong><q>{{ talk_title
+                        }}</q></strong>
                 da Lei proposto è stato valutato positivamente dal Comitato Scientifico del
-               III Convegno Nazionale di Psicologia dell'Aviazione
+                III Convegno Nazionale di Psicologia dell'Aviazione
                 e sarà incluso nel programma dei lavori del 28 ottobre 2026.
             </p>
 
@@ -41,41 +42,47 @@
             <div class="event-detail">
 
                 <div class="event-detail__stack">
+                    
                     <div>
-                        <span class="event-detail__label">Data e orario</span>
-                        <span>
-                            {{ talk_date }} · 
+                        <span class="event-detail__label">Data e ora</span>
+                        <span class="event-detail__value">
+                            {{ talk_date }} ·
                             {{ talk_timeWindow }} <span style="font-size:.8em">(provvisorio)</span>
                         </span>
                     </div>
-                    <div>
-                        <span class="event-detail__label">Sessione</span>
-                        <span>{{ talk_panel }}</span>
-                    </div>
-                </div>
+                    
+                    {% if talk_panel %}
+                        <div>
+                            <span class="event-detail__label">Sessione</span>
+                            <span class="event-detail__value">{{ talk_panel }}</span>
+                        </div>
+                    {% endif %}
 
-                <div class="event-detail__stack">
-                    <span class="event-detail__label">
-                        Suo Ruolo
-                    </span>
-                    {% if author_is_first %}Autore principale{% else %}Co-Autore{% endif %}
+                    
+                    {% if author_collaborates_with %}
+                        <div>
+                            <span class="event-detail__label">
+                                Ruolo
+                            </span>
+                            <span class="event-detail__value">
+                                {% if author_is_first %}Autore principale{% else %}Co-Autore{% endif %}
+                            </span>
+                        </div>
+                        <div>
+                            <span class="event-detail__label">
+                                Et alii
+                            </span>
+                            <span class="event-detail__value">
+                                {% for co in author_collaborates_with %}
+                                {{ co.title }} {{ co.name }}
+                                {%- if co.affiliation %} · {{ co.affiliation }}{% endif %}
+                                {%- if co.is_first %} <em style="font-size:.8em">(autore principale)</em>{% endif %}
+                                {%- if not loop.last %}; {% endif %}
+                                {% endfor %}
+                            </span>
+                        </div>
+                    {% endif %}
                 </div>
-
-                {% if author_collaborates_with %}
-                <div class="event-detail__stack">
-                    <span class="event-detail__label">
-                        In collaborazione con
-                    </span>
-                    <span>
-                        {% for co in author_collaborates_with %}
-                            {{ co.title }} {{ co.name }}
-                            {%- if co.affiliation %} · {{ co.affiliation }}{% endif %}
-                            {%- if co.is_first %} <em style="font-size:.8em">(autore principale)</em>{% endif %}
-                            {%- if not loop.last %}; {% endif %}
-                        {% endfor %}
-                    </span>
-                </div>
-                {% endif %}
             </div>
 
             <p>
@@ -89,20 +96,24 @@
                     <strong>Entro il {{ submissionAbstractDate }} dovranno pervenire i seguenti documenti</strong>:
                     <em>[A] Abstract</em> in formato docx (titolo, nominativo e affiliazione degli autori, testo
                     per un massimo di 500 parole);
-                    <em>[B] Curriculum Vitae</em> in formato pdf, datato, firmato, comprensivo di codice fiscale e con il consenso al trattamento dei dati personali;
+                    <em>[B] Curriculum Vitae</em> in formato pdf, datato, firmato, comprensivo di codice fiscale e con
+                    il consenso al trattamento dei dati personali;
                 </li>
                 <li style="padding-left:.5em">
-                     <strong>Entro il {{ submissionFullPaperDate }} dovranno pervenire i seguenti documenti</strong>:
+                    <strong>Entro il {{ submissionFullPaperDate }} dovranno pervenire i seguenti documenti</strong>:
                     <em>[C] Presentazione/Dispensa del contributo</em> in formato pptx/pdf;
                     <em>[D] 3 Quesiti ECM</em> in formato docx (ciascuno con
                     4 alternative di risposta, di cui una sola corretta e contrassegnata da un asterisco).
                 </li>
             </ul>
 
-            <p><strong>Nota importante:</strong> si precisa che solo l'<em>autore principale</em> è tenuto a produrre tutta la documentazione richiesta. I <em>co-autori</em> {% if not author_is_first %}&mdash; come nel Suo caso &mdash;{% endif %} possono limitarsi alla trasmissione del solo curriculum vitae (redatto secondo le specifiche illustrate in precedenza).</p>
+            <p><strong>Nota importante:</strong> si precisa che solo l'<em>autore principale</em> è tenuto a produrre
+                tutta la documentazione richiesta. I <em>co-autori</em> {% if not author_is_first %}&mdash; come nel Suo
+                caso &mdash;{% endif %} possono limitarsi alla trasmissione del solo curriculum vitae (redatto secondo
+                le specifiche illustrate in precedenza).</p>
 
             <p>
-                La prego di inviare quanto dovuto 
+                La prego di inviare quanto dovuto
                 al seguente indirizzo di posta elettronica:
                 <strong><a href="mailto:aeropsy@am.difesa.it">aeropsy@am.difesa.it</a></strong>.
                 La segreteria rimarrà a Sua disposizione per qualsiasi chiarimento

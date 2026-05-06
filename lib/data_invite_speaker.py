@@ -17,7 +17,9 @@ def get_data(options: str | None = None) -> dict[str, Any]:
     all_speakers = []
     processed_speakers = []
 
-    paperDates = data.get("paperDates", {})
+    # Extract paper expiration dates if available,
+    # to include in speaker data for potential use in templates.
+    paperExpirationDates = data.get("paperExpirationDates", {})
 
     # Extract all talks and speakers from the program data
     for day in data.get("days", []):
@@ -43,7 +45,7 @@ def get_data(options: str | None = None) -> dict[str, Any]:
                     "talk_duration": talk.get("duration"),
                     **{f"author_{k}": v for k, v in author.items()},
                     "author_collaborates_with": [ a for a in authors if a != author ],
-                    **paperDates
+                    **paperExpirationDates
                 })
 
     # In this context, options is expected to be a jq filter 
