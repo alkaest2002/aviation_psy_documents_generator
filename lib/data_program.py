@@ -7,6 +7,7 @@ from lib.data import JSONData
 from lib.utils import pluck_nested
 
 def _get_speakers(data: dict[str, Any]) -> list[dict[str, Any]]:
+    """Extract unique speaker information from the program data."""
     
     # Define the fields to extract for each speaker
     fields = ("title", "name", "affiliation", "role")
@@ -25,6 +26,7 @@ def _get_speakers(data: dict[str, Any]) -> list[dict[str, Any]]:
     )
 
 def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
+    """Load and process program data, extracting speaker information and applying optional jq filters."""
     
     # Load data from JSONData
     data: dict[str, Any] = JSONData().get_data()

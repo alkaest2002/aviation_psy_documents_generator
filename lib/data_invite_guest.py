@@ -7,6 +7,7 @@ from typing import Any
 
 
 def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
+    """Load and process invitation data for speakers, applying optional jq filters."""
 
     # Load data from JSONData
     data = JSONData().get_data()
