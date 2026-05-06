@@ -1,10 +1,10 @@
 {% macro get_status_label(status) %}
     {% if status == 'final' %}
-        Definitivo
+        Lavori finali
     {% elif status == 'toBeDefined' %}
-        In attesa di definizione
+        Lavori in attesa di definizione
     {% elif status == 'toBeConfirmed' %}
-        In attesa di conferma
+        Lavori in attesa di conferma
     {% else %}
         Sconosciuto
     {% endif %}
@@ -37,10 +37,12 @@
 
 <body>
     <main>
-        <h2>Situazione aggiornata dei lavori del III Convegno di Psicologia dell'Aviazione</h2>
-        <p class="updated-at">data ultimo aggiornamento: {{ updated_at }}</p>
         {% for status, talks in talks.items() %}
         <div class="page">
+            <div class="mb-xl">
+                <h2>III Convegno di Psicologia dell'Aviazione</h2>
+                <p class="updated-at">data ultimo aggiornamento: {{ updated_at }}</p>
+            </div>
             {% if loop.first %}
             <h2 class="status-heading">{{ get_status_label(status) }}</h2>
             {% else %}
@@ -48,29 +50,50 @@
             {% endif %}
             <p>{{ get_status_description(status) }}</p>
             {% for talk in talks %}
-            <div class="talk">
-                <p class="talk-title"><strong>Titolo:</strong> <em>{{ talk.title }}</em></p>
-                <p><strong>Data:</strong> {{ talk.date }}</p>
-                <p><strong>Slot:</strong> {{ talk.timeWindow }}</p>
-                <p><strong>Panel:</strong> {{ talk.panel }}</p>
-                <p><strong>Autori:</strong></p>
-
-                <ul>
-                    {% for author in talk.authors %}
-                    <li>
-                        <em>{{ author.name }}</em>
-                        {%- if author.role or author.affiliation -%},{%- endif -%}
-                        {%- if author.role %}
-                        {{ author.role }}
-                        {%- endif %}
-                        {%- if author.affiliation %}
-                        {{ author.affiliation }}
-                        {%- endif %}
-                        {%- if loop.last %}.{%- else %};{%- endif %}
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
+                <div class="talk">
+                    <table class="talk-table">
+                        <tbody>
+                            <tr>
+                                <th>Titolo</th>
+                                <td><em>{{ talk.title }}</em></td>
+                            </tr>
+                            <tr>
+                                <th>Autori</th>
+                                <td>
+                                    {%- for author in talk.authors %}
+                                        <span>
+                                            {%- if author.name == "Autore da definire" -%}
+                                                <em>{{ author.name }}</em>
+                                            {%- else -%}
+                                                <em>[{{ loop.index }}] {{ author.title }} {{ author.name }}</em>
+                                            {%- endif -%}
+                                            {%- if author.role or author.affiliation -%}, {%- endif -%}
+                                            {%- if author.role -%}
+                                                <span> {{ author.role }}</span>
+                                            {%- endif -%}
+                                            {%- if author.affiliation -%}
+                                                <span> {{ author.affiliation }}</span>
+                                            {%- endif -%}
+                                            {%- if loop.last %}.{%- endif -%}
+                                    </span>
+                                    {%- endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Data</th>
+                                <td>{{ talk.date }}</td>
+                            </tr>
+                            <tr>
+                                <th>Slot</th>
+                                <td>{{ talk.timeWindow }}</td>
+                            </tr>
+                            <tr>
+                                <th>Panel</th>
+                                <td>{{ talk.panel }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             {% endfor %}
         </div>
         {% endfor %}
