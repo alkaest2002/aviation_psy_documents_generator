@@ -31,23 +31,34 @@
         <div class="letter__body">
 
             <p>
-                È con piacere che mi pregio di comunicarLe che il contributo
+                È con piacere che mi pregio di comunicarLe che il contributo dal titolo <strong><q>{{ talk_title }}</q></strong>
                 da Lei proposto è stato valutato positivamente dal Comitato Scientifico del
-                <strong>III Convegno Nazionale di Psicologia dell'Aviazione</strong>
-                e sarà incluso nel programma dei lavori del <strong>28 ottobre 2026</strong>.
+               III Convegno Nazionale di Psicologia dell'Aviazione
+                e sarà incluso nel programma dei lavori del 28 ottobre 2026.
             </p>
 
             <!-- Accepted talk detail box -->
             <div class="event-detail">
-                <div class="event-detail__stack" style="margin-bottom:.3em">
-                    <span><em>{{ talk_title }}.</em></span>
+
+                <div class="event-detail__stack">
+                    <div>
+                        <span class="event-detail__label">Data e orario</span>
+                        <span>
+                            {{ talk_date }} · 
+                            {{ talk_timeWindow }} <span style="font-size:.8em">(provvisorio)</span>
+                        </span>
+                    </div>
+                    <div>
+                        <span class="event-detail__label">Sessione</span>
+                        <span>{{ talk_panel }}</span>
+                    </div>
                 </div>
 
                 <div class="event-detail__stack">
                     <span class="event-detail__label">
-                        Ruolo
+                        Suo Ruolo
                     </span>
-                    {% if author_is_first %}Autore principale{% else %}Co-autore{% endif %}
+                    {% if author_is_first %}Autore principale{% else %}Co-Autore{% endif %}
                 </div>
 
                 {% if author_collaborates_with %}
@@ -59,56 +70,42 @@
                         {% for co in author_collaborates_with %}
                             {{ co.title }} {{ co.name }}
                             {%- if co.affiliation %} · {{ co.affiliation }}{% endif %}
-                            {% if co.is_first %} <em>(autore principale)</em>{% endif %}
-                            {%- if not loop.last %}; {% else %}.{% endif %}
+                            {%- if co.is_first %} <em style="font-size:.8em">(autore principale)</em>{% endif %}
+                            {%- if not loop.last %}; {% endif %}
                         {% endfor %}
                     </span>
                 </div>
                 {% endif %}
-
-                <div class="event-detail__stack" style="display:flex;gap:1em">
-                    <div>
-                        <span class="event-detail__label">Sessione</span>
-                        <span>{{ talk_panel }}</span>
-                    </div>
-                    <div>
-                        <span class="event-detail__label">Data</span>
-                        <span>
-                            {{talk_date}} · {{ talk_timeWindow }}.
-                        </span>
-                    </div>
-                </div>
             </div>
 
             <p>
                 Per garantire la qualità degli atti congressuali e il corretto svolgimento
-                delle procedure di accreditamento ECM, La prego di voler trasmettere
-                la documentazione più sotto specificata, rispettando le scadenze indicate.
+                delle procedure di accreditamento ECM, sarà necessario predisporre
+                la documentazione qui sotto specificata, rispettando le scadenze indicate.
             </p>
 
             <ul style="padding-left: 1em;">
                 <li style="margin-bottom: .5em;padding-left:.5em">
                     <strong>Entro il {{ submissionAbstractDate }} dovranno pervenire i seguenti documenti</strong>:
-                    <em>[A] Abstract</em> in formato docx (titolo, nome dell'autore e/o degli autori e testo
+                    <em>[A] Abstract</em> in formato docx (titolo, nominativo e affiliazione degli autori, testo
                     per un massimo di 500 parole);
-                    <em>[B] Curriculum Vitae</em> datato, firmato e con il consenso al trattamento dei dati personali;
-                    <em>[C] Codice Fiscale</em>.
+                    <em>[B] Curriculum Vitae</em> in formato pdf, datato, firmato, comprensivo di codice fiscale e con il consenso al trattamento dei dati personali;
                 </li>
                 <li style="padding-left:.5em">
                      <strong>Entro il {{ submissionFullPaperDate }} dovranno pervenire i seguenti documenti</strong>:
-                    <em>[D] Presentazione del contributo</em> in formato pdf;
-                    <em>[E] 3 Quesiti ECM</em> in formato docx (ciascuno con
+                    <em>[C] Presentazione/Dispensa del contributo</em> in formato pptx/pdf;
+                    <em>[D] 3 Quesiti ECM</em> in formato docx (ciascuno con
                     4 alternative di risposta, di cui una sola corretta e contrassegnata da un asterisco).
                 </li>
             </ul>
 
-            <p><strong>Nota importante:</strong> si precisa che solo l'<em>autore principale</em> è tenuto a produrre abstract, presentazione e quesiti ECM. I <em>co-autori</em> {% if not author_is_first %}&mdash;come nel Suo caso&mdash;{% endif %} possono scegliere se trasmettere tutta la documentazione prevista oppure limitarsi al curriculum vitae e al codice fiscale.</p>
+            <p><strong>Nota importante:</strong> si precisa che solo l'<em>autore principale</em> è tenuto a produrre tutta la documentazione richiesta. I <em>co-autori</em> {% if not author_is_first %}&mdash; come nel Suo caso &mdash;{% endif %} possono limitarsi alla trasmissione del solo curriculum vitae (redatto secondo le specifiche illustrate in precedenza).</p>
 
             <p>
-                Tutta la documentazione dovrà essere inviata alla Segreteria del Convegno
-                al seguente indirizzo:
+                La prego di inviare quanto dovuto 
+                al seguente indirizzo di posta elettronica:
                 <strong><a href="mailto:aeropsy@am.difesa.it">aeropsy@am.difesa.it</a></strong>.
-                La Segreteria rimane a Sua disposizione per qualsiasi chiarimento
+                La segreteria rimarrà a Sua disposizione per qualsiasi chiarimento
                 di carattere organizzativo o scientifico.
             </p>
 

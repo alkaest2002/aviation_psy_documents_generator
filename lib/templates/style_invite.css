@@ -94,7 +94,6 @@ body {
 }
 
 .event-title__label {
-  font-size: 7pt;
   letter-spacing: 0.20em;
   text-transform: uppercase;
   color: var(--gold);
@@ -103,8 +102,8 @@ body {
 }
 
 .event-title__main {
-  font-family: var(--font-display);
   font-size: 13pt;
+  font-family: var(--font-display);
   font-weight: 400;
   font-style: italic;
   line-height: 1.2;
@@ -113,25 +112,9 @@ body {
 }
 
 .event-title__date {
-  font-size: 8pt;
   letter-spacing: 0.10em;
   color: var(--muted);
   margin: 0;
-}
-
-/* ─── Meta ───────────────────────────────────────────────── */
-
-.letter__meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 0.9em;
-  font-size: 8.5pt;
-  color: var(--muted);
-}
-
-.letter__place {
-  font-style: italic;
 }
 
 /* ─── Recipient ──────────────────────────────────────────── */

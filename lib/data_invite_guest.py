@@ -29,7 +29,7 @@ def get_data(options: str | None = None) -> dict[str, Any]:
     # Process each invitee and prepare data for rendering
     for invitee in invitees:
         processed_invitations.append([
-            f"{invitee['name'].lower().replace(' ', '_')}", 
+            f"ospiti_{invitee['name'].lower().replace(' ', '_')}", 
             { **invitee, "day1_time": data["days"][0]["timeWindow"], "day2_time": data["days"][1]["timeWindow"] }
         ])
         

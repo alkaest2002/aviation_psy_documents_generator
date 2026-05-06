@@ -60,7 +60,7 @@ def get_data(options: str | None = None) -> dict[str, Any]:
     # Process each speaker and prepare data for rendering
     for speaker in speakers:
         processed_speakers.append([
-            f"lettera_relatori_{re.sub(r'[^\w]', '_', speaker['author_name'].lower()).strip('_')}", 
+            f"relatori_{re.sub(r'[^\w]', '_', speaker['author_name'].lower()).strip('_')}", 
             speaker
         ])
         
