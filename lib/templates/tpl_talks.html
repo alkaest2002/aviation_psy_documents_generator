@@ -79,12 +79,13 @@
                                             {%- if author.affiliation -%}
                                                 <span> {{ author.affiliation }}</span>
                                             {%- endif -%}
+                                            <span class="text-success"> {{ author.email | default("") }}</span>
                                             {%- if loop.last %}
                                                 {%- if author.name == "Autore da definire" -%}
                                                     <span class="text-warning">.</span>
                                                 {%- endif -%}
-                                            {%- else %}
-                                                <span>.</span>
+                                            {%- else -%}
+                                                .
                                             {%- endif -%}
                                     </span>
                                     {%- endfor %}
