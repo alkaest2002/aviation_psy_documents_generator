@@ -1,10 +1,11 @@
-import re
 import sys
 
 import jq
 import orjson
 from lib.data import JSONData
 from typing import Any
+
+from lib.utils import normalize_filename
 
 
 def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
@@ -70,7 +71,7 @@ def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     # Process each speaker and prepare data for rendering
     for speaker in speakers:
         processed_speakers.append((
-            f"relatori_{re.sub(r'[^\w]', '_', speaker['author_name'].lower()).strip('_')}", 
+            f"relatori_{normalize_filename(speaker['author_name'])}", 
             speaker
         ))
         

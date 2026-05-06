@@ -1,4 +1,5 @@
 from collections.abc import Generator
+import re
 from typing import Any
 
 def pluck_nested(node: Any, key: str) -> Generator[dict[str, Any], None, None]:
@@ -19,3 +20,8 @@ def pluck_nested(node: Any, key: str) -> Generator[dict[str, Any], None, None]:
     elif isinstance(node, list):
         for item in node:
             yield from pluck_nested(item, key)
+
+
+def normalize_filename(name: str) -> str:
+    """Normalize a string to be used as a filename by converting to lowercase and replacing spaces with underscores."""
+    return re.sub(r'[^\w]', '_', name.lower()).strip('_')
