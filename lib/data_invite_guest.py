@@ -6,7 +6,7 @@ from lib.data import JSONData
 from typing import Any
 
 
-def get_data(options: str | None = None) -> dict[str, Any]:
+def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
 
     # Load data from JSONData
     data = JSONData().get_data()
@@ -27,10 +27,10 @@ def get_data(options: str | None = None) -> dict[str, Any]:
     
     # Process each invitee and prepare data for rendering
     for invitee in invitees:
-        processed_invitations.append([
+        processed_invitations.append((
             f"ospiti_{invitee['name'].lower().replace(' ', '_')}", 
             { **invitee, "day1_time": data["days"][0]["timeWindow"], "day2_time": data["days"][1]["timeWindow"] }
-        ])
+        ))
         
     return processed_invitations
 

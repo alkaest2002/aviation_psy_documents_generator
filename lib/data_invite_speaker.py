@@ -7,7 +7,7 @@ from lib.data import JSONData
 from typing import Any
 
 
-def get_data(options: str | None = None) -> dict[str, Any]:
+def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
 
     # Load data from JSONData
     data = JSONData().get_data()
@@ -60,10 +60,10 @@ def get_data(options: str | None = None) -> dict[str, Any]:
     
     # Process each speaker and prepare data for rendering
     for speaker in speakers:
-        processed_speakers.append([
+        processed_speakers.append((
             f"relatori_{re.sub(r'[^\w]', '_', speaker['author_name'].lower()).strip('_')}", 
             speaker
-        ])
+        ))
         
     return processed_speakers
 

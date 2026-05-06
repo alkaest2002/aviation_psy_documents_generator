@@ -3,8 +3,10 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
+from typing import Any
 
-from jinja2 import Environment
+from jinja2 import Environment, Template
+from jinja2.exceptions import TemplateNotFound
 from weasyprint import HTML
 
 from lib.jinja import get_jinja_env, JinjaError
@@ -45,22 +47,20 @@ def generate_docs(args: argparse.Namespace) -> None:
     env: Environment = get_jinja_env()
 
     # Get the template and render it with data from JSONData
-    template = env.get_template(f"tpl_{template_name}.html")
+    template: Template = env.get_template(f"tpl_{template_name}.html")
 
     # Call the appropriate hook if it exists
     if template_name in HOOKS:
-        data = HOOKS[template_name](options)
+        data: list[tuple[str, dict[str, Any]]] = HOOKS[template_name](options)
     else:
         raise ValueError(f"No hook defined for template: {template_name}")
     
-    # Ensure data is a list for consistent processing
-    if not isinstance(data, list):
-        data = [data]
+    # Loop through each item in the list 
+    # and render a separate PDF for each
+    for item in data:
 
-    # Loop through each item in the list and render a separate PDF for each
-    for i, item in enumerate(data):
-
-        [filename, item_data] = item
+        # Unpack the filename and item data from the current item tuple
+        filename, item_data = item
 
         # Render the template for the current item
         rendered_html: str = template.render(item_data)  
@@ -75,7 +75,7 @@ def generate_docs(args: argparse.Namespace) -> None:
             (output_path / f"{filename}.html").write_text(rendered_html, encoding="utf-8")
 
     # Print success message
-    print(f"finished rendering {template_name}.pdf")
+    print(f"finished rendering job for {template_name}")
 
 
 def main() -> None:
@@ -89,6 +89,9 @@ def main() -> None:
     
     except (JSONDataError, JinjaError, PathsError, ValueError) as e:
         print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+    except TemplateNotFound as e:
+        print(f"Error: Template not found - {e}", file=sys.stderr)
         sys.exit(1)
 
 
