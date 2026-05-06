@@ -39,7 +39,8 @@ def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
                 all_talks.append({**event, "date": day.get("date"), "panel": event.get("title")})
             if event.get("eventType") == "panel":
                 for talk in event.get("talks", []):
-                    all_talks.append({**talk, "date": day.get("date"), "panel": event.get("title")})
+                    if talk.get("eventType") == "talk":
+                        all_talks.append({**talk, "date": day.get("date"), "panel": event.get("title")})
 
     # Process each talk to extract speaker information, 
     # ensuring that speakers with the name "Autore da definire" are excluded.
@@ -65,10 +66,6 @@ def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     else:
         speakers = all_speakers
 
-    # make sure speakers is a list for consistent processing
-    if not isinstance(speakers, list):
-        speakers = [speakers]
-    
     # Process each speaker and prepare data for rendering
     for speaker in speakers:
         processed_speakers.append((

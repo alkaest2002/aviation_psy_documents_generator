@@ -6,7 +6,7 @@ import jq
 import orjson
 
 from lib.data import JSONData
-from lib.utils import pluck_nested
+from lib.utils import normalize_filename, pluck_nested
 
 def _get_speakers(data: dict[str, Any]) -> list[dict[str, Any]]:
     """Extract unique speaker information from the program data.
@@ -56,7 +56,7 @@ def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     if options:
         data = jq.compile(options).input(data).all()
 
-    return [("program", data)]
+    return [(normalize_filename("program"), data)]
 
 if __name__ == "__main__":
     data = get_data()

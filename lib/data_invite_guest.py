@@ -33,10 +33,6 @@ def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
         invitees = jq.compile(options).input(all_invitees).all()
     else:
         invitees = all_invitees
-
-    # make sure invitees is a list for consistent processing
-    if not isinstance(invitees, list):
-        invitees = [invitees]
     
     # Process each invitee and prepare data for rendering
     for invitee in invitees:
