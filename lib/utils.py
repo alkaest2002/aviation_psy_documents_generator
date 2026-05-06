@@ -1,5 +1,6 @@
-from collections.abc import Generator
 import re
+
+from collections.abc import Generator
 from typing import Any
 
 def pluck_nested(node: Any, key: str) -> Generator[dict[str, Any], None, None]:

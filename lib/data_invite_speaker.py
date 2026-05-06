@@ -1,10 +1,11 @@
 import sys
 
-import jq
-import orjson
-from lib.data import JSONData
 from typing import Any
 
+import jq
+import orjson
+
+from lib.data import JSONData
 from lib.utils import normalize_filename
 
 

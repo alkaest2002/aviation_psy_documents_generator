@@ -1,8 +1,10 @@
 import sys
+
 from typing import Any
 
 import jq
 import orjson
+
 from lib.data import JSONData
 from lib.utils import pluck_nested
 
@@ -11,7 +13,7 @@ def _get_speakers(data: dict[str, Any]) -> list[dict[str, Any]]:
     
     Args:
         data (dict[str, Any]): The program data loaded from JSON.
-        
+
     Returns:
         list[dict[str, Any]]: A sorted list of unique speaker information dictionaries.
     """
