@@ -54,11 +54,12 @@ def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
         talks = processed_talks
 
     tz = pytz.timezone('Europe/Rome')
-    ct = datetime.datetime.now(tz)
+    current_time = datetime.datetime.now(tz)
+    current_time = current_time.strftime("%d/%m/%Y")
 
     return [(normalize_filename("talks"), {
         "talks": talks,
-        "updated_at": ct
+        "updated_at": current_time
     })]
 
 if __name__ == "__main__":

@@ -12,15 +12,14 @@
 
 {% macro get_status_description(status) %}
     {% if status == 'final' %}
-        I lavori sono definitivi e non sono previste modifiche.
+        Lavori sono definitivi per i quali non sono previste modifiche.
     {% elif status == 'toBeDefined' %}
-        I lavori sono in attesa di definizione (mancano informazioni essenziali come titolo e/o autori). Potrebbero subire
+        Lavori in attesa di definizione (mancano informazioni essenziali come titolo e/o autori). Potrebbero subire
     cancellazioni e essere sostituiti da altri lavori.
     {% elif status == 'toBeConfirmed' %}
-        I lavori sono in attesa di conferma. Potrebbero subire modifiche (es. titolo, autori, data), ma non sono previste
-    cancellazioni.
+        Lavori in attesa di conferma. Potrebbero subire modifiche (es. titolo, autori, data), ma non sono previste cancellazioni.
     {% else %}
-    Sconosciuto
+        Sconosciuto
     {% endif %}
 {% endmacro %}
 
@@ -55,7 +54,13 @@
                         <tbody>
                             <tr>
                                 <th>Titolo</th>
-                                <td><em>{{ talk.title }}</em></td>
+                                <td>
+                                    {% if "da definire" in talk.title %}
+                                        <em class="text-warning">{{ talk.title }}</em>
+                                    {% else %}
+                                        <em>{{ talk.title }}</em>
+                                    {% endif %}
+                                </td>
                             </tr>
                             <tr>
                                 <th>Autori</th>
@@ -63,7 +68,7 @@
                                     {%- for author in talk.authors %}
                                         <span>
                                             {%- if author.name == "Autore da definire" -%}
-                                                <em>{{ author.name }}</em>
+                                                <em class="text-warning">{{ author.name }}</em>
                                             {%- else -%}
                                                 <em>[{{ loop.index }}] {{ author.title }} {{ author.name }}</em>
                                             {%- endif -%}
@@ -74,14 +79,20 @@
                                             {%- if author.affiliation -%}
                                                 <span> {{ author.affiliation }}</span>
                                             {%- endif -%}
-                                            {%- if loop.last %}.{%- endif -%}
+                                            {%- if loop.last %}
+                                                {%- if author.name == "Autore da definire" -%}
+                                                    <span class="text-warning">.</span>
+                                                {%- endif -%}
+                                            {%- else %}
+                                                <span>.</span>
+                                            {%- endif -%}
                                     </span>
                                     {%- endfor %}
                                 </td>
                             </tr>
                             <tr>
-                                <th>Data</th>
-                                <td>{{ talk.date }}</td>
+                                <th><div class="pt-lg">Data</div></th>
+                                <td><div class="pt-lg">{{ talk.date }}</div></td>
                             </tr>
                             <tr>
                                 <th>Slot</th>
