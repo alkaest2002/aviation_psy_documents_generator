@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <title>Lettera di Accettazione Contributo</title>
     <link rel="stylesheet" href="style_invite.css">
+    <style>
+        .event-detail__label {
+            min-width: 7em;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,7 +48,7 @@
 
                 <div class="event-detail__stack">
                     
-                    <div>
+                    <div class="event-detail__row">
                         <span class="event-detail__label">Data e ora</span>
                         <span class="event-detail__value">
                             {{ talk_date }} ·
@@ -52,7 +57,7 @@
                     </div>
                     
                     {% if talk_panel %}
-                        <div>
+                        <div class="event-detail__row">
                             <span class="event-detail__label">Sessione</span>
                             <span class="event-detail__value">{{ talk_panel }}</span>
                         </div>
@@ -60,7 +65,7 @@
 
                     
                     {% if author_collaborates_with %}
-                        <div>
+                        <div class="event-detail__row">
                             <span class="event-detail__label">
                                 Ruolo
                             </span>
@@ -68,7 +73,7 @@
                                 {% if author_is_first %}Autore principale{% else %}Co-Autore{% endif %}
                             </span>
                         </div>
-                        <div>
+                        <div class="event-detail__row">
                             <span class="event-detail__label">
                                 Et alii
                             </span>
