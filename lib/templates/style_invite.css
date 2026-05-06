@@ -23,10 +23,7 @@
   --font-size-org:              7.5pt;
   --font-size-sub:              7pt;
   --font-size-event-main:       13pt;
-  --font-size-recipient-name:   10pt;
-  --font-size-recipient-meta:   8.5pt;
   --font-size-detail-day:       8.5pt;
-  --font-size-detail-badge:     6.5pt;
   --font-size-detail-row:       8.5pt;
   --font-size-detail-label:     7pt;
   --font-size-sig-name:         10pt;
@@ -38,7 +35,6 @@
   --tracking-sub:               0.09em;
   --tracking-event-label:       0.20em;
   --tracking-event-date:        0.10em;
-  --tracking-detail-badge:      0.08em;
   --tracking-detail-label:      0.07em;
 
   /* ── Spacing — letterhead ───────────────────────────────── */
@@ -52,11 +48,6 @@
   --space-event-label-mb:       0.25em;
   --space-event-main-mb:        0.2em;
 
-  /* ── Spacing — recipient ────────────────────────────────── */
-  --space-recipient-mb:         0.9em;
-  --space-recipient-name-mb:    0.08em;
-  --line-height-recipient-meta: 1.3;
-
   /* ── Spacing — salutation ───────────────────────────────── */
   --space-salutation-mb:        0.6em;
 
@@ -65,15 +56,11 @@
 
   /* ── Spacing — event detail ─────────────────────────────── */
   --space-detail-m:             1.2em 0;
-  --space-detail-m-stacked:     0.8em;
   --space-detail-p:             0.6em 0.9em;
   --space-detail-gap:           0.5em;
   --space-detail-label-pt:      0.15em;
   --detail-border-w:            2px;
   --detail-label-min-w:         4.5em;
-  --space-detail-badge-ml:      0.4em;
-  --space-detail-badge-p:       0.1em 0.4em;
-  --detail-badge-border-w:      0.5px;
   --line-height-detail-row:     1.45;
 
   /* ── Spacing — closing ──────────────────────────────────── */
@@ -172,28 +159,6 @@
   margin: 0;
 }
 
-/* ─── Recipient ──────────────────────────────────────────── */
-
-.recipient {
-  margin-bottom: var(--space-recipient-mb);
-  text-align: right;
-}
-
-.recipient__name {
-  font-family: var(--font-display);
-  font-size: var(--font-size-recipient-name);
-  font-weight: 600;
-  margin: 0 0 var(--space-recipient-name-mb);
-}
-
-.recipient__role,
-.recipient__org {
-  font-size: var(--font-size-recipient-meta);
-  color: var(--color-muted);
-  margin: 0;
-  line-height: var(--line-height-recipient-meta);
-}
-
 /* ─── Salutation ─────────────────────────────────────────── */
 
 .salutation {
@@ -221,30 +186,12 @@
   print-color-adjust: exact;
 }
 
-.event-detail + .event-detail {
-  margin-top: var(--space-detail-m-stacked);
-}
-
 .event-detail__day {
   font-family: var(--font-display);
   font-size: var(--font-size-detail-day);
   font-weight: 600;
   font-style: italic;
   margin: 0;
-}
-
-.event-detail__badge {
-  display: inline-block;
-  font-size: var(--font-size-detail-badge);
-  font-style: normal;
-  font-weight: 600;
-  letter-spacing: var(--tracking-detail-badge);
-  text-transform: uppercase;
-  color: var(--color-gold);
-  border: var(--detail-badge-border-w) solid var(--color-gold-light);
-  padding: var(--space-detail-badge-p);
-  margin-left: var(--space-detail-badge-ml);
-  vertical-align: middle;
 }
 
 .event-detail__row {
@@ -286,8 +233,7 @@
   margin: 0 0 var(--space-sig-name-mb);
 }
 
-.closing__signature-role,
-.closing__signature-org {
+.closing__signature-role {
   font-size: var(--font-size-sig-meta);
   color: var(--color-muted);
   margin: 0;
@@ -305,12 +251,6 @@
   font-size: var(--font-size-footer);
   color: var(--color-faint);
   line-height: var(--line-height-footer);
-}
-
-/* ─── Speaker letter overrides ───────────────────────────── */
-
-.letter--speaker .event-detail__label {
-  min-width: 7em;
 }
 
 /* ─── Submission list ────────────────────────────────────── */
