@@ -17,7 +17,7 @@ from lib.data_invite_guest import get_data as invite_guest_data
 from lib.data_invite_speaker import get_data as invite_speaker_data
 
 
-HOOKS : dict[str, callable] = {
+DATA_PROVIDERS : dict[str, callable] = {
     "program": program_data,
     "invite_guest": invite_guest_data,
     "invite_speaker": invite_speaker_data,
@@ -50,8 +50,8 @@ def generate_docs(args: argparse.Namespace) -> None:
     template: Template = env.get_template(f"tpl_{template_name}.html")
 
     # Call the appropriate hook if it exists
-    if template_name in HOOKS:
-        data: list[tuple[str, dict[str, Any]]] = HOOKS[template_name](options)
+    if template_name in DATA_PROVIDERS:
+        data: list[tuple[str, dict[str, Any]]] = DATA_PROVIDERS[template_name](options)
     else:
         raise ValueError(f"No hook defined for template: {template_name}")
     
@@ -87,11 +87,11 @@ def main() -> None:
         # Generate the docs on the provided template and options
         generate_docs(args)
     
-    except (JSONDataError, JinjaError, PathsError, ValueError) as e:
+    except (JSONDataError, JinjaError, PathsError, TemplateNotFound, ValueError) as e:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
-    except TemplateNotFound as e:
-        print(f"Error: Template not found - {e}", file=sys.stderr)
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}", file=sys.stderr)
         sys.exit(1)
 
 
