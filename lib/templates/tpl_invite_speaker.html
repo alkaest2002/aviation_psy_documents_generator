@@ -112,10 +112,13 @@
                 </li>
             </ul>
 
-            <p><strong>Nota importante:</strong> si precisa che solo l'<em>autore principale</em> è tenuto a produrre
-                tutta la documentazione richiesta. I <em>co-autori</em> {% if not author_is_first %}&mdash; come nel Suo
-                caso &mdash;{% endif %} possono limitarsi alla trasmissione del solo curriculum vitae (redatto secondo
-                le specifiche illustrate in precedenza).</p>
+            {% if author_collaborates_with %}
+                <p><strong>Nota importante:</strong> si precisa che solo l'<em>autore principale</em> è tenuto a produrre
+                    tutta la documentazione richiesta. I <em>co-autori</em> {% if not author_is_first %}&mdash; come nel Suo
+                    caso &mdash;{% endif %} possono limitarsi alla trasmissione del solo curriculum vitae (redatto secondo
+                    le specifiche illustrate in precedenza).
+                </p>
+            {% endif %}
 
             <p>
                 La prego di inviare quanto dovuto
