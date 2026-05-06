@@ -49,7 +49,6 @@ def get_data(options: str | None = None) -> dict[str, Any]:
                 })
 
     # In this context, options is expected to be a jq filter 
-    # that selects specific speakers from the list of all speakers.
     if options:
         speakers = jq.compile(options).input(all_speakers).all()
     else:

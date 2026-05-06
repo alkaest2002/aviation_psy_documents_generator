@@ -16,7 +16,6 @@ def get_data(options: str | None = None) -> dict[str, Any]:
     all_invitees = data["invitations"]
 
     # In this context, options is expected to be a jq filter 
-    # that selects specific invitees from the list of all invitees.
     if options:
         invitees = jq.compile(options).input(all_invitees).all()
     else:
