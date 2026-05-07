@@ -34,11 +34,11 @@ def _get_speakers(data: dict[str, Any]) -> list[dict[str, Any]]:
         [dict(zip(fields, t)) for t in unique], key=lambda a: (a.get("name") or "").lower(),
     )
 
-def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
+def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     """Load and process program data, extracting speaker information and applying optional jq filters.
     
     Args:
-        options (str | None): An optional jq filter to apply to the program data.
+        jq_filter (str | None): An optional jq filter to apply to the program data.
 
     Returns:
         list[tuple[str, dict[str, Any]]]: A list of tuples containing a single identifier ("program") 
@@ -52,9 +52,8 @@ def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     # data dictionary under the "speakers" key
     data["speakers"] = _get_speakers(data)
 
-    # In this context, options is expected to be a jq filter 
-    if options:
-        data = jq.compile(options).input(data).all()
+    if jq_filter:
+        data = jq.compile(jq_filter).input(data).all()
 
     return [(normalize_filename("program"), data)]
 

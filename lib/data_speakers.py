@@ -9,11 +9,11 @@ from lib.data import JSONData
 from lib.utils import normalize_filename
 
 
-def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
+def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     """Load and process speaker data from the program, applying optional jq filters.
     
     Args:
-        options (str | None): An optional jq filter to apply to the speaker data.
+        jq_filter (str | None): An optional jq filter to apply to the speaker data.
 
     Returns:
         list[tuple[str, dict[str, Any]]]: A list of tuples containing speaker identifiers and 
@@ -60,9 +60,8 @@ def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
                     **paperExpirationDates
                 })
 
-    # In this context, options is expected to be a jq filter 
-    if options:
-        speakers = jq.compile(options).input(all_speakers).all()
+    if jq_filter:
+        speakers = jq.compile(jq_filter).input(all_speakers).all()
     else:
         speakers = all_speakers
 

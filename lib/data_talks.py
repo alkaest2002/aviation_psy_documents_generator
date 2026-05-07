@@ -12,11 +12,11 @@ from lib.data import JSONData
 from lib.utils import normalize_filename
 
 
-def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
+def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     """Load and process speaker data from the program, applying optional jq filters.
     
     Args:
-        options (str | None): An optional jq filter to apply to the speaker data.
+        jq_filter (str | None): An optional jq filter to apply to the speaker data.
 
     Returns:
         list[tuple[str, dict[str, Any]]]: A list of tuples containing speaker identifiers and 
@@ -39,26 +39,26 @@ def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
                     if talk.get("eventType") == "talk":
                         all_talks.append({**talk, "date": day.get("date"), "panel": event.get("title")})
 
+    # In this context, jq_filter is expected to be a jq filter 
+    if jq_filter:
+        processed_talks = jq.compile(jq_filter).input(all_talks).all()
+    else:
+        processed_talks = all_talks
+    
     # Group talks by their status
-    # sort order: tobeDefined, toBeConfirmed, final, unknown (use findIndex)
     status_order = ["toBeDefined", "toBeConfirmed", "final", "unknown"]
-    data_sorted = sorted(all_talks, key=lambda x: status_order.index(x.get("status", "unknown")))
-    processed_talks = {
+    data_sorted = sorted(processed_talks, key=lambda x: status_order.index(x.get("status", "unknown")))
+    talks_by_status = {
         key: list(group) for key, group in groupby(data_sorted, key=lambda x: x.get("status", "unknown"))
     }
-
-    # In this context, options is expected to be a jq filter 
-    if options:
-        talks = jq.compile(options).input(processed_talks).all()
-    else:
-        talks = processed_talks
 
     tz = pytz.timezone('Europe/Rome')
     current_time = datetime.datetime.now(tz)
     current_time = current_time.strftime("%d/%m/%Y")
 
     return [(normalize_filename("talks"), {
-        "talks": talks,
+        "talks": all_talks,
+        "talks_by_status": talks_by_status,
         "updated_at": current_time
     })]
 

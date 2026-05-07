@@ -10,11 +10,11 @@ from lib.data import JSONData
 from lib.utils import normalize_filename
 
 
-def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
+def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     """Load and process invitation data for speakers, applying optional jq filters.
     
     Args:
-        options (str | None): An optional jq filter to apply to the invitee data.
+        jq_filter (str | None): An optional jq filter to apply to the invitee data.
 
     Returns:
         list[tuple[str, dict[str, Any]]]: A list of tuples containing invitee identifiers and 
@@ -28,9 +28,8 @@ def get_data(options: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     processed_invitations = []
     all_invitees = data["invitations"]
 
-    # In this context, options is expected to be a jq filter 
-    if options:
-        invitees = jq.compile(options).input(all_invitees).all()
+    if jq_filter:
+        invitees = jq.compile(jq_filter).input(all_invitees).all()
     else:
         invitees = all_invitees
     
