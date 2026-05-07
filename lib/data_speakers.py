@@ -68,7 +68,7 @@ def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     # Process each speaker and prepare data for rendering
     for speaker in speakers:
         processed_speakers.append((
-            f"relatori_{normalize_filename(speaker['author_name'])}", 
+            normalize_filename(speaker['author_name']), 
             speaker
         ))
         

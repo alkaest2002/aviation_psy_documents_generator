@@ -65,19 +65,19 @@ def generate_docs(args: argparse.Namespace) -> None:
         filename, item_data = item
 
         # Render the template for the current item
-        rendered_html: str = template.render(item_data)
+        rendered_tpl: str = template.render(item_data)
 
         # case match
         match output_format:
             case "pdf":
-                (HTML(string=rendered_html, base_url=str(templates_path))
-                    .write_pdf(str(output_path / f"{filename}.pdf")))
+                (HTML(string=rendered_tpl, base_url=str(templates_path))
+                    .write_pdf(output_path / f"{template_name}_{filename}.pdf"))
             case "html":
-                ((output_path / f"{filename}.html")
-                    .write_text(rendered_html, encoding="utf-8"))
+                ((output_path / f"{template_name}_{filename}.html")
+                    .write_text(rendered_tpl, encoding="utf-8"))
             case "txt":
-                ((output_path / f"{filename}.txt")
-                    .write_text(rendered_html, encoding="utf-8"))
+                ((output_path / f"{template_name}_{filename}.txt")
+                    .write_text(rendered_tpl, encoding="utf-8"))
 
     # Print success message
     print(f"finished rendering job for {template_name}")
