@@ -1,0 +1,115 @@
+{%- if not author_collaborates_with -%}
+Gentile {{ author_title }} {{ author_name }},
+
+
+il Centro di Psicologia sta selezionando i relatori del III Convegno
+Nazionale di Psicologia dell'Aviazione, organizzato dal Corpo Sanitario
+dell'Aeronautica Militare, e ritiene che la tua esperienza professionale
+possa essere oggetto di un contributo, in linea con i temi affrontati
+dal programma scientifico.
+
+L'evento si terrà il 27 e 28 ottobre 2026 a Milano e rappresenta
+un'importante occasione di confronto, condivisione di
+esperienze e valorizzazione delle attività svolte nell'ambito della
+psicologia aeronautica.
+
+Ti invitiamo pertanto a considerare la tua partecipazione in qualità di
+Relatore come prioritaria.
+
+---------------------------------------------------
+Titolo del contributo
+{{ talk_title }}
+
+Data
+{{ talk_date }}
+
+Orario
+{{ talk_timeWindow }}
+
+Durata
+{{ talk_duration }} minuti
+
+Panel
+{{ talk_panel }}
+---------------------------------------------------
+
+Qualora dovessi trovarti in circostanze particolari che rendano impossibile
+la partecipazione, ti chiediamo cortesemente di comunicarcelo nel più
+breve tempo possibile, e comunque entro il mese di maggio 2026. In assenza
+di un tuo riscontro entro tale termine, il Comitato Scientifico inserirà
+il tuo nome nel programma ufficiale del Convegno.
+
+Restiamo naturalmente a disposizione per qualsiasi chiarimento. Per
+ulteriori informazioni è possibile contattare direttamente il Col.
+Mastrorilli all'indirizzo:
+
+  andrea.mastrorilli@aeronautica.difesa.it
+
+Ti ringraziamo fin d'ora per la disponibilità e la collaborazione.
+
+Un caro saluto,
+
+{%- endif -%}
+{%- if author_collaborates_with -%}
+Gentili {{ author_title }} {{ author_name }},
+{%- for author in author_collaborates_with -%}
+{{ author.title }} {{ author.name }}{% if loop.last -%},{{ "\n" }}{%- else -%}, {%- endif -%}
+{%- endfor -%}
+
+
+il Centro di Psicologia sta selezionando i relatori del III Convegno
+Nazionale di Psicologia dell'Aviazione, organizzato dal Corpo Sanitario
+dell'Aeronautica Militare, e ritiene che la vostra esperienza professionale
+possa essere oggetto di un contributo, in linea con i temi affrontati
+dal programma scientifico.
+
+L'evento si terrà il 27 e 28 ottobre 2026 a Milano e rappresenta
+un'importante occasione di confronto professionale, condivisione di
+esperienze e valorizzazione delle attività svolte nell'ambito della
+psicologia aeronautica.
+
+Vi invitiamo pertanto a considerare la vostra partecipazione in qualità
+di Autori come prioritaria.
+
+---------------------------------------------------
+Titolo del contributo
+{{ talk_title }}
+
+Data
+{{ talk_date }}
+
+Orario
+{{ talk_timeWindow }}
+
+Durata
+{{ talk_duration }} minuti
+
+Panel
+{{ talk_panel }}
+---------------------------------------------------
+
+Il gruppo di autori dovrà designare un Relatore principale che presenterà
+il contributo durante il Convegno. Vi chiediamo pertanto di coordinarvi
+tra di voi al fine di:
+
+  1. individuare il Relatore che presenterà il contributo;
+  2. comunicarci il nominativo entro il mese di maggio 2026, così da
+     poter aggiornare il programma ufficiale.
+
+Qualora doveste trovarvi in circostanze particolari che rendano impossibile
+la partecipazione, vi chiediamo cortesemente di comunicarcelo nel più
+breve tempo possibile, e comunque entro il mese di maggio 2026. In assenza
+di un vostro riscontro entro tale termine, il Comitato Scientifico
+inserirà i vostri nomi nel programma ufficiale del Convegno.
+
+Restiamo naturalmente a disposizione per qualsiasi chiarimento. Per
+ulteriori informazioni è possibile contattare direttamente il Col.
+Mastrorilli all'indirizzo:
+
+  andrea.mastrorilli@aeronautica.difesa.it
+
+Vi ringraziamo fin d'ora per la disponibilità e la collaborazione.
+
+Un caro saluto,
+
+{%- endif -%}

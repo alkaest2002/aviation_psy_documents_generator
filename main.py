@@ -13,22 +13,23 @@ from lib.jinja import get_jinja_env, JinjaError
 from lib.data import JSONDataError
 from lib.paths import get_paths, PathEnum, PathsError
 from lib.data_program import get_data as program_data
-from lib.data_invite_guest import get_data as invite_guest_data
-from lib.data_invite_speaker import get_data as invite_speaker_data
+from lib.data_guests import get_data as guests_data
+from lib.data_speakers import get_data as speakers_data
 from lib.data_talks import get_data as talks_data
 
 DATA_PROVIDERS : dict[str, callable] = {
     "program": program_data,
-    "invite_guest": invite_guest_data,
-    "invite_speaker": invite_speaker_data,
+    "guest_invite": guests_data,
+    "speaker_invite": speakers_data,
+    "speaker_email": speakers_data,
     "talks": talks_data,
 }
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Render a Jinja2 template to PDF.")
+    parser.add_argument("-o", "--output", type=str, choices=["pdf", "html", "txt"], default="pdf", help="Output format")
+    parser.add_argument("-q", "--js_filter", type=str, help="Optional jq filter to apply to the data before rendering")
     parser.add_argument("-t", "--template", type=str, required=True, help="Template name")
-    parser.add_argument("-o", "--options", type=str, help="Additional options for future use")
-    parser.add_argument("-x", "--html", action="store_true", help="Output HTML alongside PDF for debugging")
     return parser.parse_args()
 
 
@@ -36,8 +37,8 @@ def generate_docs(args: argparse.Namespace) -> None:
 
     # Extract arguments
     template_name: str = args.template
-    options: str | None = args.options
-    output_html: bool = args.html
+    js_filter: str | None = args.js_filter
+    output_format: str = args.output
     
     # Get paths
     paths: dict[PathEnum, Path] = get_paths(PathEnum.TEMPLATES, PathEnum.OUTPUT)
@@ -52,7 +53,7 @@ def generate_docs(args: argparse.Namespace) -> None:
 
     # Call the appropriate hook if it exists
     if template_name in DATA_PROVIDERS:
-        data: list[tuple[str, dict[str, Any]]] = DATA_PROVIDERS[template_name](options)
+        data: list[tuple[str, dict[str, Any]]] = DATA_PROVIDERS[template_name](js_filter)
     else:
         raise ValueError(f"No hook defined for template: {template_name}")
     
@@ -64,16 +65,19 @@ def generate_docs(args: argparse.Namespace) -> None:
         filename, item_data = item
 
         # Render the template for the current item
-        rendered_html: str = template.render(item_data)  
+        rendered_html: str = template.render(item_data)
 
-        # Write the rendered HTML to PDF using WeasyPrint#
-        HTML(string=rendered_html, base_url=str(templates_path)).write_pdf(
-            str(output_path / f"{filename}.pdf")
-        )
-
-        # Optionally write the rendered HTML to a file for debugging
-        if output_html:
-            (output_path / f"{filename}.html").write_text(rendered_html, encoding="utf-8")
+        # case match
+        match output_format:
+            case "pdf":
+                (HTML(string=rendered_html, base_url=str(templates_path))
+                    .write_pdf(str(output_path / f"{filename}.pdf")))
+            case "html":
+                ((output_path / f"{filename}.html")
+                    .write_text(rendered_html, encoding="utf-8"))
+            case "txt":
+                ((output_path / f"{filename}.txt")
+                    .write_text(rendered_html, encoding="utf-8"))
 
     # Print success message
     print(f"finished rendering job for {template_name}")
