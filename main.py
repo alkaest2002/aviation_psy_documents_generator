@@ -20,8 +20,9 @@ from lib.data_talks import get_data as talks_data
 DATA_PROVIDERS : dict[str, callable] = {
     "program": program_data,
     "guest_invite": guests_data,
-    "speaker_invite": speakers_data,
     "speaker_email": speakers_data,
+    "speaker_invite": speakers_data,
+    "speaker_invite_email": speakers_data,
     "talks": talks_data,
 }
 
