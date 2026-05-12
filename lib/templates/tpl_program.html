@@ -58,7 +58,7 @@
         <h2>{{ counter }}. Obiettivi</h2>
         <ul>
             {%- for objective in objectives %}
-            <li>{{ objective }}{% if not loop.last %};{% else %}.{% endif %}</li>
+            <li>{{ objective | safe }}{% if not loop.last %};{% else %}.{% endif %}</li>
             {%- endfor %}
         </ul>
 
@@ -75,7 +75,7 @@
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Disseminazione</h2>
-        <p>Il convegno sarà ampiamente pubblicizzato attraverso i canali ufficiali dell'Aeronautica Militare, inclusi il sito web istituzionale, i profili social media e le newsletter rivolte al personale sanitario e aeronautico.</p>
+        <p>Il convegno sarà pubblicizzato attraverso i canali ufficiali dell'Aeronautica Militare, inclusi il sito web istituzionale, i profili social media e le newsletter.</p>
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Comitato scientifico</h2>
@@ -89,11 +89,11 @@
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Educazione continua in medicina</h2>
-        <p>Il convegno ha avviato le procedure per il riconoscimento di {{ registration.ecm.amount }} crediti ECM. L'accreditamento, attualmente in fase di valutazione, è previsto per le categorie di {{ registration.ecm.validFor | join(", ") }}.</p>
+        <p>Sono state avviate le procedure per il riconoscimento di {{ registration.ecm.amount }} crediti ECM. L'accreditamento &mdash; attualmente in fase di valutazione &mdash; è previsto per le categorie di {{ registration.ecm.validFor | join(", ") }}.</p>
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Patrocini richiesti</h2>
-        <p class="patronage-intro">I temi trattati nel convegno, incentrati sulla psicologia dell'aviazione e sulle sue applicazioni in ambito operativo e della sicurezza del volo, si allineano pienamente con i fini istituzionali degli Enti a cui è stato richiesto il patrocinio, i quali perseguono obiettivi di promozione della ricerca scientifica, di tutela della salute del personale e di incremento degli standard di sicurezza nel settore aeronautico e della difesa.</p>
+        <p class="patronage-intro">I diversi temi trattati, incentrati sulla psicologia dell'aviazione e sulle sue applicazioni in ambito operativo e della sicurezza del volo, si allineano con i fini istituzionali degli Enti a cui è stato richiesto il patrocinio, i quali perseguono obiettivi di promozione della ricerca scientifica, di tutela della salute del personale e di incremento degli standard di sicurezza nel settore aeronautico.</p>
         <ul>
             {% for patron in patronage %}
             <li>

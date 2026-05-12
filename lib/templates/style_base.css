@@ -38,7 +38,7 @@
     /* ── Spacing ────────────────────────────────────────────── */
     --space-block: 0.4em;
     --space-heading-top: 1.2em;
-    --space-heading-bot: 0.5em;
+    --space-heading-bottom: 0.5em;
     --space-list-indent: 1.25em;
     --space-list-item-h: 0.5em;
     --space-list-item-v: 0.2em;
@@ -123,7 +123,7 @@ h5,
 h6 {
     font-weight: 600;
     line-height: var(--line-height-tight);
-    margin: var(--space-heading-top) 0 var(--space-heading-bot);
+    margin: var(--space-heading-top) 0 var(--space-heading-bottom);
     page-break-after: avoid;
     break-after: avoid-page;
     break-inside: avoid;

@@ -5,7 +5,7 @@
 
 :root {
   /* ── Page ───────────────────────────────────────────────── */
-  --page-margin-v: 20mm;
+  --page-margin-v: 25mm;
   --page-margin-h: 25mm;
 
   /* ── Colours ────────────────────────────────────────────── */
@@ -25,24 +25,15 @@
 
   /* ── Spacing ────────────────────────────────────────────── */
   --line-height: 1.2;
-  --space-after-headings: 1em;
-  --space-caption-bot: 0.35em;
-  --space-th-p: 0.35em 0.45em;
-  --space-td-p: 0.3em 0.45em;
-  --space-tfoot-p: 0.35em 0.45em 0.2em;
-  --space-figcaption: 0.3em;
-  --space-hr: 1.1em;
+  --space-after-headings: 0.5em;
+  --space-list-indent: 1em;
 
   /* ── Table ──────────────────────────────────────────────── */
   --font-size-tfoot: 0.95em;
 
   /* ── Misc ───────────────────────────────────────────────── */
   --crest_size: 35mm;
-  --font-size-figcaption: 0.95em;
-  --font-size-code: 0.92em;
   --font-size-sm: 0.85em;
-  --line-height-pre: 1.35;
-  --blockquote-rule-w: 2px;
 
   /* ── Program-specific ───────────────────────────────────── */
   --event-block-margin: 10px;
@@ -99,6 +90,15 @@ p,
 p * {
   hyphens: auto;
   padding-bottom: 0.03em;
+}
+
+ul {
+  margin: 0;
+  padding-left: var(--space-list-indent);
+}
+
+p + ul {
+  margin-top: 1em;
 }
 
 
