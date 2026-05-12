@@ -88,12 +88,12 @@
         </ul>
 
         {% set counter = counter + 1 %}
-        <h2>{{ counter }}. Disseminazione</h2>
-        <p class="text-justify">Il convegno sarà pubblicizzato attraverso i canali ufficiali dell'Aeronautica Militare, inclusi il sito web istituzionale, i profili social media e le newsletter.</p>
-
-        {% set counter = counter + 1 %}
         <h2>{{ counter }}. Educazione continua in medicina</h2>
         <p class="text-justify">Sono state avviate le procedure per il riconoscimento di {{ registration.ecm.amount }} crediti ECM per massimo {{registration.maxParticipants}} partecipanti. L'accreditamento &mdash; attualmente in fase di revisione &mdash; è previsto per le categorie di {{ registration.ecm.validFor | join(", ") }}.</p>
+
+        {% set counter = counter + 1 %}
+        <h2>{{ counter }}. Disseminazione</h2>
+        <p class="text-justify">Il convegno sarà pubblicizzato attraverso i canali ufficiali dell'Aeronautica Militare, inclusi il sito web istituzionale, i profili social media e le newsletter. Maggiori dettagli sono consultabili accedendo al sito https://aviation-psy.com.</p>
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Patrocini richiesti</h2>
@@ -147,11 +147,6 @@
             </li>
         {%- endfor %}
         </ul>
-
-        {% set counter = counter + 1 %}
-        <h2>{{ counter }}. Sito informativo</h2>
-        <p>https://aviation-psy.com</p>
-
     </main>
 </body>
 
