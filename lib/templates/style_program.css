@@ -6,7 +6,7 @@
 :root {
   /* ── Page ───────────────────────────────────────────────── */
   --page-margin-v: 25mm;
-  --page-margin-h: 25mm;
+  --page-margin-h: 30mm;
 
   /* ── Colours ────────────────────────────────────────────── */
   --color-muted: #444;
@@ -66,7 +66,7 @@ h2 {
 }
 
 h2:first-of-type {
-  margin-top: 5em;
+  margin-top: 3em;
 }
 
 h6 {
@@ -134,18 +134,11 @@ p + ul {
   font-weight: 600;
 }
 
-.description * {
-  text-align: justify;
-}
-
 .event-block {
-  padding: var(--event-block-padding) 0;
-  border-bottom: .5px solid var(--event-block-rule-color);
   break-inside: avoid;
-}
-
-.event-block * {
-  padding-left: calc(var(--event-block-padding)/2);
+  margin: var(--event-block-padding) 0;
+  padding-left: var(--event-block-padding);
+  border-left: 1px solid var(--event-block-rule-color);
 }
 
 .event-block__meta,
@@ -157,11 +150,6 @@ p + ul {
   font-family: "CMU Classical Serif", "Computer Modern", serif;
   font-style: italic;
   font-size: var(--font-size-sm);
-}
-
-.description,
-.patronage-intro {
-  text-align: left;
 }
 
 .speaker-entry {
