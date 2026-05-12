@@ -1,17 +1,22 @@
 {% macro event_table(date, event_data) %}
     <div class="event-block">
-        <p class="text-muted text-sm text-justify event-block__meta">
+        <p class="text-muted text-sm event-block__meta">
             {%- set from_time = event_data.timeWindow.split(" - ")[0] %}
             {%- set to_time = event_data.timeWindow.split(" - ")[1] %}
             {{ date }} dalle {{ from_time }} alle {{ to_time }} ({{ event_data.duration }} minuti)
         </p>
-        <p class="text-bold text-justify event-block__title">
+        <p class="text-bold event-block__title">
             {{ event_data.title }}
         </p>
         {%- if event_data.authors is not none and event_data.authors | length > 0 %}
-        <p class="italic text-sm text-justify event-block__authors">
+        <p class="italic text-sm event-block__authors">
             {%- for author in event_data.authors %}
-                {{ author.values() | join(", ") | strip_cs }}{% if not loop.last %} | {% endif %}
+                {%- if author.name != "Autore da definire" %}
+                    {{ author.title }} {{ author.name }} ({{ author.role }} {{ author.affiliation }})
+                    {%- if not loop.last %};{% else %}.{% endif %}
+                {%- else %}
+                    {{ author.name }}
+                {%- endif %}
             {%- endfor %}
         </p>
         {%- endif %}
@@ -33,10 +38,17 @@
     <main>
         {% set counter = 1 %}
         <h1>{{ title }}</h1>
+        <p>Milano, 27 e 28 ottobre 2026</p>
+        
+        <h2>{{ counter }}. Organizzatore</h2>
+        Corpo Sanitario Aeronautico e Centro di Psicologia AM.
+        
+        {% set counter = counter + 1 %}
+        
         <h2>{{ counter }}. Descrizione</h2>
-        <p class="description">
+        <div class="description">
             {{ description | safe }}
-        </p>
+        </div>
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Obiettivi</h2>
@@ -68,7 +80,7 @@
         </ul>
 
         {% set counter = counter + 1 %}
-        <h2>{{ counter }}. ECM</h2>
+        <h2>{{ counter }}. Educazione continua in medicina</h2>
         <p>{{ registration.ecm.amount }} crediti ECM validi per {{ registration.ecm.validFor | join(", ") }}.</p>
 
         {% set counter = counter + 1 %}
@@ -82,35 +94,33 @@
             {% endfor %}
         </ul>
 
-        <section class="page">
-            {% set counter = counter + 1 %}
-            <h2>{{ counter }}. Attività</h2>
-            <div>
-                {%- for day in days %}
-                    {%- for event in day.events %}
-                        {%- if event.talks is not none and event.talks | length > 0 %}
-                            {%- for talk in event.talks %}
-                                {{ event_table(day.date, talk) }}
-                            {%- endfor %}
-                        {%- else %}
-                            {{ event_table(day.date, event) }}
-                        {%- endif %}
-                    {%- endfor %}
+        {% set counter = counter + 1 %}
+        <h2>{{ counter }}. Attività</h2>
+        <div>
+            {%- for day in days %}
+                {%- for event in day.events %}
+                    {%- if event.talks is not none and event.talks | length > 0 %}
+                        {%- for talk in event.talks %}
+                            {{ event_table(day.date, talk) }}
+                        {%- endfor %}
+                    {%- else %}
+                        {{ event_table(day.date, event) }}
+                    {%- endif %}
                 {%- endfor %}
-            </div>
+            {%- endfor %}
+        </div>
 
-            {% set counter = counter + 1 %}
-            <h2>{{ counter }}. Elenco relatori</h2>
-            <div>
-                {%- for speaker in speakers %}
-                    <p class="speaker-entry">
-                        {% if speaker.name != "Autore da definire" %}
-                            {{ speaker.title }} {{ speaker.name }} ({%- if speaker.role %}{{ speaker.role + " " }} {%- endif %}{{ speaker.affiliation }}){% if not loop.last %};{% else %}.{% endif %}
-                        {% endif %}
-                    </p>
-                {%- endfor %}
-            </div>
-        </section>
+        {% set counter = counter + 1 %}
+        <h2>{{ counter }}. Elenco relatori</h2>
+        <div>
+            {%- for speaker in speakers %}
+                <p class="speaker-entry">
+                    {% if speaker.name != "Autore da definire" %}
+                        {{ speaker.title }} {{ speaker.name }} ({%- if speaker.role %}{{ speaker.role + " " }} {%- endif %}{{ speaker.affiliation }}){% if not loop.last %};{% else %}.{% endif %}
+                    {% endif %}
+                </p>
+            {%- endfor %}
+        </div>
     </main>
 </body>
 
