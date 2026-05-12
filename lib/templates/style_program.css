@@ -89,7 +89,7 @@ em, em * {
 }
 
 strong, strong * {
-  font-family: var(--font-family-classical-serif);
+  font-family: var(--font-family-serif);
   font-weight: bold;
 }
 

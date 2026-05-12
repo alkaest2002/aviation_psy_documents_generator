@@ -27,7 +27,7 @@ def _get_speakers(data: dict[str, Any]) -> list[dict[str, Any]]:
         tuple(map(a.get, fields))
             for a in pluck_nested(data, "authors")
     }
-
+   
     # Convert the unique tuples back into dictionaries 
     # and sort them by the "name" field (case-insensitive)
     return sorted(
