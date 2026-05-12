@@ -1,15 +1,15 @@
-{% macro event_table(date, event_data) %}
+{% macro event_card(date, event_data) %}
     <div class="event-block">
-        <p class="text-muted text-sm event-block__meta">
+        <div class="text-muted text-sm event-block__meta">
             {%- set from_time = event_data.timeWindow.split(" - ")[0] %}
             {%- set to_time = event_data.timeWindow.split(" - ")[1] %}
             {{ date }} dalle {{ from_time }} alle {{ to_time }} ({{ event_data.duration }} minuti)
-        </p>
-        <p class="text-bold event-block__title">
+        </div>
+        <div class="text-bold event-block__title">
             {{ event_data.title }}
-        </p>
+        </div>
         {%- if event_data.authors is not none and event_data.authors | length > 0 %}
-        <p class="italic text-sm event-block__authors">
+        <div class="text-sm event-block__authors">
             {%- for author in event_data.authors %}
                 {%- if author.name != "Autore da definire" %}
                     {{ author.title }} {{ author.name }} ({{ author.role }} {{ author.affiliation }})
@@ -18,7 +18,7 @@
                     {{ author.name }}
                 {%- endif %}
             {%- endfor %}
-        </p>
+        </div>
         {%- endif %}
     </div>
 {% endmacro %}
@@ -109,10 +109,10 @@
                 {%- for event in day.events %}
                     {%- if event.talks is not none and event.talks | length > 0 %}
                         {%- for talk in event.talks %}
-                            {{ event_table(day.date, talk) }}
+                            {{ event_card(day.date, talk) }}
                         {%- endfor %}
                     {%- else %}
-                        {{ event_table(day.date, event) }}
+                        {{ event_card(day.date, event) }}
                     {%- endif %}
                 {%- endfor %}
             {%- endfor %}
@@ -120,15 +120,15 @@
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Elenco relatori</h2>
-        <div>
+        <ul>
             {%- for speaker in speakers %}
-                <p class="speaker-entry">
+                <li>
                     {% if speaker.name != "Autore da definire" %}
                         {{ speaker.name }}, {{ speaker.title }} ({%- if speaker.role %}{{ speaker.role + " " }} {%- endif %}{{ speaker.affiliation }}){% if not loop.last %};{% else %}.{% endif %}
                     {% endif %}
-                </p>
+                </li>
             {%- endfor %}
-        </div>
+            </ul>
     </main>
 </body>
 

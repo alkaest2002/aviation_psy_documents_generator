@@ -10,10 +10,12 @@
 
   /* ── Colours ────────────────────────────────────────────── */
   --color-muted: #444;
-  --color-rule: #d9d9d9;
-  --color-rule-strong: #666;
+  --color-rule: #999;
 
-  /* ── Font sizes ─────────────────────────────────────────── */
+  /* ── Font relate ─────────────────────────────────────────── */
+  --font-family-serif: "CMU Serif", "Computer Modern", serif;
+  --font-family-classical-serif: "CMU Classical Serif", "Computer Modern", serif;
+  --font-family-sans-serif: "CMU Sans Serif", "Computer Modern", sans-serif;
   --font-size-h1: 14pt;
   --font-size-h2: 13pt;
   --font-size-h3: 12pt;
@@ -43,13 +45,14 @@
   --blockquote-rule-w: 2px;
 
   /* ── Program-specific ───────────────────────────────────── */
-  --event-block-margin-v: 12px;
-  --event-block-padding-bot: 6px;
-  --event-block-rule-color: #ccc;
+  --event-block-margin: 10px;
+  --event-block-padding: 10px;
+  --event-block-padding-left: 10px;
+  --event-block-rule-color: var(--color-rule);
 }
 
 * {
-  font-family: "CMU Serif", "Computer Modern", serif;
+  font-family: var(--font-family-serif);
   line-height: var(--line-height);
 }
 
@@ -76,8 +79,18 @@ h2:first-of-type {
 }
 
 h6 {
+  color: var(--color-muted);
+}
+
+em, em * {
+  font-family: var(--font-family-classical-serif);
   font-style: italic;
   color: var(--color-muted);
+}
+
+strong, strong * {
+  font-family: var(--font-family-classical-serif);
+  font-weight: bold;
 }
 
 /* ─── Paragraphs ─────────────────────────────────────────── */
@@ -88,42 +101,6 @@ p * {
   padding-bottom: 0.03em;
 }
 
-/* ─── Tables ─────────────────────────────────────────────── */
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-top: 1px solid var(--color-rule-strong);
-  border-bottom: 1px solid var(--color-rule-strong);
-  page-break-inside: avoid;
-  break-inside: avoid-page;
-}
-
-caption {
-  caption-side: top;
-  text-align: left;
-  font-weight: 600;
-  margin-bottom: var(--space-caption-bot);
-}
-
-thead th {
-  font-weight: 600;
-  text-align: left;
-  border-bottom: 1px solid var(--color-rule-strong);
-  padding: var(--space-th-p);
-}
-
-tbody td,
-tbody th {
-  padding: var(--space-td-p);
-}
-
-tfoot td {
-  border-top: 1px solid var(--color-rule);
-  padding: var(--space-tfoot-p);
-  font-size: var(--font-size-tfoot);
-  color: var(--color-muted);
-}
 
 /* ─── Program layout ─────────────────────────────────────── */
 
@@ -162,18 +139,23 @@ tfoot td {
 }
 
 .event-block {
-  margin: var(--event-block-margin-v) 0;
-  border-bottom: 1px solid var(--event-block-rule-color);
-  padding-bottom: var(--event-block-padding-bot);
+  padding: var(--event-block-padding) 0;
+  border-bottom: .5px solid var(--event-block-rule-color);
   break-inside: avoid;
+}
+
+.event-block * {
+  padding-left: calc(var(--event-block-padding)/2);
 }
 
 .event-block__meta,
 .event-block__title {
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .event-block__meta {
+  font-family: "CMU Classical Serif", "Computer Modern", serif;
+  font-style: italic;
   font-size: var(--font-size-sm);
 }
 
