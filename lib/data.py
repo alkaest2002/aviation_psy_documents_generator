@@ -20,7 +20,7 @@ class JSONData:
         """Load and return JSON data from the program.json file."""
         
         # Get the path to the JSON data file from the paths module
-        data_path = get_paths(PathEnum.DATA)[PathEnum.DATA]
+        data_path, = get_paths(PathEnum.DATA)
 
         try:
             with data_path.open("r", encoding="utf-8") as f:

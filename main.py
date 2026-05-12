@@ -42,9 +42,7 @@ def generate_docs(args: argparse.Namespace) -> None:
     output_format: str = args.output
     
     # Get paths
-    paths: dict[PathEnum, Path] = get_paths(PathEnum.TEMPLATES, PathEnum.OUTPUT)
-    templates_path: Path = paths[PathEnum.TEMPLATES]
-    output_path: Path = paths[PathEnum.OUTPUT]
+    templates_path, output_path = get_paths(PathEnum.TEMPLATES, PathEnum.OUTPUT)
 
     # Load and render template
     env: Environment = get_jinja_env()
