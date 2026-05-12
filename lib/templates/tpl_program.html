@@ -36,15 +36,19 @@
 
 <body>
     <main>
-        {% set counter = 1 %}
-        <h1>{{ title }}</h1>
-        <p>Milano, 27 e 28 ottobre 2026</p>
         
-        <h2>{{ counter }}. Organizzatore</h2>
-        Corpo Sanitario Aeronautico e Centro di Psicologia AM.
+        <div class="crest_container">
+            <img class="crest_image" src="img_csan.svg" alt="Stemma Aeronautica Militare">
+        </div>
+
+        {% set counter = 0 %}
+        <div class="header">
+            <p class="organizer">Corpo Sanitario AM</p>
+            <p class="title">{{ title }}</p>
+            <p class="sub-title">Milano, 27 e 28 ottobre 2026</p>
+        </div>
         
         {% set counter = counter + 1 %}
-        
         <h2>{{ counter }}. Descrizione</h2>
         <div class="description">
             {{ description | safe }}
@@ -70,6 +74,10 @@
         </ul>
 
         {% set counter = counter + 1 %}
+        <h2>{{ counter }}. Disseminazione</h2>
+        <p>Il convegno sarà ampiamente pubblicizzato attraverso i canali ufficiali dell'Aeronautica Militare, inclusi il sito web istituzionale, i profili social media e le newsletter rivolte al personale sanitario e aeronautico.</p>
+
+        {% set counter = counter + 1 %}
         <h2>{{ counter }}. Comitato scientifico</h2>
         <ul>
             {% for member in scientificCommittee %}
@@ -81,7 +89,7 @@
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Educazione continua in medicina</h2>
-        <p>{{ registration.ecm.amount }} crediti ECM validi per {{ registration.ecm.validFor | join(", ") }}.</p>
+        <p>Il convegno ha avviato le procedure per il riconoscimento di {{ registration.ecm.amount }} crediti ECM. L'accreditamento, attualmente in fase di valutazione, è previsto per le categorie di {{ registration.ecm.validFor | join(", ") }}.</p>
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Patrocini richiesti</h2>
@@ -96,7 +104,7 @@
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Attività</h2>
-        <div>
+        <div class="events">
             {%- for day in days %}
                 {%- for event in day.events %}
                     {%- if event.talks is not none and event.talks | length > 0 %}
@@ -116,7 +124,7 @@
             {%- for speaker in speakers %}
                 <p class="speaker-entry">
                     {% if speaker.name != "Autore da definire" %}
-                        {{ speaker.title }} {{ speaker.name }} ({%- if speaker.role %}{{ speaker.role + " " }} {%- endif %}{{ speaker.affiliation }}){% if not loop.last %};{% else %}.{% endif %}
+                        {{ speaker.name }}, {{ speaker.title }} ({%- if speaker.role %}{{ speaker.role + " " }} {%- endif %}{{ speaker.affiliation }}){% if not loop.last %};{% else %}.{% endif %}
                     {% endif %}
                 </p>
             {%- endfor %}
