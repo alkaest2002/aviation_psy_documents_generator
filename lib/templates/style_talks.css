@@ -29,7 +29,7 @@
   --talks-item-pad-y: 4pt;
   --talks-item-line-gap: 1pt;
 
-  --talks-authors-indent: 1.1em;
+  --talks-authors-indent: 1.1rem;
   --talks-authors-gap-top: 2pt;
 
   /* ── Colors ────────────────────────────────────────────── */
@@ -88,7 +88,7 @@ main > h2:first-of-type {
   font-size: var(--talks-subtitle-size);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.02rem;
 }
 
 .status-heading--spaced {

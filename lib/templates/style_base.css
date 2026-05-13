@@ -36,12 +36,12 @@
     --color-success: #2a7a2a;
 
     /* ── Spacing ────────────────────────────────────────────── */
-    --space-block: 0.4em;
-    --space-heading-top: 1.2em;
-    --space-heading-bottom: 0.5em;
-    --space-list-indent: 1.25em;
-    --space-list-item-h: 0.5em;
-    --space-list-item-v: 0.2em;
+    --space-block: 0.4rem;
+    --space-heading-top: 1.2rem;
+    --space-heading-bottom: 0.5rem;
+    --space-list-indent: 1.25rem;
+    --space-list-item-h: 0.5rem;
+    --space-list-item-v: 0.2rem;
 
     --space-xs: 0.125rem; /* 2px */
     --space-sm: 0.25rem; /* 4px */

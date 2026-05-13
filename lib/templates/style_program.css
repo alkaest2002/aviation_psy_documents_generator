@@ -25,15 +25,15 @@
 
   /* ── Spacing ────────────────────────────────────────────── */
   --line-height: 1.2;
-  --space-after-headings: 0.5em;
-  --space-list-indent: 1em;
+  --space-after-headings: 0.5rem;
+  --space-list-indent: 1rem;
 
   /* ── Table ──────────────────────────────────────────────── */
-  --font-size-tfoot: 0.95em;
+  --font-size-tfoot: 0.95rem;
 
   /* ── Misc ───────────────────────────────────────────────── */
   --crest_size: 35mm;
-  --font-size-sm: 0.85em;
+  --font-size-sm: 0.85rem;
 
   /* ── Program-specific ───────────────────────────────────── */
   --event-block-margin: 10px;
@@ -62,11 +62,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h2 {
-  margin-top: 1.5em;
+  margin-top: 1.5rem;
 }
 
 h2:first-of-type {
-  margin-top: 5em;
+  margin-top: 4.5rem;
 }
 
 h6 {
@@ -89,7 +89,7 @@ strong, strong * {
 p,
 p * {
   hyphens: auto;
-  padding-bottom: 0.03em;
+  padding-bottom: 0.03rem;
 }
 
 ul {
@@ -98,7 +98,7 @@ ul {
 }
 
 p + ul {
-  margin-top: 1em;
+  margin-top: 1rem;
 }
 
 
@@ -107,7 +107,7 @@ p + ul {
 .crest_container {
  display: flex;
  justify-content: center;
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 } 
 
 .crest_image {
@@ -117,7 +117,7 @@ p + ul {
 
 .header {
   text-align: center;
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 }
 
 .header * {
