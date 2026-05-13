@@ -3,7 +3,7 @@
         <div class="text-muted text-sm event-block__meta">
             {%- set from_time = event_data.timeWindow.split(" - ")[0] %}
             {%- set to_time = event_data.timeWindow.split(" - ")[1] %}
-            {{ date }} dalle {{ from_time }} alle {{ to_time }} ({{ event_data.duration }} minuti)
+            {{ date }} dalle {{ from_time }} alle {{ to_time }} &mdash; {{ event_data.duration | humanize_minutes }}
         </div>
         <div class="text-bold event-block__title">
             {{ event_data.title }}
@@ -64,7 +64,7 @@
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Destinatari</h2>
-        <p class="text-justify">l convegno si rivolge a tutti coloro che operano, studiano o hanno interesse nel settore della psicologia dell'aviazione e dell'aerospazio: psicologi e psichiatri civili e militari, medici aeronautici e AME, piloti civili e militari, istruttori di volo, controllori del traffico aereo, responsabili della sicurezza aerea, ricercatori e docenti universitari in ambito psicologico e neuroscientifico, funzionari di enti istituzionali come ENAC ed ENAV, ufficiali del Corpo Sanitario dell'Aeronautica Militare, nonché studenti universitari e specializzandi interessati ad approfondire i temi dei lavori congressuali.</p>
+        <p class="text-justify">l convegno si rivolge a tutti coloro che operano, studiano o hanno interesse nel settore della psicologia dell'aviazione e dell'aerospazio: psicologi e psichiatri civili e militari, medici aeronautici e AME (Aero Medical Examiner), piloti civili e militari, istruttori di volo, controllori del traffico aereo, responsabili della sicurezza aerea, ricercatori e docenti universitari in ambito psicologico e neuroscientifico, funzionari di enti istituzionali come ENAC ed ENAV, ufficiali del Corpo Sanitario dell'Aeronautica Militare, nonché studenti universitari e specializzandi interessati ad approfondire i temi trattati nell'ambito dei lavori congressuali.</p>
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Data e luogo</h2>

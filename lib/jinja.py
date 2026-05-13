@@ -14,6 +14,16 @@ def regex_replace(value, pattern, replacement):
         return value
     return re.sub(pattern, replacement, value)
 
+def humanize_minutes(minutes: int) -> str:
+    """Convert minutes to a human-readable format."""
+    if minutes < 60:
+        return f"{minutes} {'minuti' if minutes != 1 else 'minuto'}"
+    hours = minutes // 60
+    remaining_minutes = minutes % 60
+    if remaining_minutes == 0:
+        return f"{hours} {'ore' if hours != 1 else 'ora'}"
+    return f"{hours} {'ore' if hours != 1 else 'ora'} e {remaining_minutes} {'minuti' if remaining_minutes != 1 else 'minuto'}"
+
 def get_jinja_env() -> Environment:
     """Return a Jinja2 environment loaded from the templates folder."""
 
@@ -36,5 +46,6 @@ def get_jinja_env() -> Environment:
     # Add custom filters to the Jinja2 environment
     env.filters["regex_replace"] = regex_replace
     env.filters["strip_cs"] = lambda value: value.strip(", ")
+    env.filters["humanize_minutes"] = humanize_minutes
 
     return env
