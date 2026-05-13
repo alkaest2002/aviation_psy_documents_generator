@@ -47,7 +47,7 @@
             {% else %}
             <h2 class="status-heading status-heading--spaced">{{ get_status_label(status) }}</h2>
             {% endif %}
-            <p>{{ get_status_description(status) }}</p>
+            <p class="text-sm">{{ get_status_description(status) }}</p>
             {% for talk in talks %}
                 <div class="talk">
                     <table class="talk-table">

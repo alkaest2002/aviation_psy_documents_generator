@@ -12,10 +12,7 @@
   --color-muted: #444;
   --color-rule: #999;
 
-  /* ── Font relate ─────────────────────────────────────────── */
-  --font-family-serif: "CMU Serif", "Computer Modern", serif;
-  --font-family-classical-serif: "CMU Classical Serif", "Computer Modern", serif;
-  --font-family-sans-serif: "CMU Sans Serif", "Computer Modern", sans-serif;
+  /* ── Font related ─────────────────────────────────────────── */
   --font-size-h1: 14pt;
   --font-size-h2: 13pt;
   --font-size-h3: 12pt;
@@ -33,7 +30,7 @@
 
   /* ── Misc ───────────────────────────────────────────────── */
   --crest_size: 35mm;
-  --font-size-sm: 0.85rem;
+  --font-size-sm: 0.8rem;
 
   /* ── Program-specific ───────────────────────────────────── */
   --event-block-margin: 10px;
@@ -43,7 +40,6 @@
 }
 
 * {
-  font-family: var(--font-family-serif);
   line-height: var(--line-height);
 }
 
@@ -74,13 +70,11 @@ h6 {
 }
 
 em, em * {
-  font-family: var(--font-family-classical-serif);
   font-style: italic;
   color: var(--color-muted);
 }
 
 strong, strong * {
-  font-family: var(--font-family-serif);
   font-weight: bold;
 }
 
@@ -147,7 +141,6 @@ p + ul {
 }
 
 .event-block__meta {
-  font-family: "CMU Classical Serif", "Computer Modern", serif;
   font-style: italic;
   font-size: var(--font-size-sm);
 }

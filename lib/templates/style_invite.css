@@ -8,9 +8,6 @@
   --page-margin-v:              20mm;
   --page-margin-h:              30mm;
 
-  /* ── Typefaces ──────────────────────────────────────────── */
-  --font-display:               "Georgia", "Times New Roman", serif;
-
   /* ── Colours ────────────────────────────────────────────── */
   --color-gold:                 #8B6F3E;
   --color-gold-light:           #C4A882;
@@ -60,7 +57,7 @@
   --space-detail-gap:           0.5rem;
   --space-detail-label-pt:      0.15rem;
   --detail-border-w:            2px;
-  --detail-label-min-w:         2.5rem;
+  --detail-label-min-w:         3.5rem;
   --line-height-detail-row:     1.45;
 
   /* ── Spacing — closing ──────────────────────────────────── */
@@ -111,7 +108,6 @@
 }
 
 .letterhead__org {
-  font-family: var(--font-display);
   font-size: var(--font-size-org);
   font-weight: 600;
   letter-spacing: var(--tracking-org);
@@ -121,7 +117,6 @@
 }
 
 .letterhead__sub {
-  font-family: var(--font-display);
   font-size: var(--font-size-sub);
   letter-spacing: var(--tracking-sub);
   text-transform: uppercase;
@@ -145,7 +140,6 @@
 }
 
 .event-title__main {
-  font-family: var(--font-display);
   font-size: var(--font-size-event-main);
   font-weight: 400;
   font-style: italic;
@@ -162,7 +156,6 @@
 /* ─── Salutation ─────────────────────────────────────────── */
 
 .salutation {
-  font-family: var(--font-display);
   font-style: italic;
   margin-bottom: var(--space-salutation-mb);
 }
@@ -187,7 +180,6 @@
 }
 
 .event-detail__day {
-  font-family: var(--font-display);
   font-size: var(--font-size-detail-day);
   font-weight: 600;
   font-style: italic;
@@ -220,14 +212,12 @@
 }
 
 .closing__formula {
-  font-family: var(--font-display);
   font-style: italic;
   color: var(--color-muted);
   margin-bottom: var(--space-closing-formula-mb);
 }
 
 .closing__signature-name {
-  font-family: var(--font-display);
   font-size: var(--font-size-sig-name);
   font-weight: 600;
   margin: 0 0 var(--space-sig-name-mb);

@@ -10,8 +10,8 @@
     --page-margin-h: 25mm;
 
     /* ── Typefaces ──────────────────────────────────────────── */
-    --font-serif: "Times New Roman", Georgia, serif;
-    --font-sans: "Helvetica Neue", Arial, sans-serif;
+    --font-serif: "CMU Serif", "Computer Modern", serif;
+    --font-sans: "CMU Sans Serif", "Computer Modern", sans-serif;
     --font-mono: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
 
     /* ── Font sizes ─────────────────────────────────────────── */
