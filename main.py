@@ -69,12 +69,12 @@ def generate_docs(args: argparse.Namespace) -> None:
         match output_format:
             case "pdf":
                 (HTML(string=rendered_tpl, base_url=str(templates_path))
-                    .write_pdf(output_path / f"{template_name}_{filename}.pdf"))
+                    .write_pdf(output_path / f"{filename}.pdf"))
             case "html":
-                ((output_path / f"{template_name}_{filename}.html")
+                ((output_path / f"{filename}.html")
                     .write_text(rendered_tpl, encoding="utf-8"))
             case "txt":
-                ((output_path / f"{template_name}_{filename}.txt")
+                ((output_path / f"{filename}.txt")
                     .write_text(rendered_tpl, encoding="utf-8"))
 
     # Print success message

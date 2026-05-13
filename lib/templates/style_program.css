@@ -47,7 +47,7 @@
   margin: var(--page-margin-v) var(--page-margin-h);
 
   @top-left {
-    content: "III Convegno di Psicologia dell'Aviazione";
+    content: "III Convegno di Psicologia dell'Aviazione | Documento provvisorio";
     font-size: var(--font-size-sm);
     font-style: italic;
     color: var(--color-muted);
