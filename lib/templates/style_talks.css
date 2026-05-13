@@ -83,13 +83,12 @@ main > h2:first-of-type {
 /* Section description */
 .status-heading + p {
   margin-bottom: var(--gap-md);
-  color: var(--color-muted);
   font-size: var(--font-size-sm);
 }
 
 /* Talk row container */
 .talk {
-  margin: var(--gap-sm) 0;
+  margin: var(--gap-lg) 0;
   padding: var(--pad-item) calc(var(--pad-item) * 2);
   border-left: var(--border-width) solid var(--color-subtle);
   break-inside: avoid-page;

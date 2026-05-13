@@ -42,11 +42,8 @@
                 <h2>III Convegno di Psicologia dell'Aviazione</h2>
                 <p class="updated-at">data ultimo aggiornamento: {{ updated_at }}</p>
             </div>
-            {% if loop.first %}
             <h2 class="status-heading">{{ get_status_label(status) }}</h2>
-            {% else %}
-            <h2 class="status-heading status-heading--spaced">{{ get_status_label(status) }}</h2>
-            {% endif %}
+    
             <p class="text-sm">{{ get_status_description(status) }}</p>
             {% for talk in talks %}
                 <div class="talk">
