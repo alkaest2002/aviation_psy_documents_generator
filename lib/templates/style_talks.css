@@ -5,104 +5,95 @@
 
 :root {
   /* ── Page ──────────────────────────────────────────────── */
-  --talks-page-size: A4;
-  --talks-page-margin-v: 16mm;
-  --talks-page-margin-h: 18mm;
-  --talks-content-max-width: 180mm;
+  --page-size: A4;
+  --page-margin-v: 16mm;
+  --page-margin-h: 18mm;
+  --content-max-width: 180mm;
 
   /* ── Typography ────────────────────────────────────────── */
-  --talks-title-size: 13pt;
-  --talks-subtitle-size: 9.5pt;
-  --talks-body-size: 9.3pt;
-  --talks-meta-size: 8.5pt;
-  --talks-line-height: 1.28;
-  --talks-label-weight: 600;
+  --font-size-lg: 13pt;
+  --font-size-md: 9.5pt;
+  --font-size-sm: 9.3pt;
+  --font-size-xs: 8.5pt;
+  --line-height: 1.28;
+  --font-weight-label: 600;
 
-  /* ── Spacing (compact) ─────────────────────────────────── */
-  --talks-meta-gap-bottom: 8pt;
-  --talks-section-gap: 8pt;
-  --talks-status-gap-top: 12pt;
-  --talks-status-gap-bottom: 6pt;
+  /* ── Spacing ───────────────────────────────────────────── */
+  --gap-xs: 2pt;
+  --gap-sm: 6pt;
+  --gap-md: 8pt;
+  --gap-lg: 12pt;
+  --gap-xl: 2rem;
 
-  --talks-item-gap-y: 6pt;
-  --talks-item-pad-y: 4pt;
-  --talks-item-line-gap: 1pt;
-
-  --talks-authors-indent: 1.1rem;
-  --talks-authors-gap-top: 2pt;
+  --pad-item: 4pt;
+  --indent: 1.1rem;
 
   /* ── Colors ────────────────────────────────────────────── */
-  --talks-color-text: #1f1f1f;
-  --talks-color-muted: #5f5f5f;
-  --talks-color-rule: #555;
-  --talks-color-status-bg: #f4f4f4;
-  --talks-color-status-border: #555;
+  --color-text: #1f1f1f;
+  --color-muted: #5f5f5f;
+  --color-subtle: #555;
+  --color-bg-alt: #f4f4f4;
 
   /* ── Rules ─────────────────────────────────────────────── */
-  --talks-rule-width: 0.7px;
-  --talks-status-border-width: 0.7px;
-
-  /* ── Break behavior ────────────────────────────────────── */
-  --talks-break-inside: avoid-page;
-  --talks-page-break-inside: avoid;
+  --border-width: 0.7px;
 }
 
 @page {
-  size: var(--talks-page-size);
-  margin: var(--talks-page-margin-v) var(--talks-page-margin-h);
+  size: var(--page-size);
+  margin: var(--page-margin-v) var(--page-margin-h);
 }
 
 main {
-  max-width: var(--talks-content-max-width);
+  max-width: var(--content-max-width);
   margin: 0 auto;
-  color: var(--talks-color-text);
-  line-height: var(--talks-line-height);
+  color: var(--color-text);
+  line-height: var(--line-height);
 }
 
 /* Main report title */
 main > h2:first-of-type {
   margin-top: 0;
-  margin-bottom: 4pt;
-  font-size: var(--talks-title-size);
+  margin-bottom: var(--gap-xs);
+  font-size: var(--font-size-lg);
   line-height: 1.15;
   font-weight: 700;
 }
 
 /* Updated-at line */
 .updated-at {
-  font-size: var(--talks-meta-size);
-  color: var(--talks-color-muted);
-  margin-bottom: var(--talks-meta-gap-bottom);
+  font-size: var(--font-size-xs);
+  color: var(--color-muted);
+  margin-bottom: var(--gap-md);
 }
 
 /* Section heading */
 .status-heading {
-  margin-top: 0;
-  margin-bottom: var(--talks-status-gap-bottom);
-  font-size: var(--talks-subtitle-size);
+  margin-top: var(--gap-xl);
+  margin-bottom: var(--gap-sm);
+  font-size: var(--font-size-md);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.02rem;
 }
 
 .status-heading--spaced {
-  margin-top: var(--talks-status-gap-top);
+  margin-top: var(--gap-lg);
 }
 
 /* Section description */
 .status-heading + p {
-  margin-bottom: var(--talks-section-gap);
-  color: var(--talks-color-muted);
-  font-size: var(--talks-body-size);
+  margin-bottom: var(--gap-md);
+  color: var(--color-muted);
+  font-size: var(--font-size-sm);
 }
 
 /* Talk row container */
 .talk {
-  margin: var(--talks-item-gap-y) 0;
-  padding: var(--talks-item-pad-y) calc(var(--talks-item-pad-y) *2);
-  border-left: var(--talks-rule-width) solid var(--talks-color-rule);
-  break-inside: var(--talks-break-inside);
-  page-break-inside: var(--talks-page-break-inside);
+  margin: var(--gap-sm) 0;
+  padding: var(--pad-item) calc(var(--pad-item) * 2);
+  border-left: var(--border-width) solid var(--color-subtle);
+  break-inside: avoid-page;
+  page-break-inside: avoid;
 }
 
 /* Table-based layout for strict alignment */
@@ -110,21 +101,21 @@ main > h2:first-of-type {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
-  font-size: var(--talks-body-size);
+  font-size: var(--font-size-sm);
 }
 
 .talk-table th,
 .talk-table td {
   vertical-align: top;
-  padding: 0 0 var(--talks-item-line-gap) 0;
+  padding: 0 0 var(--gap-xs) 0;
 }
 
 /* Left label column */
 .talk-table th {
   width: 68px;
-  padding-right: 8px;
+  padding-right: var(--gap-md);
   text-align: left;
-  font-weight: var(--talks-label-weight);
+  font-weight: var(--font-weight-label);
   white-space: nowrap;
 }
 
