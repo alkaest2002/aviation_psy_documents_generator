@@ -1,5 +1,7 @@
+import locale
 import re
 
+from datetime import datetime
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -24,6 +26,18 @@ def humanize_minutes(minutes: int) -> str:
         return f"{hours} {'ore' if hours != 1 else 'ora'}"
     return f"{hours} {'ore' if hours != 1 else 'ora'} e {remaining_minutes} {'minuti' if remaining_minutes != 1 else 'minuto'}"
 
+def humanize_date(date_str: str) -> str:
+    """Convert a date string in the format DD/MM/YYYY to a human-readable Italian format e.g., 27 ottobre 2026."""
+    original_locale = locale.getlocale(locale.LC_TIME)
+    try:
+        locale.setlocale(locale.LC_TIME, "it_IT.UTF-8")
+        date_obj = datetime.strptime(date_str, "%d/%m/%Y")
+        return date_obj.strftime("%-d %B %Y")
+    except ValueError:
+        return date_str  # Return the original string if parsing fails
+    finally:
+        locale.setlocale(locale.LC_TIME, original_locale)
+
 def get_jinja_env() -> Environment:
     """Return a Jinja2 environment loaded from the templates folder."""
 
@@ -47,5 +61,6 @@ def get_jinja_env() -> Environment:
     env.filters["regex_replace"] = regex_replace
     env.filters["strip_cs"] = lambda value: value.strip(", ")
     env.filters["humanize_minutes"] = humanize_minutes
+    env.filters["humanize_date"] = humanize_date
 
     return env

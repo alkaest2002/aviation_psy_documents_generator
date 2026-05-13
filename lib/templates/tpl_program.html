@@ -3,7 +3,7 @@
         <div class="text-muted text-sm event-block__meta">
             {%- set from_time = event_data.timeWindow.split(" - ")[0] %}
             {%- set to_time = event_data.timeWindow.split(" - ")[1] %}
-            {{ date }} dalle {{ from_time }} alle {{ to_time }} &mdash; {{ event_data.duration | humanize_minutes }}
+            {{ date | humanize_date  }}, dalle {{ from_time }} alle {{ to_time }} &mdash; {{ event_data.duration | humanize_minutes }}
         </div>
         <div class="text-bold event-block__title">
             {{ event_data.title }}
@@ -64,16 +64,16 @@
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Destinatari</h2>
-        <p class="text-justify">l convegno si rivolge a tutti coloro che operano, studiano o hanno interesse nel settore della psicologia dell'aviazione e dell'aerospazio: psicologi e psichiatri civili e militari, medici aeronautici e AME (Aero Medical Examiner), piloti civili e militari, istruttori di volo, controllori del traffico aereo, responsabili della sicurezza aerea, ricercatori e docenti universitari in ambito psicologico e neuroscientifico, funzionari di enti istituzionali come ENAC ed ENAV, ufficiali del Corpo Sanitario dell'Aeronautica Militare, nonché studenti universitari e specializzandi interessati ad approfondire i temi trattati nell'ambito dei lavori congressuali.</p>
+        <p class="text-justify">l convegno si rivolge a tutti coloro che operano, studiano o hanno interesse nel settore della psicologia dell'aviazione e dell'aerospazio: psicologi e psichiatri civili e militari, medici aeronautici e AME (Aero Medical Examiner), piloti civili e militari, istruttori di volo, controllori del traffico aereo, responsabili della sicurezza aerea,  funzionari di enti istituzionali come ENAC ed ENAV, ricercatori e docenti universitari, nonché studenti e specializzandi interessati ad approfondire i temi affrontati nell'ambito dei lavori congressuali.</p>
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Data e luogo</h2>
         <ul>
             <li>
-                <span class="text-bold">{{ days[0].date }} ({{ days[0].timeWindow }})</span>: presso {{ days[0].venue.values() | join(", ") | replace("<br/>", " ") }} &mdash; riservato agli invitati;
+                <span class="text-bold">{{ days[0].date | humanize_date }} ({{ days[0].timeWindow }})</span>: presso {{ days[0].venue.values() | join(", ") | replace("<br/>", " ") }} &mdash; riservato agli invitati;
             </li>
             <li>
-                <span class="text-bold">{{ days[1].date }} ({{ days[1].timeWindow }})</span>: presso {{ days[1].venue.values() | join(", ") | replace("<br/>", " ") }} &mdash; aperto al pubblico.
+                <span class="text-bold">{{ days[1].date | humanize_date }} ({{ days[1].timeWindow }})</span>: presso {{ days[1].venue.values() | join(", ") | replace("<br/>", " ") }} &mdash; aperto al pubblico.
             </li>
         </ul>
 
@@ -89,7 +89,7 @@
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Educazione continua in medicina</h2>
-        <p class="text-justify">Sono state avviate le procedure per il riconoscimento di {{ registration.ecm.amount }} crediti ECM per massimo {{registration.maxParticipants}} partecipanti. L'accreditamento è previsto per le seguenti categorie professionali: {{ registration.ecm.validFor | join(", ") }}.</p>
+        <p class="text-justify">Sono state avviate le procedure per il riconoscimento di {{ registration.ecm.amount }} crediti ECM per massimo {{registration.maxParticipants}} partecipanti. L'accreditamento è previsto per le seguenti categorie professionali: {{ registration.ecm.validFor | join(", ") }} ed è relativo alle attività del {{ days[0].date }}.</p>
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Disseminazione</h2>
