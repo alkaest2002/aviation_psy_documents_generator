@@ -21,7 +21,7 @@
   --font-size-h6: 11pt;
 
   /* ── Spacing ────────────────────────────────────────────── */
-  --line-height: 1.2;
+  --line-height: 1rem;
   --space-after-headings: 0.5rem;
   --space-list-indent: 1rem;
 
@@ -46,9 +46,26 @@
 @page {
   margin: var(--page-margin-v) var(--page-margin-h);
 
-  @bottom-center {
-    content: counter(page);
+  @top-left {
+    content: "III Convegno di Psicologia dell'Aviazione";
     font-size: var(--font-size-sm);
+    font-style: italic;
+    color: var(--color-muted);
+  };
+
+  @bottom-center {
+    content: "| " counter(page) " |";
+    font-size: var(--font-size-sm);
+    font-style: italic;
+    color: var(--color-muted);
+  }
+
+}
+
+@page :first {
+
+  @top-left {
+    content: "";
   }
 }
 
@@ -62,7 +79,7 @@ h2 {
 }
 
 h2:first-of-type {
-  margin-top: 4.5rem;
+  margin-top: 3.5rem;
 }
 
 h6 {
@@ -76,6 +93,10 @@ em, em * {
 
 strong, strong * {
   font-weight: bold;
+}
+
+ul li {
+  margin-bottom: 0.4rem;
 }
 
 /* ─── Paragraphs ─────────────────────────────────────────── */

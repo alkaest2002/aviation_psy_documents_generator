@@ -70,10 +70,10 @@
         <h2>{{ counter }}. Data e luogo</h2>
         <ul>
             <li>
-                {{ days[0].date }} ({{ days[0].timeWindow }}): {{ days[0].venue.values() | join(", ") | replace("<br/>", " ") }};
+                <span class="text-bold">{{ days[0].date }} ({{ days[0].timeWindow }})</span>: presso {{ days[0].venue.values() | join(", ") | replace("<br/>", " ") }} &mdash; riservato agli invitati;
             </li>
             <li>
-                {{ days[1].date }} ({{ days[1].timeWindow }}): {{ days[1].venue.values() | join(", ") | replace("<br/>", " ") }}.
+                <span class="text-bold">{{ days[1].date }} ({{ days[1].timeWindow }})</span>: presso {{ days[1].venue.values() | join(", ") | replace("<br/>", " ") }} &mdash; aperto al pubblico.
             </li>
         </ul>
 
@@ -97,7 +97,7 @@
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Patrocini richiesti</h2>
-        <p class="text-justify">I diversi temi trattati, incentrati sulla psicologia dell'aviazione e sulle sue applicazioni in ambito operativo e della sicurezza del volo, si allineano con i fini istituzionali degli Enti a cui è stato richiesto il patrocinio, i quali perseguono obiettivi di promozione della ricerca scientifica, di tutela della salute del personale e di incremento degli standard di sicurezza nel settore aeronautico.</p>
+        <p class="text-justify">I diversi temi congressuali, incentrati sulla psicologia dell'aviazione e sulle sue applicazioni in ambito operativo e della sicurezza del volo, si allineano con i fini istituzionali degli Enti a cui è stato richiesto il patrocinio, i quali perseguono obiettivi di promozione della ricerca scientifica, di tutela della salute del personale e di incremento degli standard di sicurezza nel settore aeronautico.</p>
         <ul>
             {% for patron in patronage %}
             <li class="text-justify">
