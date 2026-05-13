@@ -56,7 +56,6 @@
   @bottom-center {
     content: "| " counter(page) " |";
     font-size: var(--font-size-sm);
-    font-style: italic;
     color: var(--color-muted);
   }
 

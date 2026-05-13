@@ -31,10 +31,11 @@ def humanize_date(date_str: str) -> str:
     original_locale = locale.getlocale(locale.LC_TIME)
     try:
         locale.setlocale(locale.LC_TIME, "it_IT.UTF-8")
+        date_str = date_str.replace("-", "/")
         date_obj = datetime.strptime(date_str, "%d/%m/%Y")
         return date_obj.strftime("%-d %B %Y")
     except ValueError:
-        return date_str  # Return the original string if parsing fails
+        return date_str
     finally:
         locale.setlocale(locale.LC_TIME, original_locale)
 
