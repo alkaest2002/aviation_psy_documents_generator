@@ -71,7 +71,7 @@
         <ul>
             {% for day in days %}
                 <li>
-                    <span class="text-bold">{{ day.date | humanize_date }} ({{ day.timeWindow }})</span>: presso {{ day.venue.values() | join(", ") | replace("<br/>", " ") }} &mdash; {%- if day.type == "inviteOnly"%}riservato agli invitati{% else%}aperto al pubblico{% endif %}
+                    <span class="text-bold">{{ day.date | humanize_date }} ({{ day.timeWindow }})</span>: presso {{ day.venue.values() | join(", ") | replace("<br/>", " ") }} &mdash; {% if day.type == "inviteOnly"%}riservato agli invitati{% else%}aperto al pubblico{% endif %}
                 {%- if not loop.last %};{% else %}.{% endif %}
                 </li>
            {% endfor %}
@@ -89,7 +89,7 @@
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Educazione continua in medicina</h2>
-        <p class="text-justify">Sono state avviate le procedure per il riconoscimento di {{ registration.ecm.amount }} crediti ECM per massimo {{registration.maxParticipants}} partecipanti. L'accreditamento è previsto per le seguenti categorie professionali: {{ registration.ecm.validFor | join(", ") }} ed è relativo alle attività del {{ days[0].date }}.</p>
+        <p class="text-justify">Sono state avviate le procedure per il riconoscimento di {{ registration.ecm.amount }} crediti ECM per massimo {{registration.maxParticipants}} partecipanti. L'accreditamento è previsto per le seguenti categorie professionali: {{ registration.ecm.validFor | join(", ") }} ed è relativo alle attività del {{ days[1].date | humanize_date }}.</p>
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Disseminazione</h2>
