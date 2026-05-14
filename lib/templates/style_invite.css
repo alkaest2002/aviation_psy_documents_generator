@@ -1,78 +1,20 @@
 /* style_invite.css
    Elegant A4 invitation letter — single page
-   Requires: base.css
+   Requires: style_base.css
 */
 
 :root {
-  /* ── Page ───────────────────────────────────────────────── */
-  --page-margin-v:              20mm;
-  --page-margin-h:              30mm;
+  --page-margin-h: 30mm;
 
-  /* ── Colours ────────────────────────────────────────────── */
-  --color-gold:                 #8B6F3E;
-  --color-gold-light:           #C4A882;
-  --color-gold-rule:            #D4B896;
-  --color-muted:                #4a4a4a;
-  --color-faint:                #7a7a7a;
-  --color-detail-bg:            #faf8f4;
+  /* ── Invite-specific colours ────────────────────────────── */
+  --color-gold:       #8B6F3E;
+  --color-gold-light: #C4A882;
+  --color-gold-rule:  #D4B896;
+  --color-detail-bg:  #faf8f4;
 
-  /* ── Font sizes ─────────────────────────────────────────── */
-  --font-size-org:              7.5pt;
-  --font-size-sub:              7pt;
-  --font-size-event-main:       13pt;
-  --font-size-detail-day:       8.5pt;
-  --font-size-detail-row:       8.5pt;
-  --font-size-detail-label:     7pt;
-  --font-size-sig-name:         10pt;
-  --font-size-sig-meta:         8pt;
-  --font-size-footer:           7pt;
-
-  /* ── Letter spacing ─────────────────────────────────────── */
-  --tracking-org:               0.16rem;
-  --tracking-sub:               0.09rem;
-  --tracking-event-label:       0.20rem;
-  --tracking-event-date:        0.10rem;
-  --tracking-detail-label:      0.07rem;
-
-  /* ── Spacing — letterhead ───────────────────────────────── */
-  --space-letterhead-mb:        0.9rem;
-  --space-letterhead-pb:        0.7rem;
-  --space-crest-mb:             0.4rem;
-  --crest-width:                28mm;
-
-  /* ── Spacing — event title ──────────────────────────────── */
-  --space-event-title-m:        0.8rem 0 2rem;
-  --space-event-label-mb:       0.25rem;
-  --space-event-main-mb:        0.2rem;
-
-  /* ── Spacing — salutation ───────────────────────────────── */
-  --space-salutation-mb:        0.6rem;
-
-  /* ── Spacing — body ─────────────────────────────────────── */
-  --space-body-p-mb:            0.55rem;
-
-  /* ── Spacing — event detail ─────────────────────────────── */
-  --space-detail-m:             .8rem 0;
-  --space-detail-p:             0.6rem 0.9rem;
-  --space-detail-gap:           0.5rem;
-  --space-detail-label-pt:      0.15rem;
-  --detail-border-w:            2px;
-  --detail-label-min-w:         3.5rem;
-  --line-height-detail-row:     1.45;
-
-  /* ── Spacing — closing ──────────────────────────────────── */
-  --space-closing-mt:           1.2rem;
-  --space-closing-formula-mb:   1.6rem;
-  --space-sig-name-mb:          0.08rem;
-  --line-height-sig-meta:       1.3;
-
-  /* ── Spacing — footer ───────────────────────────────────── */
-  --space-footer-p:             3mm 0 10mm;
-  --footer-border-w:            0.5px;
-  --line-height-footer:         1.4;
-
-  /* ── Borders ────────────────────────────────────────────── */
-  --letterhead-border:          0.5px solid var(--color-gold-rule);
+  /* ── Invite-specific sizes ──────────────────────────────── */
+  --font-size-org:   7.5pt;
+  --crest-width:     28mm;
 }
 
 @page {
@@ -85,40 +27,34 @@
   }
 }
 
-/* ─── Letter wrapper ─────────────────────────────────────── */
-
-.letter {
-  max-width: 100%;
-}
-
 /* ─── Letterhead ─────────────────────────────────────────── */
 
 .letterhead {
   text-align: center;
-  margin-bottom: var(--space-letterhead-mb);
-  padding-bottom: var(--space-letterhead-pb);
-  border-bottom: var(--letterhead-border);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 0.5px solid var(--color-gold-rule);
 }
 
 .letterhead__crest {
   display: block;
   width: var(--crest-width);
   height: auto;
-  margin: 0 auto var(--space-crest-mb);
+  margin: 0 auto var(--space-md);
 }
 
 .letterhead__org {
   font-size: var(--font-size-org);
   font-weight: 600;
-  letter-spacing: var(--tracking-org);
+  letter-spacing: 0.16rem;
   text-transform: uppercase;
   color: var(--color-gold);
   margin: 0 0 0.1rem;
 }
 
 .letterhead__sub {
-  font-size: var(--font-size-sub);
-  letter-spacing: var(--tracking-sub);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.09rem;
   text-transform: uppercase;
   color: var(--color-faint);
   margin: 0;
@@ -128,27 +64,27 @@
 
 .event-title {
   text-align: center;
-  margin: var(--space-event-title-m);
+  margin: var(--space-md) var(--space-lg) var(--space-xl) var(--space-lg);
 }
 
 .event-title__label {
   display: block;
-  letter-spacing: var(--tracking-event-label);
+  letter-spacing: 0.20rem;
   text-transform: uppercase;
   color: var(--color-gold);
-  margin-bottom: var(--space-event-label-mb);
+  margin-bottom: var(--space-sm);
 }
 
 .event-title__main {
-  font-size: var(--font-size-event-main);
+  font-size: var(--font-size-h3);
   font-weight: 400;
   font-style: italic;
   line-height: 1.2;
-  margin: 0 0 var(--space-event-main-mb);
+  margin: 0 0 var(--space-xs);
 }
 
 .event-title__date {
-  letter-spacing: var(--tracking-event-date);
+  letter-spacing: 0.10rem;
   color: var(--color-muted);
   margin: 0;
 }
@@ -157,13 +93,13 @@
 
 .salutation {
   font-style: italic;
-  margin-bottom: var(--space-salutation-mb);
+  margin-bottom: var(--space-md);
 }
 
 /* ─── Body paragraphs ────────────────────────────────────── */
 
 .letter__body p {
-  margin: 0 0 var(--space-body-p-mb);
+  margin: 0 0 var(--space-md);
   text-align: justify;
   hyphens: auto;
 }
@@ -171,16 +107,16 @@
 /* ─── Event detail box ───────────────────────────────────── */
 
 .event-detail {
-  margin: var(--space-detail-m);
-  padding: var(--space-detail-p);
-  border-left: var(--detail-border-w) solid var(--color-gold);
+  margin: var(--space-lg) 0;
+  padding: var(--space-md) var(--space-lg);
+  border-left: 2px solid var(--color-gold);
   background: var(--color-detail-bg);
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
 
 .event-detail__day {
-  font-size: var(--font-size-detail-day);
+  font-size: var(--font-size-sm);
   font-weight: 600;
   font-style: italic;
   margin: 0;
@@ -188,46 +124,46 @@
 
 .event-detail__row {
   display: flex;
-  gap: var(--space-detail-gap);
-  font-size: var(--font-size-detail-row);
-  line-height: var(--line-height-detail-row);
+  gap: var(--space-md);
+  font-size: var(--font-size-sm);
+  line-height: 1.45;
   color: var(--color-muted);
 }
 
 .event-detail__label {
-  min-width: var(--detail-label-min-w);
+  min-width: 3.5rem;
   flex-shrink: 0;
-  font-size: var(--font-size-detail-label);
+  font-size: var(--font-size-xs);
   font-weight: 600;
-  letter-spacing: var(--tracking-detail-label);
+  letter-spacing: 0.07rem;
   text-transform: uppercase;
   color: var(--color-gold);
-  padding-top: var(--space-detail-label-pt);
+  padding-top: var(--space-xs);
 }
 
 /* ─── Closing ────────────────────────────────────────────── */
 
 .closing {
-  margin-top: var(--space-closing-mt);
+  margin-top: var(--space-xl);
 }
 
 .closing__formula {
   font-style: italic;
   color: var(--color-muted);
-  margin-bottom: var(--space-closing-formula-mb);
+  margin-bottom: var(--space-2xl);
 }
 
 .closing__signature-name {
-  font-size: var(--font-size-sig-name);
+  font-size: var(--font-size-md);
   font-weight: 600;
-  margin: 0 0 var(--space-sig-name-mb);
+  margin: 0 0 var(--space-xs);
 }
 
 .closing__signature-role {
-  font-size: var(--font-size-sig-meta);
+  font-size: var(--font-size-xs);
   color: var(--color-muted);
   margin: 0;
-  line-height: var(--line-height-sig-meta);
+  line-height: 1.3;
 }
 
 /* ─── Footer ─────────────────────────────────────────────── */
@@ -235,37 +171,28 @@
 .letter__footer {
   position: running(footer);
   margin: 0;
-  padding: var(--space-footer-p);
-  border-top: var(--footer-border-w) solid var(--color-gold-rule);
+  padding: 3mm 0 10mm;
+  border-top: 0.5px solid var(--color-gold-rule);
   text-align: center;
-  font-size: var(--font-size-footer);
+  font-size: var(--font-size-xs);
   color: var(--color-faint);
-  line-height: var(--line-height-footer);
+  line-height: var(--line-height-base);
 }
 
 /* ─── Submission list ────────────────────────────────────── */
 
-.submission-list {
-  padding-left: r;
-}
-
 .submission-list__item {
-  padding-left: 0.5rem;
-  margin-bottom: 0.5rem;
+  padding-left: var(--space-md);
+  margin-bottom: var(--space-md);
 }
 
 .submission-list__item:last-child {
   margin-bottom: 0;
 }
 
-/* ─── Provisional label ──────────────────────────────────── */
+/* ─── Misc ───────────────────────────────────────────────── */
 
-.provisional {
-  font-size: 0.8rem;
-}
-
-/* ─── Co-author note ─────────────────────────────────────── */
-
+.provisional,
 .co-author-note {
-  font-size: 0.8rem;
+  font-size: var(--font-size-xs);
 }

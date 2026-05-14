@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="letter letter--speaker">
+    <div class="letter">
 
         <!-- Letterhead -->
         <header class="letterhead">
@@ -44,7 +44,7 @@
                 <div class="event-detail__stack">
 
                     <div class="event-detail__row">
-                        <span class="event-detail__label">Data e ora</span>
+                        <span class="event-detail__label" style="min-width: 6rem">Data e ora</span>
                         <span class="event-detail__value">
                             {{ talk_date }} ·
                             {{ talk_timeWindow }} <span class="provisional">(provvisorio)</span>
@@ -53,20 +53,20 @@
 
                     {% if talk_panel %}
                         <div class="event-detail__row">
-                            <span class="event-detail__label">Sessione</span>
+                            <span class="event-detail__label" style="min-width: 6rem">Sessione</span>
                             <span class="event-detail__value">{{ talk_panel }}</span>
                         </div>
                     {% endif %}
 
                     {% if author_collaborates_with %}
                         <div class="event-detail__row">
-                            <span class="event-detail__label">Ruolo</span>
+                            <span class="event-detail__label" style="min-width: 6rem">Ruolo</span>
                             <span class="event-detail__value">
                                 {% if author_is_first %}Autore principale{% else %}Co-Autore{% endif %}
                             </span>
                         </div>
                         <div class="event-detail__row">
-                            <span class="event-detail__label">Et alii</span>
+                            <span class="event-detail__label" style="min-width: 6rem">Et alii</span>
                             <span class="event-detail__value">
                                 {% for co in author_collaborates_with %}
                                 {{ co.title }} {{ co.name }}
@@ -133,8 +133,7 @@
 
         <!-- Footer -->
         <footer class="letter__footer">
-            Corpo Sanitario dell'Aeronautica Militare Italiana · Viale dell'Università, 4 - 00185 Roma ·
-            <a href="mailto:caposanaereo@aeronautica.difesa.it">caposanaereo@aeronautica.difesa.it</a>
+            Corpo Sanitario dell'Aeronautica Militare Italiana · Viale dell'Università, 4 - 00185 Roma
         </footer>
 
     </div>

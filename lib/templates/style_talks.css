@@ -1,101 +1,73 @@
 /* style_talks.css
-   Compact technical-report style (WeasyPrint-friendly)
-   Sans-serif typography for clarity
+   Compact technical-report style
+   Requires: style_base.css
 */
 
 :root {
-  /* ── Page ──────────────────────────────────────────────── */
-  --page-size: A4;
-  --page-margin-v: 16mm;
-  --page-margin-h: 18mm;
-  --content-max-width: 180mm;
-
-  /* ── Typography ────────────────────────────────────────── */
-  --font-size-lg: 13pt;
-  --font-size-md: 9.5pt;
-  --font-size-sm: 9.3pt;
-  --font-size-xs: 8.5pt;
-  --line-height: 1.28;
-  --font-weight-label: 600;
-
-  /* ── Spacing ───────────────────────────────────────────── */
-  --gap-xs: 2pt;
-  --gap-sm: 6pt;
-  --gap-md: 8pt;
-  --gap-lg: 12pt;
-  --gap-xl: 2rem;
-
-  --pad-item: 4pt;
-  --indent: 1.1rem;
-
-  /* ── Colors ────────────────────────────────────────────── */
-  --color-text: #1f1f1f;
-  --color-muted: #5f5f5f;
-  --color-subtle: #555;
-  --color-bg-alt: #f4f4f4;
-
-  /* ── Rules ─────────────────────────────────────────────── */
-  --border-width: 0.7px;
-}
-
-@page {
-  size: var(--page-size);
-  margin: var(--page-margin-v) var(--page-margin-h);
+  --page-margin-v:      16mm;
+  --page-margin-h:      18mm;
+  --content-max-width:  180mm;
+  --color-bg-alt:       #f4f4f4;
+  --border-width:       0.7px;
 }
 
 main {
   max-width: var(--content-max-width);
   margin: 0 auto;
-  color: var(--color-text);
-  line-height: var(--line-height);
 }
 
-/* Main report title */
+/* ─── Report title ───────────────────────────────────────── */
+
 main > h2:first-of-type {
   margin-top: 0;
-  margin-bottom: var(--gap-xs);
+  margin-bottom: var(--space-xs);
   font-size: var(--font-size-lg);
-  line-height: 1.15;
   font-weight: 700;
+  line-height: 1.15;
 }
 
-/* Updated-at line */
+/* ─── Updated-at line ────────────────────────────────────── */
+
 .updated-at {
   font-size: var(--font-size-xs);
   color: var(--color-muted);
-  margin-bottom: var(--gap-md);
+  margin-bottom: var(--space-md);
 }
 
-/* Section heading */
+/* ─── Section heading ────────────────────────────────────── */
+
 .status-heading {
-  margin-top: var(--gap-xl);
-  margin-bottom: var(--gap-sm);
-  font-size: var(--font-size-md);
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-sm);
+  font-size: var(--font-size-base);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.02rem;
 }
 
 .status-heading--spaced {
-  margin-top: var(--gap-lg);
+  margin-top: var(--space-lg);
 }
 
-/* Section description */
 .status-heading + p {
-  margin-bottom: var(--gap-md);
+  margin-bottom: var(--space-md);
   font-size: var(--font-size-sm);
 }
 
-/* Talk row container */
+/* ─── Talk row ───────────────────────────────────────────── */
+
 .talk {
-  margin: var(--gap-lg) 0;
-  padding: var(--pad-item) calc(var(--pad-item) * 2);
-  border-left: var(--border-width) solid var(--color-subtle);
+  margin: var(--space-lg) 0;
+  padding: var(--space-xs) var(--space-md);
+  border-left: var(--border-width) solid var(--color-muted);
   break-inside: avoid-page;
   page-break-inside: avoid;
 }
 
-/* Table-based layout for strict alignment */
+.talk:last-child { margin-bottom: 0; }
+
+/* ─── Talk table ─────────────────────────────────────────── */
+
 .talk-table {
   width: 100%;
   border-collapse: collapse;
@@ -106,44 +78,23 @@ main > h2:first-of-type {
 .talk-table th,
 .talk-table td {
   vertical-align: top;
-  padding: 0 0 var(--gap-xs) 0;
+  padding: 0 0 var(--space-xs) 0;
 }
 
-/* Left label column */
 .talk-table th {
   width: 68px;
-  padding-right: var(--gap-md);
+  padding-right: var(--space-md);
   text-align: left;
-  font-weight: var(--font-weight-label);
+  font-weight: 600;
   white-space: nowrap;
 }
 
-/* Right content column */
 .talk-table td {
   word-wrap: break-word;
   overflow-wrap: anywhere;
 }
 
-/* Fine-tune title row */
-.talk-table tr:first-child td em {
-  font-style: italic;
-}
+.talk-table tr:first-child td em { font-style: italic; }
 
-/* Optional: tighter last row spacing */
 .talk-table tr:last-child th,
-.talk-table tr:last-child td {
-  padding-bottom: 0;
-}
-
-/* Remove extra bottom feel on last item */
-.page .talk:last-child {
-  margin-bottom: 0;
-}
-
-/* Print-safe links */
-@media print {
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-}
+.talk-table tr:last-child td    { padding-bottom: 0; }

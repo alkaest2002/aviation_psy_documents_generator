@@ -1,46 +1,16 @@
 /* style_program.css
    Conference / event program
-   Requires: base.css
+   Requires: style_base.css
 */
 
 :root {
-  /* ── Page ───────────────────────────────────────────────── */
-  --page-margin-v: 25mm;
-  --page-margin-h: 30mm;
-
-  /* ── Colours ────────────────────────────────────────────── */
-  --color-muted: #444;
-  --color-rule: #999;
-
-  /* ── Font related ─────────────────────────────────────────── */
-  --font-size-h1: 14pt;
-  --font-size-h2: 13pt;
-  --font-size-h3: 12pt;
-  --font-size-h4: 11pt;
-  --font-size-h5: 11pt;
-  --font-size-h6: 11pt;
-
-  /* ── Spacing ────────────────────────────────────────────── */
-  --line-height: 1rem;
-  --space-after-headings: 0.5rem;
-  --space-list-indent: 1rem;
-
-  /* ── Table ──────────────────────────────────────────────── */
-  --font-size-tfoot: 0.95rem;
-
-  /* ── Misc ───────────────────────────────────────────────── */
-  --crest_size: 35mm;
-  --font-size-sm: 0.8rem;
-
-  /* ── Program-specific ───────────────────────────────────── */
-  --event-block-margin: 10px;
-  --event-block-padding: 15px;
-  --event-block-padding-left: 10px;
-  --event-block-rule-color: var(--color-rule);
-}
-
-* {
-  line-height: var(--line-height);
+  --page-margin-v:  25mm;
+  --page-margin-h:  30mm;
+  --color-muted:    #444;
+  --color-rule:     #999;
+  --font-size-h1:   14pt;
+  --font-size-h2:   13pt;
+  --crest-size:     35mm;
 }
 
 @page {
@@ -48,94 +18,76 @@
 
   @top-left {
     content: "III Convegno di Psicologia dell'Aviazione | Documento provvisorio";
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
     font-style: italic;
     color: var(--color-muted);
-  };
+  }
 
   @bottom-center {
     content: "| " counter(page) " |";
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
     color: var(--color-muted);
   }
-
 }
 
 @page :first {
-
-  @top-left {
-    content: "";
-  }
+  @top-left { content: ""; }
 }
 
 /* ─── Headings ───────────────────────────────────────────── */
-h1, h2, h3, h4, h5, h6 {
-  margin-bottom: var(--space-after-headings);
+
+body {
+  line-height: 1rem;
 }
 
-h2 {
-  margin-top: 1.5rem;
-}
+h2 { margin-top: var(--space-2xl); }
 
-h2:first-of-type {
-  margin-top: 3.5rem;
-}
+h2:first-of-type { margin-top: var(--space-3xl); }
 
-h6 {
-  color: var(--color-muted);
-}
+h6 { color: var(--color-muted); }
+
+/* ─── Inline ─────────────────────────────────────────────── */
 
 em, em * {
   font-style: italic;
   color: var(--color-muted);
 }
 
-strong, strong * {
-  font-weight: bold;
-}
+/* ─── Body ───────────────────────────────────────────────── */
 
-ul li {
-  margin-bottom: 0.4rem;
-}
-
-/* ─── Paragraphs ─────────────────────────────────────────── */
-
-p,
-p * {
+p, p * {
   hyphens: auto;
-  padding-bottom: 0.03rem;
 }
 
 ul {
   margin: 0;
-  padding-left: var(--space-list-indent);
+  padding-left: var(--space-xl);
 }
 
-p + ul {
-  margin-top: 1rem;
-}
+ul li { margin-bottom: var(--space-sm); }
 
+p + ul { margin-top: var(--space-xl); }
 
 /* ─── Program layout ─────────────────────────────────────── */
 
-.crest_container {
- display: flex;
- justify-content: center;
-  margin-bottom: 1rem;
-} 
+.crest-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-xl);
+}
 
-.crest_image {
-  width: var(--crest_size);
+.crest-image {
+  width: var(--crest-size);
   height: auto;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-xl);
 }
 
 .header * {
-  line-height: calc(var(--line-height) * 1.2);
+  line-height: 1.2rem;
   margin: 0;
 }
 
@@ -150,14 +102,14 @@ p + ul {
 }
 
 .events {
-  margin-top: 1rem;
+  margin-top: var(--space-xl);
 }
 
 .event-block {
   break-inside: avoid;
-  margin: var(--event-block-padding) 0;
-  padding-left: var(--event-block-padding);
-  border-left: 1px solid var(--event-block-rule-color);
+  margin: var(--space-lg) 0;
+  padding-left: var(--space-lg);
+  border-left: 1px solid var(--color-rule);
 }
 
 .event-block__meta,
