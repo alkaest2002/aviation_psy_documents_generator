@@ -149,6 +149,10 @@ p + ul {
   font-weight: 600;
 }
 
+.events {
+  margin-top: 1rem;
+}
+
 .event-block {
   break-inside: avoid;
   margin: var(--event-block-padding) 0;

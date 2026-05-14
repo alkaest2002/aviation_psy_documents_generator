@@ -69,22 +69,22 @@
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Data e luogo</h2>
         <ul>
-            <li>
-                <span class="text-bold">{{ days[0].date | humanize_date }} ({{ days[0].timeWindow }})</span>: presso {{ days[0].venue.values() | join(", ") | replace("<br/>", " ") }} &mdash; riservato agli invitati;
-            </li>
-            <li>
-                <span class="text-bold">{{ days[1].date | humanize_date }} ({{ days[1].timeWindow }})</span>: presso {{ days[1].venue.values() | join(", ") | replace("<br/>", " ") }} &mdash; aperto al pubblico.
-            </li>
+            {% for day in days %}
+                <li>
+                    <span class="text-bold">{{ day.date | humanize_date }} ({{ day.timeWindow }})</span>: presso {{ day.venue.values() | join(", ") | replace("<br/>", " ") }} &mdash; {%- if day.type == "inviteOnly"%}riservato agli invitati{% else%}aperto al pubblico{% endif %}.
+                {%- if not loop.last %};{% else %}.{% endif %}
+                </li>
+           {% endfor %}
         </ul>
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Comitato scientifico</h2>
         <ul>
-            {% for member in scientificCommittee %}
+            {%- for member in scientificCommittee %}
             <li>
                 {{ member.title }} {{ member.name }} ({{ member.role }} {{ member.affiliation }}){% if not loop.last %};{% else %}.{% endif %}
             </li>
-            {% endfor %}
+            {%- endfor %}
         </ul>
 
         {% set counter = counter + 1 %}
@@ -108,34 +108,23 @@
 
         {% set counter = counter + 1 %}
         <h2>{{ counter }}. Attività</h2>
-        <div class="events">
-            <p class="text-bold" style="margin-top: 1.5rem;margin-bottom: 0rem;">{{ counter }}.1 Attività del {{ days[0].date }} presso {{ days[0].venue.name }}</p>
-            <p class="text-muted text-sm" style="margin-bottom: .5rem;">Giornata riservata agli invitati.</p>
-            {%- for day in [days[0]] %}
-                {%- for event in day.events %}
-                    {%- if event.talks is not none and event.talks | length > 0 %}
-                        {%- for talk in event.talks %}
-                            {{ event_card(day.date, talk) }}
-                        {%- endfor %}
-                    {%- else %}
-                        {{ event_card(day.date, event) }}
-                    {%- endif %}
-                {%- endfor %}
-            {%- endfor %}
-
-            <p class="text-bold" style="margin-top: 2rem;margin-bottom: 0rem;">{{ counter }}.2 Attività del {{ days[1].date }} presso {{ days[1].venue.name }}</p>
-            <p class="text-muted text-sm" style="margin-bottom: .5rem;">Giornata aperta al pubblico.</p>
-
-            {%- for day in [days[1]] %}
-                {%- for event in day.events %}
-                    {%- if event.talks is not none and event.talks | length > 0 %}
-                        {%- for talk in event.talks %}
-                            {{ event_card(day.date, talk) }}
-                        {%- endfor %}
-                    {%- else %}
-                        {{ event_card(day.date, event) }}
-                    {%- endif %}
-                {%- endfor %}
+        <div class="events pagebreak">
+            {%- for day in days %}
+                <div class="day mb-xxl">
+                    <p class="text-bold mb-0">{{ counter }}.{{loop.index }} Attività del {{ day.date }} presso {{ day.venue.name }}</p>
+                    <p class="text-muted text-sm mb-md">{%- if day.type == "inviteOnly"%}riservata agli invitati{%-else %}aperta al pubblico{%- endif %}</p>
+                    {%- for event in day.events %}
+                        <div class="event">
+                            {%- if event.talks is not none and event.talks | length > 0 %}
+                                {%- for talk in event.talks %}
+                                    {{ event_card(day.date, talk) }}
+                                {%- endfor %}
+                            {%- else %}
+                                {{ event_card(day.date, event) }}
+                            {%- endif %}
+                        </div>
+                    {%- endfor %}
+                </div>
             {%- endfor %}
         </div>
 
