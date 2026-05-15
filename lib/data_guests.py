@@ -36,7 +36,7 @@ def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     # Process each invitee and prepare data for rendering
     for invitee in invitees:
         processed_invitations.append((
-            f"ospiti_{normalize_filename(invitee['name'])}",
+            f"ospiti_invito_{normalize_filename(invitee['name'])}",
             { **invitee, "day1_time": data["days"][0]["timeWindow"], "day2_time": data["days"][1]["timeWindow"] }
         ))
 

@@ -55,7 +55,7 @@ def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     if jq_filter:
         data = jq.compile(jq_filter).input(data).all()
 
-    return [(normalize_filename("program"), data)]
+    return [(normalize_filename("programma"), data)]
 
 if __name__ == "__main__":
     data = get_data()

@@ -71,7 +71,7 @@ def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     # Return the processed talks and their grouping by status, along with the last updated time
     return [
         (
-            normalize_filename("talks"),
+            normalize_filename("elenco_contributi"),
             {
                 "talks": all_talks,
                 "talks_by_status": talks_by_status,
