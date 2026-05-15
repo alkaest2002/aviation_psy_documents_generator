@@ -1,20 +1,23 @@
 import locale
 import re
-
 from datetime import datetime
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+
 class JinjaError(Exception):
     """Custom exception for Jinja-related errors."""
+
     pass
+
 
 def regex_replace(value, pattern, replacement):
     """Custom Jinja filter to perform regex replacement on a string."""
     if not isinstance(value, str):
         return value
     return re.sub(pattern, replacement, value)
+
 
 def humanize_minutes(minutes: int) -> str:
     """Convert minutes to a human-readable format."""
@@ -25,6 +28,7 @@ def humanize_minutes(minutes: int) -> str:
     if remaining_minutes == 0:
         return f"{hours} {'ore' if hours != 1 else 'ora'}"
     return f"{hours} {'ore' if hours != 1 else 'ora'} e {remaining_minutes} {'minuti' if remaining_minutes != 1 else 'minuto'}"
+
 
 def humanize_date(date_str: str) -> str:
     """Convert a date string in the format DD/MM/YYYY to a human-readable Italian format e.g., 27 ottobre 2026."""
@@ -38,6 +42,7 @@ def humanize_date(date_str: str) -> str:
         return date_str
     finally:
         locale.setlocale(locale.LC_TIME, original_locale)
+
 
 def get_jinja_env() -> Environment:
     """Return a Jinja2 environment loaded from the templates folder."""
