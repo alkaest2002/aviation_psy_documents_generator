@@ -35,26 +35,26 @@
             <!-- Body -->
             <div class="letter__body">
                 <p>
-                    {% if mode == 'extremely_formal' %} Mi onoro di rivolgere
+                    {%- if mode == 'extremely_formal' %} Mi onoro di rivolgere
                     alla S.V. il presente invito a presenziare al
                     <strong
                         >III Convegno Nazionale di Psicologia
                         dell'Aviazione</strong
                     >, che avrà luogo a Milano nei giorni
-                    <strong>27 e 28 ottobre 2026</strong>. {% elif mode ==
+                    <strong>27 e 28 ottobre 2026</strong>. {%- elif mode ==
                     'formal' %} È con piacere che mi pregio di invitarLa a
                     presenziare al
                     <strong
                         >III Convegno Nazionale di Psicologia
                         dell'Aviazione</strong
                     >, che avrà luogo a Milano nei giorni
-                    <strong>27 e 28 ottobre 2026</strong>. {% else %} Sono lieto
+                    <strong>27 e 28 ottobre 2026</strong>. {%- else %} Sono lieto
                     di invitarti a presenziare al
                     <strong
                         >III Convegno Nazionale di Psicologia
                         dell'Aviazione</strong
                     >, che si terrà a Milano nei giorni
-                    <strong>27 e 28 ottobre 2026</strong>. {% endif %}
+                    <strong>27 e 28 ottobre 2026</strong>. {%- endif %}
                 </p>
 
                 <p>
@@ -120,30 +120,30 @@
                 </div>
 
                 <p>
-                    {% if mode == 'extremely_formal' %} Nel rispetto delle
+                    {%- if mode == 'extremely_formal' %} Nel rispetto delle
                     responsabilità che il Suo altissimo incarico impone, mi
                     permetto di rivolgerLe il presente invito, con l'auspicio
                     che Ella voglia onorare l'evento con la Sua autorevole
-                    presenza. {% elif mode == 'formal' %} Nel rispetto degli
+                    presenza. {%- elif mode == 'formal' %} Nel rispetto degli
                     impegni connessi al Suo alto incarico, mi permetto di
                     rivolgerLe il presente invito, con l'auspicio di poterLa
-                    annoverare tra gli ospiti d'onore dell'evento. {% else %}
+                    annoverare tra gli ospiti d'onore dell'evento. {%- else %}
                     Consapevole dei tuoi numerosi impegni, ti estendo questo
                     invito con la speranza di poterti avere tra i nostri graditi
-                    ospiti. {% endif %}
+                    ospiti. {%- endif %}
                 </p>
 
                 <p>
-                    {% if mode == 'extremely_formal' %} Per le esigenze di
+                    {%- if mode == 'extremely_formal' %} Per le esigenze di
                     ordine logistico e protocollare connesse all'eventuale
                     partecipazione della S.V., La prego di voler disporre che un
                     Suo delegato prenda contatto con la Segreteria del Convegno
-                    {% elif mode == 'formal' %} Per le esigenze organizzative
+                    {%- elif mode == 'formal' %} Per le esigenze organizzative
                     connesse alla Sua partecipazione, La prego di voler
                     incaricare un Suo collaboratore di prendere contatto con la
-                    Segreteria del Convegno {% else %} Per qualsiasi esigenza
+                    Segreteria del Convegno {%- else %} Per qualsiasi esigenza
                     organizzativa, ti chiedo di contattare la Segreteria del
-                    Convegno {% endif %} entro il
+                    Convegno {%- endif %} entro il
                     <strong>30 settembre 2026</strong>, al seguente indirizzo di
                     posta elettronica:
                     <strong
@@ -157,12 +157,12 @@
             <!-- Closing -->
             <div class="closing">
                 <p class="closing__formula">
-                    {% if mode == 'extremely_formal' %} Nella speranza di averLa
+                    {%- if mode == 'extremely_formal' %} Nella speranza di averLa
                     ospite a Milano, Le porgo i miei più cordiali e deferenti
-                    saluti. {% elif mode == 'formal' %} In attesa di avere il
+                    saluti. {%- elif mode == 'formal' %} In attesa di avere il
                     piacere di accoglierLa a Milano, Le porgo i miei più
-                    cordiali saluti. {% else %} Spero di poterti accogliere a
-                    Milano e ti mando i miei più calorosi saluti. {% endif %}
+                    cordiali saluti. {%- else %} Spero di poterti accogliere a
+                    Milano e ti mando i miei più calorosi saluti. {%- endif %}
                 </p>
                 <p class="closing__signature-name">
                     Gen. Ispettore Capo CSArn Pietro Perelli
