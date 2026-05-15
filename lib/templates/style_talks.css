@@ -4,97 +4,103 @@
 */
 
 :root {
-  --page-margin-v:      16mm;
-  --page-margin-h:      18mm;
-  --content-max-width:  180mm;
-  --color-bg-alt:       #f4f4f4;
-  --border-width:       0.7px;
+    --page-margin-v: 16mm;
+    --page-margin-h: 18mm;
+    --content-max-width: 180mm;
+    --color-bg-alt: #f4f4f4;
+    --border-width: 0.7px;
 }
 
 main {
-  max-width: var(--content-max-width);
-  margin: 0 auto;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
 }
 
 /* ─── Report title ───────────────────────────────────────── */
 
 main > h2:first-of-type {
-  margin-top: 0;
-  margin-bottom: var(--space-xs);
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  line-height: 1.15;
+    margin-top: 0;
+    margin-bottom: var(--space-xs);
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    line-height: 1.15;
 }
 
 /* ─── Updated-at line ────────────────────────────────────── */
 
 .updated-at {
-  font-size: var(--font-size-xs);
-  color: var(--color-muted);
-  margin-bottom: var(--space-md);
+    font-size: var(--font-size-xs);
+    color: var(--color-muted);
+    margin-bottom: var(--space-md);
 }
 
 /* ─── Section heading ────────────────────────────────────── */
 
 .status-heading {
-  margin-top: var(--space-2xl);
-  margin-bottom: var(--space-sm);
-  font-size: var(--font-size-base);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.02rem;
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-sm);
+    font-size: var(--font-size-base);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02rem;
 }
 
 .status-heading--spaced {
-  margin-top: var(--space-lg);
+    margin-top: var(--space-lg);
 }
 
 .status-heading + p {
-  margin-bottom: var(--space-md);
-  font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+    font-size: var(--font-size-sm);
 }
 
 /* ─── Talk row ───────────────────────────────────────────── */
 
 .talk {
-  margin: var(--space-lg) 0;
-  padding: var(--space-xs) var(--space-md);
-  border-left: var(--border-width) solid var(--color-muted);
-  break-inside: avoid-page;
-  page-break-inside: avoid;
+    margin: var(--space-lg) 0;
+    padding: var(--space-xs) var(--space-md);
+    border-left: var(--border-width) solid var(--color-muted);
+    break-inside: avoid-page;
+    page-break-inside: avoid;
 }
 
-.talk:last-child { margin-bottom: 0; }
+.talk:last-child {
+    margin-bottom: 0;
+}
 
 /* ─── Talk table ─────────────────────────────────────────── */
 
 .talk-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  font-size: var(--font-size-sm);
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: var(--font-size-sm);
 }
 
 .talk-table th,
 .talk-table td {
-  vertical-align: top;
-  padding: 0 0 var(--space-xs) 0;
+    vertical-align: top;
+    padding: 0 0 var(--space-xs) 0;
 }
 
 .talk-table th {
-  width: 68px;
-  padding-right: var(--space-md);
-  text-align: left;
-  font-weight: 600;
-  white-space: nowrap;
+    width: 68px;
+    padding-right: var(--space-md);
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
 .talk-table td {
-  word-wrap: break-word;
-  overflow-wrap: anywhere;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
 }
 
-.talk-table tr:first-child td em { font-style: italic; }
+.talk-table tr:first-child td em {
+    font-style: italic;
+}
 
 .talk-table tr:last-child th,
-.talk-table tr:last-child td    { padding-bottom: 0; }
+.talk-table tr:last-child td {
+    padding-bottom: 0;
+}

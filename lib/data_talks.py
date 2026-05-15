@@ -57,6 +57,7 @@ def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     data_sorted = sorted(
         processed_talks, key=lambda x: status_order.index(x.get("status", "unknown"))
     )
+    # Group talks by their status
     talks_by_status = {
         key: list(group)
         for key, group in groupby(data_sorted, key=lambda x: x.get("status", "unknown"))

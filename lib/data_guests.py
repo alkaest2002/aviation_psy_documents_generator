@@ -12,12 +12,12 @@ from lib.utils import normalize_filename
 
 def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     """Load and process invitation data for speakers, applying optional jq filters.
-    
+
     Args:
         jq_filter (str | None): An optional jq filter to apply to the invitee data.
 
     Returns:
-        list[tuple[str, dict[str, Any]]]: A list of tuples containing invitee identifiers and 
+        list[tuple[str, dict[str, Any]]]: A list of tuples containing invitee identifiers and
             their corresponding data dictionaries, ready for rendering in templates.
     """
 
@@ -32,14 +32,14 @@ def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
         invitees = jq.compile(jq_filter).input(all_invitees).all()
     else:
         invitees = all_invitees
-    
+
     # Process each invitee and prepare data for rendering
     for invitee in invitees:
         processed_invitations.append((
-            f"ospiti_{normalize_filename(invitee['name'])}", 
+            f"ospiti_{normalize_filename(invitee['name'])}",
             { **invitee, "day1_time": data["days"][0]["timeWindow"], "day2_time": data["days"][1]["timeWindow"] }
         ))
-        
+
     return processed_invitations
 
 

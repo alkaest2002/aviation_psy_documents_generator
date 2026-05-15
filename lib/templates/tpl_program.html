@@ -1,145 +1,186 @@
 {% macro event_card(date, event_data) %}
-    <div class="event-block">
-        <div class="text-muted text-sm event-block__meta">
-            {%- set from_time = event_data.timeWindow.split(" - ")[0] %}
-            {%- set to_time = event_data.timeWindow.split(" - ")[1] %}
-            {{ date | humanize_date  }}, dalle {{ from_time }} alle {{ to_time }} &mdash; {{ event_data.duration | humanize_minutes }}
-        </div>
-        <div class="text-bold event-block__title">
-            {{ event_data.title }}
-        </div>
-        {%- if event_data.authors is not none and event_data.authors | length > 0 %}
-        <div class="text-sm event-block__authors">
-            {%- for author in event_data.authors %}
-                {%- if author.name != "Autore da definire" %}
-                    {{ author.title }} {{ author.name }} ({{ author.role }} {{ author.affiliation }})
-                    {%- if not loop.last %};{% else %}.{% endif %}
-                {%- else %}
-                    {{ author.name }}
-                {%- endif %}
-            {%- endfor %}
-        </div>
-        {%- endif %}
+<div class="event-block">
+    <div class="text-muted text-sm event-block__meta">
+        {%- set from_time = event_data.timeWindow.split(" - ")[0] %} {%- set
+        to_time = event_data.timeWindow.split(" - ")[1] %} {{ date |
+        humanize_date }}, dalle {{ from_time }} alle {{ to_time }} &mdash; {{
+        event_data.duration | humanize_minutes }}
     </div>
+    <div class="text-bold event-block__title">{{ event_data.title }}</div>
+    {%- if event_data.authors is not none and event_data.authors | length > 0 %}
+    <div class="text-sm event-block__authors">
+        {%- for author in event_data.authors %} {%- if author.name != "Autore da
+        definire" %} {{ author.title }} {{ author.name }} ({{ author.role }} {{
+        author.affiliation }}) {%- if not loop.last %};{% else %}.{% endif %}
+        {%- else %} {{ author.name }} {%- endif %} {%- endfor %}
+    </div>
+    {%- endif %}
+</div>
 {% endmacro %}
 
 <!doctype html>
 <html lang="it">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Program</title>
+        <link rel="stylesheet" href="style_base.css" />
+        <link rel="stylesheet" href="style_program.css" />
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Program</title>
-    <link rel="stylesheet" href="style_base.css" />
-    <link rel="stylesheet" href="style_program.css" />
-</head>
+    <body>
+        <main>
+            <div class="crest-container">
+                <img
+                    class="crest-image"
+                    src="img_csan.svg"
+                    alt="Stemma Aeronautica Militare"
+                />
+            </div>
 
-<body>
-    <main>
-        
-        <div class="crest-container">
-            <img class="crest-image" src="img_csan.svg" alt="Stemma Aeronautica Militare">
-        </div>
+            {% set counter = 0 %}
+            <div class="header">
+                <p class="organizer">Corpo Sanitario AM</p>
+                <p class="title">{{ title }}</p>
+                <p class="sub-title">Milano, 27 e 28 ottobre 2026</p>
+            </div>
 
-        {% set counter = 0 %}
-        <div class="header">
-            <p class="organizer">Corpo Sanitario AM</p>
-            <p class="title">{{ title }}</p>
-            <p class="sub-title">Milano, 27 e 28 ottobre 2026</p>
-        </div>
-        
-        {% set counter = counter + 1 %}
-        <h2>{{ counter }}. Descrizione</h2>
-        <div class="text-justify">
-            {{ description | safe }}
-        </div>
+            {% set counter = counter + 1 %}
+            <h2>{{ counter }}. Descrizione</h2>
+            <div class="text-justify">{{ description | safe }}</div>
 
-        {% set counter = counter + 1 %}
-        <h2>{{ counter }}. Obiettivi</h2>
-        <ul>
-            {%- for objective in objectives %}
-            <li>{{ objective | safe }}{% if not loop.last %};{% else %}.{% endif %}</li>
-            {%- endfor %}
-        </ul>
-
-        {% set counter = counter + 1 %}
-        <h2>{{ counter }}. Destinatari</h2>
-        <p class="text-justify">l convegno si rivolge a tutti coloro che operano, studiano o hanno interesse nel settore della psicologia dell'aviazione e dell'aerospazio: psicologi e psichiatri civili e militari, medici aeronautici e AME (Aero Medical Examiner), piloti civili e militari, istruttori di volo, controllori del traffico aereo, responsabili della sicurezza aerea,  funzionari di enti istituzionali come ENAC ed ENAV, ricercatori e docenti universitari, nonché studenti e specializzandi interessati ad approfondire i temi affrontati nell'ambito dei lavori congressuali.</p>
-
-        {% set counter = counter + 1 %}
-        <h2>{{ counter }}. Data e luogo</h2>
-        <ul>
-            {% for day in days %}
+            {% set counter = counter + 1 %}
+            <h2>{{ counter }}. Obiettivi</h2>
+            <ul>
+                {%- for objective in objectives %}
                 <li>
-                    <span class="text-bold">{{ day.date | humanize_date }} ({{ day.timeWindow }})</span>: presso {{ day.venue.values() | join(", ") | replace("<br/>", " ") }} &mdash; {% if day.type == "inviteOnly"%}riservato agli invitati{% else%}aperto al pubblico{% endif %}
-                {%- if not loop.last %};{% else %}.{% endif %}
+                    {{ objective | safe }}{% if not loop.last %};{% else %}.{%
+                    endif %}
                 </li>
-           {% endfor %}
-        </ul>
+                {%- endfor %}
+            </ul>
 
-        {% set counter = counter + 1 %}
-        <h2>{{ counter }}. Comitato scientifico</h2>
-        <ul>
-            {%- for member in scientificCommittee %}
-            <li>
-                {{ member.title }} {{ member.name }} ({{ member.role }} {{ member.affiliation }}){% if not loop.last %};{% else %}.{% endif %}
-            </li>
-            {%- endfor %}
-        </ul>
+            {% set counter = counter + 1 %}
+            <h2>{{ counter }}. Destinatari</h2>
+            <p class="text-justify">
+                l convegno si rivolge a tutti coloro che operano, studiano o
+                hanno interesse nel settore della psicologia dell'aviazione e
+                dell'aerospazio: psicologi e psichiatri civili e militari,
+                medici aeronautici e AME (Aero Medical Examiner), piloti civili
+                e militari, istruttori di volo, controllori del traffico aereo,
+                responsabili della sicurezza aerea, funzionari di enti
+                istituzionali come ENAC ed ENAV, ricercatori e docenti
+                universitari, nonché studenti e specializzandi interessati ad
+                approfondire i temi affrontati nell'ambito dei lavori
+                congressuali.
+            </p>
 
-        {% set counter = counter + 1 %}
-        <h2>{{ counter }}. Educazione continua in medicina</h2>
-        <p class="text-justify">Sono state avviate le procedure per il riconoscimento di {{ registration.ecm.amount }} crediti ECM per massimo {{registration.maxParticipants}} partecipanti. L'accreditamento è previsto per le seguenti categorie professionali: {{ registration.ecm.validFor | join(", ") }} ed è relativo alle attività del {{ days[1].date | humanize_date }}.</p>
+            {% set counter = counter + 1 %}
+            <h2>{{ counter }}. Data e luogo</h2>
+            <ul>
+                {% for day in days %}
+                <li>
+                    <span class="text-bold"
+                        >{{ day.date | humanize_date }} ({{ day.timeWindow
+                        }})</span
+                    >: presso {{ day.venue.values() | join(", ") | replace("<br />",
+                    " ") }} &mdash; {% if day.type == "inviteOnly"%}riservato
+                    agli invitati{% else%}aperto al pubblico{% endif %} {%- if
+                    not loop.last %};{% else %}.{% endif %}
+                </li>
+                {% endfor %}
+            </ul>
 
-        {% set counter = counter + 1 %}
-        <h2>{{ counter }}. Disseminazione</h2>
-        <p class="text-justify">Le informazioni pertinenti al convegno &mdash; accessibili tramite il sito  https://aviation-psy.com &mdash; saranno oggetto di una campagna promozionale attraverso i canali ufficiali dell'Aeronautica Militare, inclusi il sito web istituzionale, i profili social media e le newsletter. </p>
+            {% set counter = counter + 1 %}
+            <h2>{{ counter }}. Comitato scientifico</h2>
+            <ul>
+                {%- for member in scientificCommittee %}
+                <li>
+                    {{ member.title }} {{ member.name }} ({{ member.role }} {{
+                    member.affiliation }}){% if not loop.last %};{% else %}.{%
+                    endif %}
+                </li>
+                {%- endfor %}
+            </ul>
 
-        {% set counter = counter + 1 %}
-        <h2>{{ counter }}. Patrocini richiesti</h2>
-        <p class="text-justify">I diversi temi congressuali, incentrati sulla psicologia dell'aviazione e sulle sue applicazioni in ambito operativo e della sicurezza del volo, si allineano con i fini istituzionali degli Enti a cui è stato richiesto il patrocinio, i quali perseguono obiettivi di promozione della ricerca scientifica, di tutela della salute del personale e di incremento degli standard di sicurezza nel settore aeronautico.</p>
-        <ul>
-            {% for patron in patronage %}
-            <li class="text-justify">
-                {{ patron }}{% if not loop.last %};{% else %}.{% endif %}
-            </li>
-            {% endfor %}
-        </ul>
+            {% set counter = counter + 1 %}
+            <h2>{{ counter }}. Educazione continua in medicina</h2>
+            <p class="text-justify">
+                Sono state avviate le procedure per il riconoscimento di {{
+                registration.ecm.amount }} crediti ECM per massimo
+                {{registration.maxParticipants}} partecipanti. L'accreditamento
+                è previsto per le seguenti categorie professionali: {{
+                registration.ecm.validFor | join(", ") }} ed è relativo alle
+                attività del {{ days[1].date | humanize_date }}.
+            </p>
 
-        {% set counter = counter + 1 %}
-        <h2>{{ counter }}. Attività</h2>
-        <div class="events pagebreak">
-            {%- for day in days %}
+            {% set counter = counter + 1 %}
+            <h2>{{ counter }}. Disseminazione</h2>
+            <p class="text-justify">
+                Le informazioni pertinenti al convegno &mdash; accessibili
+                tramite il sito https://aviation-psy.com &mdash; saranno oggetto
+                di una campagna promozionale attraverso i canali ufficiali
+                dell'Aeronautica Militare, inclusi il sito web istituzionale, i
+                profili social media e le newsletter.
+            </p>
+
+            {% set counter = counter + 1 %}
+            <h2>{{ counter }}. Patrocini richiesti</h2>
+            <p class="text-justify">
+                I diversi temi congressuali, incentrati sulla psicologia
+                dell'aviazione e sulle sue applicazioni in ambito operativo e
+                della sicurezza del volo, si allineano con i fini istituzionali
+                degli Enti a cui è stato richiesto il patrocinio, i quali
+                perseguono obiettivi di promozione della ricerca scientifica, di
+                tutela della salute del personale e di incremento degli standard
+                di sicurezza nel settore aeronautico.
+            </p>
+            <ul>
+                {% for patron in patronage %}
+                <li class="text-justify">
+                    {{ patron }}{% if not loop.last %};{% else %}.{% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+
+            {% set counter = counter + 1 %}
+            <h2>{{ counter }}. Attività</h2>
+            <div class="events pagebreak">
+                {%- for day in days %}
                 <div class="day mb-2xl">
-                    <p class="text-bold mb-0">{{ counter }}.{{loop.index }} Attività del {{ day.date }} presso {{ day.venue.name }}</p>
-                    <p class="text-muted text-sm mb-md">{%- if day.type == "inviteOnly"%}riservata agli invitati{%-else %}aperta al pubblico{%- endif %}</p>
+                    <p class="text-bold mb-0">
+                        {{ counter }}.{{loop.index }} Attività del {{ day.date
+                        }} presso {{ day.venue.name }}
+                    </p>
+                    <p class="text-muted text-sm mb-md">
+                        {%- if day.type == "inviteOnly"%}riservata agli
+                        invitati{%-else %}aperta al pubblico{%- endif %}
+                    </p>
                     {%- for event in day.events %}
-                        <div class="event">
-                            {%- if event.talks is not none and event.talks | length > 0 %}
-                                {%- for talk in event.talks %}
-                                    {{ event_card(day.date, talk) }}
-                                {%- endfor %}
-                            {%- else %}
-                                {{ event_card(day.date, event) }}
-                            {%- endif %}
-                        </div>
+                    <div class="event">
+                        {%- if event.talks is not none and event.talks | length
+                        > 0 %} {%- for talk in event.talks %} {{
+                        event_card(day.date, talk) }} {%- endfor %} {%- else %}
+                        {{ event_card(day.date, event) }} {%- endif %}
+                    </div>
                     {%- endfor %}
                 </div>
-            {%- endfor %}
-        </div>
+                {%- endfor %}
+            </div>
 
-        {% set counter = counter + 1 %}
-        <h2>{{ counter }}. Elenco relatori</h2>
-        <ul>
-        {%- for speaker in speakers %}
-            <li>
-                {% if speaker.name != "Autore da definire" %}
-                    {{ speaker.name }}, {{ speaker.title }} ({%- if speaker.role %}{{ speaker.role + " " }} {%- endif %}{{ speaker.affiliation }}){% if not loop.last %};{% else %}.{% endif %}
-                {% endif %}
-            </li>
-        {%- endfor %}
-        </ul>
-    </main>
-</body>
-
+            {% set counter = counter + 1 %}
+            <h2>{{ counter }}. Elenco relatori</h2>
+            <ul>
+                {%- for speaker in speakers %}
+                <li>
+                    {% if speaker.name != "Autore da definire" %} {{
+                    speaker.name }}, {{ speaker.title }} ({%- if speaker.role
+                    %}{{ speaker.role + " " }} {%- endif %}{{
+                    speaker.affiliation }}){% if not loop.last %};{% else %}.{%
+                    endif %} {% endif %}
+                </li>
+                {%- endfor %}
+            </ul>
+        </main>
+    </body>
 </html>

@@ -11,18 +11,18 @@ from lib.utils import normalize_filename
 
 def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     """Load and process speaker data from the program, applying optional jq filters.
-    
+
     Args:
         jq_filter (str | None): An optional jq filter to apply to the speaker data.
 
     Returns:
-        list[tuple[str, dict[str, Any]]]: A list of tuples containing speaker identifiers and 
+        list[tuple[str, dict[str, Any]]]: A list of tuples containing speaker identifiers and
             their corresponding data dictionaries, ready for rendering in templates.
     """
 
     # Load data from JSONData
     data = JSONData().get_data()
-    
+
     # Initialize vars
     all_talks = []
     all_speakers = []
@@ -42,9 +42,9 @@ def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
                     if talk.get("eventType") == "talk":
                         all_talks.append({**talk, "date": day.get("date"), "panel": event.get("title")})
 
-    # Process each talk to extract speaker information, 
+    # Process each talk to extract speaker information,
     # ensuring that speakers with the name "Autore da definire" are excluded.
-    for talk in all_talks:        
+    for talk in all_talks:
         authors = talk.get("authors", []) or []
         authors = [{ **author, "is_first": i == 0 } for i, author in enumerate(authors)]
         for author in authors:
@@ -52,7 +52,7 @@ def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
                 all_speakers.append({
                     "talk_date": talk.get("date"),
                     "talk_timeWindow": talk.get("timeWindow"),
-                    "talk_title": talk.get("title"), 
+                    "talk_title": talk.get("title"),
                     "talk_panel": talk.get("panel"),
                     "talk_duration": talk.get("duration"),
                     **{f"author_{k}": v for k, v in author.items()},
@@ -68,10 +68,10 @@ def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     # Process each speaker and prepare data for rendering
     for speaker in speakers:
         processed_speakers.append((
-            normalize_filename(speaker['author_name']), 
+            normalize_filename(speaker['author_name']),
             speaker
         ))
-        
+
     return processed_speakers
 
 if __name__ == "__main__":
