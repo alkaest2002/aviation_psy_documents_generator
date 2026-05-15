@@ -3,6 +3,8 @@ from pathlib import Path
 
 
 class PathEnum(Enum):
+    """Defines an enumeration of the physical paths used in the project."""
+
     BASE = "base"
     LIB = "lib"
     TEMPLATES = "templates"
@@ -24,8 +26,10 @@ def get_paths(*requested: PathEnum) -> list[Path]:
     Raises:
         PathsError: If any requested key is not a PathEnum or any path does not exist.
     """
+    # Resolve the base path to the project root
     base = Path(__file__).resolve().parent.parent
 
+    # Define the paths relative to the base path
     paths = {
         PathEnum.BASE: base,
         PathEnum.LIB: base / "lib",
@@ -34,17 +38,26 @@ def get_paths(*requested: PathEnum) -> list[Path]:
         PathEnum.OUTPUT: base / "out",
     }
 
+    # If specific paths are requested, validate and return them; otherwise, return all paths
     if requested:
+        # Validate that all requested keys are PathEnum members
         invalid = [r for r in requested if not isinstance(r, PathEnum)]
+        # Raise an error if any requested key is not a PathEnum member
         if invalid:
             raise PathsError(f"Invalid path keys: {', '.join(str(i) for i in invalid)}")
+        # Return the selected paths
         selected = [paths[r] for r in requested]
     else:
+        # Return all paths in enum order
         selected = list(paths.values())
 
-    missing = [f"{requested[i].value if requested else list(paths.keys())[i].value}: {path}"
-               for i, path in enumerate(selected)
-               if not path.exists()]
+    # Check for missing paths and raise an error if any are found
+    missing = [
+        f"{requested[i].value if requested else list(paths.keys())[i].value}: {path}"
+        for i, path in enumerate(selected)
+        if not path.exists()
+    ]
+    # Raise an error if any paths are missing
     if missing:
         raise PathsError("Missing required physical paths:\n" + "\n".join(missing))
 
