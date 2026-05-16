@@ -52,6 +52,7 @@ def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     # data dictionary under the "speakers" key
     data["speakers"] = _get_speakers(data)
 
+
     if jq_filter:
         data = jq.compile(jq_filter).input(data).all()
 

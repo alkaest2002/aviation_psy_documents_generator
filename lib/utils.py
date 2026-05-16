@@ -15,8 +15,8 @@ def pluck_nested(node: Any, key: str) -> Generator[dict[str, Any], None, None]:
     """
     if isinstance(node, dict):
         yield from (i for i in (node.get(key) or []) if isinstance(i, dict))
-        for key, value in node.items():
-            if key != value:
+        for k, value in node.items():
+            if k != key:
                 yield from pluck_nested(value, key)
     elif isinstance(node, list):
         for el in node:
