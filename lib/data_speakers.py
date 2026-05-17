@@ -20,7 +20,7 @@ def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
             their corresponding data dictionaries, ready for rendering in templates.
     """
 
-    # Load data from JSONData
+    # Load the program data
     data = JSONData().get_data()
 
     # Initialize vars
