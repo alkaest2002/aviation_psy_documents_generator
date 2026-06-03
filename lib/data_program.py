@@ -34,10 +34,11 @@ def _get_speakers(data: dict[str, Any]) -> list[dict[str, Any]]:
         [dict(zip(fields, t)) for t in unique], key=lambda a: (a.get("name") or "").lower(),
     )
 
-def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
+def get_data(language: str = "it", jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     """Load and process program data, extracting speaker information and applying optional jq filters.
 
     Args:
+        language (str): The language to load data for.
         jq_filter (str | None): An optional jq filter to apply to the program data.
 
     Returns:
@@ -46,7 +47,7 @@ def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     """
 
     # Load data from JSONData
-    data: dict[str, Any] = JSONData().get_data()
+    data: dict[str, Any] = JSONData(language).get_data()
 
     # Extract speaker information and add it to the
     # data dictionary under the "speakers" key

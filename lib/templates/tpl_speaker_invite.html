@@ -37,17 +37,27 @@
             <!-- Body -->
             <div class="letter__body">
                 <p>
-                    È con piacere che mi pregio di comunicarLe che il contributo
+                    È con piacere che ci pregiamo di comunicarLe che il contributo
                     dal titolo <strong><q>{{ talk_title }}</q></strong>
                     da Lei proposto è stato valutato positivamente dal Comitato
                     Scientifico del III Convegno Nazionale di Psicologia
-                    dell'Aviazione e sarà incluso nel programma dei lavori del
-                    28 ottobre 2026.
+                    dell'Aviazione e sarà incluso nel programma dei lavori.
                 </p>
 
                 <!-- Accepted talk detail box -->
                 <div class="event-detail">
                     <div class="event-detail__stack">
+                        <div class="event-detail__row">
+                            <span
+                                class="event-detail__label"
+                                style="min-width: 6rem"
+                                >Titolo</span
+                            >
+                            <span class="event-detail__value">
+                                {{ talk_title }}
+                            </span>
+                        </div>
+
                         <div class="event-detail__row">
                             <span
                                 class="event-detail__label"
@@ -61,45 +71,46 @@
                         </div>
 
                         {% if talk_panel %}
-                        <div class="event-detail__row">
-                            <span
-                                class="event-detail__label"
-                                style="min-width: 6rem"
-                                >Sessione</span
-                            >
-                            <span class="event-detail__value"
-                                >{{ talk_panel }}</span
-                            >
-                        </div>
-                        {% endif %} {% if author_collaborates_with %}
-                        <div class="event-detail__row">
-                            <span
-                                class="event-detail__label"
-                                style="min-width: 6rem"
-                                >Ruolo</span
-                            >
-                            <span class="event-detail__value">
-                                {% if author_is_first %}Autore principale{% else
-                                %}Co-Autore{% endif %}
-                            </span>
-                        </div>
-                        <div class="event-detail__row">
-                            <span
-                                class="event-detail__label"
-                                style="min-width: 6rem"
-                                >Et alii</span
-                            >
-                            <span class="event-detail__value">
-                                {% for co in author_collaborates_with %} {{
-                                co.title }} {{ co.name }} {%- if co.affiliation
-                                %} · {{ co.affiliation }}{% endif %} {%- if
-                                co.is_first %}
-                                <em class="co-author-note"
-                                    >(autore principale)</em
-                                >{% endif %} {%- if not loop.last %}; {% endif
-                                %} {% endfor %}
-                            </span>
-                        </div>
+                            <div class="event-detail__row">
+                                <span
+                                    class="event-detail__label"
+                                    style="min-width: 6rem"
+                                    >Sessione</span
+                                >
+                                <span class="event-detail__value"
+                                    >{{ talk_panel }}</span
+                                >
+                            </div>
+                        {% endif %}
+                        {% if author_collaborates_with %}
+                            <div class="event-detail__row">
+                                <span
+                                    class="event-detail__label"
+                                    style="min-width: 6rem"
+                                    >Ruolo</span
+                                >
+                                <span class="event-detail__value">
+                                    {% if author_is_first %}Autore principale{% else
+                                    %}Co-Autore{% endif %}
+                                </span>
+                            </div>
+                            <div class="event-detail__row">
+                                <span
+                                    class="event-detail__label"
+                                    style="min-width: 6rem"
+                                    >Co-Autori</span
+                                >
+                                <span class="event-detail__value">
+                                    {% for co in author_collaborates_with %} {{
+                                    co.title }} {{ co.name }} {%- if co.affiliation
+                                    %} · {{ co.affiliation }}{% endif %} {%- if
+                                    co.is_first %}
+                                    <em class="co-author-note"
+                                        >(autore principale)</em
+                                    >{% endif %} {%- if not loop.last %}; {% endif
+                                    %} {% endfor %}
+                                </span>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
@@ -139,7 +150,7 @@
                     <strong>Nota importante:</strong> si precisa che solo l'<em
                         >autore principale</em
                     >
-                    è tenuto a produrre tutta la documentazione richiesta. I
+                    è tenuto a produrre e inviare tutta la documentazione richiesta. I
                     <em>co-autori</em> {% if not author_is_first %}&mdash; come
                     nel Suo caso &mdash;{% endif %} possono limitarsi alla
                     trasmissione del solo curriculum vitae (redatto secondo le
@@ -148,7 +159,7 @@
                 {% endif %}
 
                 <p>
-                    La prego di inviare quanto dovuto al seguente indirizzo di
+                    La preghiamo di inviare quanto dovuto al seguente indirizzo di
                     posta elettronica:
                     <strong
                         ><a href="mailto:aeropsy@am.difesa.it"
@@ -156,20 +167,6 @@
                         ></strong
                     >. La segreteria rimarrà a Sua disposizione per qualsiasi
                     chiarimento di carattere organizzativo o scientifico.
-                </p>
-            </div>
-
-            <!-- Closing -->
-            <div class="closing">
-                <p class="closing__formula">
-                    Con la certezza che il Suo contributo arricchirà i lavori
-                    del Convegno, Le porgo i miei più cordiali saluti.
-                </p>
-                <p class="closing__signature-name">
-                    Gen. Ispettore Capo CSArn Pietro Perelli
-                </p>
-                <p class="closing__signature-role">
-                    Capo del Corpo Sanitario dell'Aeronautica Militare
                 </p>
             </div>
 

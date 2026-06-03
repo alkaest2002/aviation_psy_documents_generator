@@ -34,7 +34,7 @@ def get_paths(*requested: PathEnum) -> list[Path]:
         PathEnum.BASE: base,
         PathEnum.LIB: base / "lib",
         PathEnum.TEMPLATES: base / "lib" / "templates",
-        PathEnum.DATA: base / "../../sites/aviation-psy/src/program.json",
+        PathEnum.DATA: base / "../../sites/aviation-psy/src/",
         PathEnum.OUTPUT: base / "out",
     }
 

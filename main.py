@@ -45,6 +45,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "-t", "--template", type=str, required=True, help="Template name"
     )
+    parser.add_argument(
+        "-l", "--language", type=str, default="it", help="Language code (e.g. 'it')"
+    )
     return parser.parse_args()
 
 
@@ -54,6 +57,7 @@ def generate_docs(args: argparse.Namespace) -> None:
     template_name: str = args.template
     js_filter: str | None = args.js_filter
     output_format: str = args.output
+    language: str | None = args.language
 
     # Get paths
     templates_path, output_path = get_paths(PathEnum.TEMPLATES, PathEnum.OUTPUT)
@@ -62,12 +66,15 @@ def generate_docs(args: argparse.Namespace) -> None:
     env: Environment = get_jinja_env()
 
     # Get the template and render it with data from JSONData
-    template: Template = env.get_template(f"tpl_{template_name}.html")
+    # Default language is italian, otherwise append langugage code
+    template_default = f"tpl_{template_name}.html"
+    template_lang_aware_name = template_default if language == "it" else f"tpl_{template_name}.{language}.html"
+    template: Template = env.get_template(template_lang_aware_name)
 
     # Call the appropriate hook if it exists
     if template_name in DATA_PROVIDERS:
         data: list[tuple[str, dict[str, Any]]] = DATA_PROVIDERS[template_name](
-            js_filter
+            language, js_filter
         )
     else:
         raise ValueError(f"No hook defined for template: {template_name}")
@@ -75,6 +82,7 @@ def generate_docs(args: argparse.Namespace) -> None:
     # Loop through each item in the list
     # and render a separate PDF for each
     for item in data:
+
         # Unpack the filename and item data from the current item tuple
         filename, item_data = item
 
@@ -86,18 +94,18 @@ def generate_docs(args: argparse.Namespace) -> None:
             case "pdf":
                 (
                     HTML(string=rendered_tpl, base_url=str(templates_path)).write_pdf(
-                        output_path / f"{filename}.pdf"
+                        output_path / f"{filename}_{language}.pdf"
                     )
                 )
             case "html":
                 (
-                    (output_path / f"{filename}.html").write_text(
+                    (output_path / f"{filename}_{language}.html").write_text(
                         rendered_tpl, encoding="utf-8"
                     )
                 )
             case "txt":
                 (
-                    (output_path / f"{filename}.txt").write_text(
+                    (output_path / f"{filename}_{language}.txt").write_text(
                         rendered_tpl, encoding="utf-8"
                     )
                 )

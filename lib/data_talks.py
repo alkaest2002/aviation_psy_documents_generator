@@ -11,10 +11,11 @@ from lib.data import JSONData
 from lib.utils import normalize_filename
 
 
-def get_data(jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
+def get_data(language: str = "it", jq_filter: str | None = None) -> list[tuple[str, dict[str, Any]]]:
     """Load and process speaker data from the program, applying optional jq filters.
 
     Args:
+        language (str): The language to load data for.
         jq_filter (str | None): An optional jq filter to apply to the speaker data.
 
     Returns:

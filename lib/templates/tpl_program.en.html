@@ -3,13 +3,13 @@
     <div class="text-muted text-sm event-block__meta">
         {%- set from_time = event_data.timeWindow.split(" - ")[0] %} {%- set
         to_time = event_data.timeWindow.split(" - ")[1] %} {{ date |
-        humanize_date }}, dalle {{ from_time }} alle {{ to_time }} &mdash; {{
+        humanize_date }}, from {{ from_time }} to {{ to_time }} &mdash; {{
         event_data.duration | humanize_minutes }}
     </div>
     <div class="text-bold event-block__title">{{ event_data.title }}</div>
     {%- if event_data.authors is not none and event_data.authors | length > 0 %}
     <div class="text-sm event-block__authors">
-        {%- for author in event_data.authors %} {%- if author.name != "Autore da definire" %} {{ author.title }} {{ author.name }} ({{ author.role }} {{
+        {%- for author in event_data.authors %} {%- if author.name != "Author to be defined" %} {{ author.title }} {{ author.name }} ({{ author.role }} {{
         author.affiliation }}) {%- if not loop.last %};{% else %}.{% endif %}
         {%- else %} {{ author.name }} {%- endif %} {%- endfor %}
     </div>
@@ -18,13 +18,24 @@
 {% endmacro %}
 
 <!doctype html>
-<html lang="it">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Program</title>
         <link rel="stylesheet" href="style_base.css" />
         <link rel="stylesheet" href="style_program.css" />
+        <style>
+        @page {
+
+            @top-left {
+                    content: "III Congress on Aviation Psychology, Milan, 27 and 28 October 2026 | Draft";
+                    font-size: var(--font-size-xs);
+                    font-style: italic;
+                    color: var(--color-muted);
+                }
+        }
+        </style>
     </head>
 
     <body>
@@ -33,23 +44,23 @@
                 <img
                     class="crest-image"
                     src="img_csan.svg"
-                    alt="Stemma Aeronautica Militare"
+                    alt="Italian Air Force Crest"
                 />
             </div>
 
             {% set counter = 0 %}
             <div class="header">
-                <p class="organizer">Corpo Sanitario AM</p>
+                <p class="organizer">Italian Air Force Medical Corps</p>
                 <p class="title">{{ title }}</p>
-                <p class="sub-title">Milano, 27 e 28 ottobre 2026</p>
+                <p class="sub-title">Milan, 27 and 28 October 2026</p>
             </div>
 
             {% set counter = counter + 1 %}
-            <h2>{{ counter }}. Descrizione</h2>
+            <h2>{{ counter }}. Description</h2>
             <div class="text-justify">{{ description | safe }}</div>
 
             {% set counter = counter + 1 %}
-            <h2>{{ counter }}. Obiettivi</h2>
+            <h2>{{ counter }}. Objectives</h2>
             <ul>
                 {%- for objective in objectives %}
                 <li>
@@ -60,38 +71,37 @@
             </ul>
 
             {% set counter = counter + 1 %}
-            <h2>{{ counter }}. Destinatari</h2>
+            <h2>{{ counter }}. Target Audience</h2>
             <p class="text-justify">
-                Il convegno si rivolge a tutti coloro che operano, studiano o
-                hanno interesse nel settore della psicologia dell'aviazione e
-                dell'aerospazio: psicologi e psichiatri civili e militari,
-                medici aeronautici e AME (Aero Medical Examiner), piloti civili
-                e militari, istruttori di volo, controllori del traffico aereo,
-                responsabili della sicurezza aerea, funzionari di enti
-                istituzionali come ENAC ed ENAV, ricercatori e docenti
-                universitari, nonché studenti e specializzandi interessati ad
-                approfondire i temi affrontati nell'ambito dei lavori
-                congressuali.
+                The conference is aimed at all those who work, study or have an
+                interest in the field of aviation and aerospace psychology:
+                civilian and military psychologists and psychiatrists, aviation
+                medical officers and AMEs (Aero Medical Examiners), civilian and
+                military pilots, flight instructors, air traffic controllers,
+                aviation safety officers, officials from institutional bodies
+                such as ENAC and ENAV, researchers and university lecturers, as
+                well as students and trainees interested in exploring the topics
+                addressed during the conference proceedings.
             </p>
 
             {% set counter = counter + 1 %}
-            <h2>{{ counter }}. Data e luogo</h2>
+            <h2>{{ counter }}. Date and Venue</h2>
             <ul>
                 {% for day in days %}
                 <li>
                     <span class="text-bold"
                         >{{ day.date | humanize_date }} ({{ day.timeWindow
                         }})</span
-                    >: presso {{ day.venue.values() | join(", ") | replace("<br />",
-                    " ") }} &mdash; {% if day.type == "inviteOnly"%}riservato
-                    agli invitati{% else%}aperto al pubblico{% endif %} {%- if
+                    >: at {{ day.venue.values() | join(", ") | replace("<br />",
+                    " ") }} &mdash; {% if day.type == "inviteOnly"%}by invitation
+                    only{% else%}open to the public{% endif %} {%- if
                     not loop.last %};{% else %}.{% endif %}
                 </li>
                 {% endfor %}
             </ul>
 
             {% set counter = counter + 1 %}
-            <h2>{{ counter }}. Comitato scientifico</h2>
+            <h2>{{ counter }}. Scientific Committee</h2>
             <ul>
                 {%- for member in scientificCommittee %}
                 <li>
@@ -103,36 +113,35 @@
             </ul>
 
             {% set counter = counter + 1 %}
-            <h2>{{ counter }}. Educazione continua in medicina</h2>
+            <h2>{{ counter }}. Continuing Medical Education</h2>
             <p class="text-justify">
-                Sono state avviate le procedure per il riconoscimento di {{
-                registration.ecm.amount }} crediti ECM per massimo
-                {{registration.maxParticipants}} partecipanti. L'accreditamento
-                è previsto per le seguenti categorie professionali: {{
-                registration.ecm.validFor | join(", ") }} ed è relativo alle
-                attività del {{ days[1].date | humanize_date }}.
+                Procedures have been initiated for the recognition of {{
+                registration.ecm.amount }} CME credits for a maximum of
+                {{registration.maxParticipants}} participants. Accreditation is
+                planned for the following professional categories: {{
+                registration.ecm.validFor | join(", ") }} and applies to the
+                activities of {{ days[1].date | humanize_date }}.
             </p>
 
             {% set counter = counter + 1 %}
-            <h2>{{ counter }}. Disseminazione</h2>
+            <h2>{{ counter }}. Dissemination</h2>
             <p class="text-justify">
-                Le informazioni pertinenti al convegno &mdash; accessibili
-                tramite il sito https://aviation-psy.com &mdash; saranno oggetto
-                di una campagna promozionale attraverso i canali ufficiali
-                dell'Aeronautica Militare, inclusi il sito web istituzionale, i
-                profili social media e le newsletter.
+                Information pertaining to the conference &mdash; accessible
+                through the website https://aviation-psy.com &mdash; will be
+                the subject of a promotional campaign through the official
+                channels of the Italian Air Force, including the institutional
+                website, social media profiles, and newsletters.
             </p>
 
             {% set counter = counter + 1 %}
-            <h2>{{ counter }}. Patrocini richiesti</h2>
+            <h2>{{ counter }}. Requested Endorsements</h2>
             <p class="text-justify">
-                I diversi temi congressuali, incentrati sulla psicologia
-                dell'aviazione e sulle sue applicazioni in ambito operativo e
-                della sicurezza del volo, si allineano con i fini istituzionali
-                degli Enti a cui è stato richiesto il patrocinio, i quali
-                perseguono obiettivi di promozione della ricerca scientifica, di
-                tutela della salute del personale e di incremento degli standard
-                di sicurezza nel settore aeronautico.
+                The various conference topics, focused on aviation psychology and
+                its applications in operational and flight safety contexts, align
+                with the institutional aims of the bodies from which endorsement
+                has been requested, which pursue objectives of promoting
+                scientific research, safeguarding personnel health, and raising
+                safety standards in the aviation sector.
             </p>
             <ul>
                 {% for patron in patronage %}
@@ -143,17 +152,17 @@
             </ul>
 
             {% set counter = counter + 1 %}
-            <h2>{{ counter }}. Attività</h2>
+            <h2>{{ counter }}. Programme</h2>
             <div class="events pagebreak">
                 {%- for day in days %}
                 <div class="day mb-2xl">
                     <p class="text-bold mb-0">
-                        {{ counter }}.{{loop.index }} Attività del {{ day.date
-                        }} presso {{ day.venue.name }}
+                        {{ counter }}.{{loop.index }} Activities on {{ day.date
+                        }} at {{ day.venue.name }}
                     </p>
                     <p class="text-muted text-sm mb-md">
-                        {%- if day.type == "inviteOnly"%}riservata agli
-                        invitati{%-else %}aperta al pubblico{%- endif %}
+                        {%- if day.type == "inviteOnly"%}by invitation
+                        only{%-else %}open to the public{%- endif %}
                     </p>
                     {%- for event in day.events %}
                     <div class="event">
@@ -168,7 +177,7 @@
             </div>
 
             {% set counter = counter + 1 %}
-            <h2>{{ counter }}. Elenco relatori</h2>
+            <h2>{{ counter }}. List of Speakers</h2>
             <ul>
                 {%- for speaker in speakers %}
                 <li>

@@ -14,15 +14,22 @@ class JSONDataError(Exception):
 class JSONData:
     """Class to handle loading and processing of JSON data."""
 
-    def __init__(self) -> None:
+    def __init__(self, language: str = "it") -> None:
         """Initialize JSONData instance."""
         self.data = None
+        self.language = language
 
     def _load_data(self) -> dict[str, Any]:
         """Load and return JSON data from the program.json file."""
 
         # Get the path to the JSON data file from the paths module
         (data_path,) = get_paths(PathEnum.DATA)
+
+        # Add language if different from default ("it")
+        if self.language != "it":
+            data_path = data_path / f"program.{self.language}.json"
+        else:
+            data_path = data_path / "program.json"
 
         # Load the JSON data from the file
         try:
