@@ -31,15 +31,19 @@
 
             <!-- Salutation -->
             <p class="salutation">
-                Gentile {{ author_title }} {{ author_name }},
+                {% if authors | length > 1 %} Gentili {% else %} Gentile {% endif %}
+                {% for author in authors %}
+                    <span>{{- author.title -}}&nbsp;{{- author.name | split(" ") | reverse | join(" ") -}}</span>
+                    {%- if not loop.last %}, {%- endif %}
+                {% endfor %}
             </p>
 
             <!-- Body -->
             <div class="letter__body">
                 <p>
-                    È con piacere che ci pregiamo di comunicarLe che il contributo
-                    dal titolo <strong><q>{{ talk_title }}</q></strong>
-                    da Lei proposto è stato valutato positivamente dal Comitato
+                    È con piacere che ci pregiamo di comunicare che il contributo
+                    dal titolo <strong><q>{{ title }}</q></strong>
+                    è stato valutato positivamente dal Comitato
                     Scientifico del III Convegno Nazionale di Psicologia
                     dell'Aviazione e sarà incluso nel programma dei lavori.
                 </p>
@@ -51,26 +55,15 @@
                             <span
                                 class="event-detail__label"
                                 style="min-width: 6rem"
-                                >Titolo</span
-                            >
-                            <span class="event-detail__value">
-                                {{ talk_title }}
-                            </span>
-                        </div>
-
-                        <div class="event-detail__row">
-                            <span
-                                class="event-detail__label"
-                                style="min-width: 6rem"
                                 >Data e ora</span
                             >
                             <span class="event-detail__value">
-                                {{ talk_date }} · {{ talk_timeWindow }}
+                                {{ date }} · {{ timeWindow }}
                                 <span class="provisional">(provvisorio)</span>
                             </span>
                         </div>
 
-                        {% if talk_panel %}
+                        {% if panel %}
                             <div class="event-detail__row">
                                 <span
                                     class="event-detail__label"
@@ -78,40 +71,22 @@
                                     >Sessione</span
                                 >
                                 <span class="event-detail__value"
-                                    >{{ talk_panel }}</span
+                                    >{{ panel }}</span
                                 >
                             </div>
                         {% endif %}
-                        {% if author_collaborates_with %}
-                            <div class="event-detail__row">
-                                <span
-                                    class="event-detail__label"
-                                    style="min-width: 6rem"
-                                    >Ruolo</span
-                                >
-                                <span class="event-detail__value">
-                                    {% if author_is_first %}Autore principale{% else
-                                    %}Co-Autore{% endif %}
-                                </span>
-                            </div>
-                            <div class="event-detail__row">
-                                <span
-                                    class="event-detail__label"
-                                    style="min-width: 6rem"
-                                    >Co-Autori</span
-                                >
-                                <span class="event-detail__value">
-                                    {% for co in author_collaborates_with %} {{
-                                    co.title }} {{ co.name }} {%- if co.affiliation
-                                    %} · {{ co.affiliation }}{% endif %} {%- if
-                                    co.is_first %}
-                                    <em class="co-author-note"
-                                        >(autore principale)</em
-                                    >{% endif %} {%- if not loop.last %}; {% endif
-                                    %} {% endfor %}
-                                </span>
-                            </div>
-                        {% endif %}
+
+                        <div class="event-detail__row">
+                            <span
+                                class="event-detail__label"
+                                style="min-width: 6rem"
+                                >Titolo</span
+                            >
+                            <span class="event-detail__value">
+                                {{ title }}
+                            </span>
+                        </div>
+
                     </div>
                 </div>
 
@@ -128,11 +103,11 @@
                             >Entro il {{ submissionAbstractDate }} dovranno
                             pervenire i seguenti documenti</strong
                         >: <em>[A] Abstract</em> in formato docx (titolo,
-                        nominativo e affiliazione degli autori, testo per un
-                        massimo di 500 parole); <em>[B] Curriculum Vitae</em> in
-                        formato pdf, datato, firmato, comprensivo di codice
+                        nominativo e affiliazione dell'autore/degli autori, testo per un
+                        massimo di 500 parole); <em>[B] Curriculum Vitae</em> dell'autore/degli autori in
+                        formato pdf (ogni CV sarà datato, firmato, comprensivo di codice
                         fiscale e con il consenso al trattamento dei dati
-                        personali;
+                        personali);
                     </li>
                     <li class="submission-list__item">
                         <strong
@@ -145,27 +120,23 @@
                     </li>
                 </ul>
 
-                {% if author_collaborates_with %}
                 <p>
-                    <strong>Nota importante:</strong> si precisa che solo l'<em
-                        >autore principale</em
-                    >
-                    è tenuto a produrre e inviare tutta la documentazione richiesta. I
-                    <em>co-autori</em> {% if not author_is_first %}&mdash; come
-                    nel Suo caso &mdash;{% endif %} possono limitarsi alla
-                    trasmissione del solo curriculum vitae (redatto secondo le
-                    specifiche illustrate in precedenza).
-                </p>
+                {% if  authors | length > 1 %}
+                    Preghiamo l'autore principale di raccogliere la propria documentazione e quella dei co-autori e di inviare il tutto
+                {% else %}
+                    La preghiamo di inviare quanto dovuto
                 {% endif %}
-
+                al seguente indirizzo di posta elettronica:
+                </p>
                 <p>
-                    La preghiamo di inviare quanto dovuto al seguente indirizzo di
-                    posta elettronica:
-                    <strong
-                        ><a href="mailto:aeropsy@am.difesa.it"
-                            >aeropsy@am.difesa.it</a
-                        ></strong
-                    >. La segreteria rimarrà a Sua disposizione per qualsiasi
+                <strong
+                    ><a href="mailto:peirpaolo.calanna@aeronautica.difesa.it"
+                        >pierpaolo.calanna@aeronautica.difesa.it</a
+                    ></strong
+                >.
+                </p>
+                <p>
+                    La segreteria rimarrà a disposizione per qualsiasi
                     chiarimento di carattere organizzativo o scientifico.
                 </p>
             </div>

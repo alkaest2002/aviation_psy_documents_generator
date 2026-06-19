@@ -26,8 +26,7 @@ def get_data(language: str = "it", jq_filter: str | None = None) -> list[tuple[s
 
     # Initialize vars
     all_talks = []
-    all_speakers = []
-    processed_speakers = []
+    processed_talks = []
 
     # Extract paper expiration dates if available,
     # to include in speaker data for potential use in templates.
@@ -37,43 +36,37 @@ def get_data(language: str = "it", jq_filter: str | None = None) -> list[tuple[s
     for day in data.get("days", []):
         for event in day.get("events", []):
             if event.get("eventType") == "talk":
-                all_talks.append({**event, "date": day.get("date"), "panel": event.get("title")})
+                all_talks.append({
+                    **event,
+                    "date": day.get("date"),
+                    "panel": event.get("title"),
+                    **paperExpirationDates
+                })
             if event.get("eventType") == "panel":
                 for talk in event.get("talks", []):
                     if talk.get("eventType") == "talk":
-                        all_talks.append({**talk, "date": day.get("date"), "panel": event.get("title")})
-
-    # Process each talk to extract speaker information,
-    # ensuring that speakers with the name "Autore da definire" are excluded.
-    for talk in all_talks:
-        authors = talk.get("authors", []) or []
-        authors = [{ **author, "is_first": i == 0 } for i, author in enumerate(authors)]
-        for author in authors:
-            if not author.get("name") == "Autore da definire":
-                all_speakers.append({
-                    "talk_date": talk.get("date"),
-                    "talk_timeWindow": talk.get("timeWindow"),
-                    "talk_title": talk.get("title"),
-                    "talk_panel": talk.get("panel"),
-                    "talk_duration": talk.get("duration"),
-                    **{f"author_{k}": v for k, v in author.items()},
-                    "author_collaborates_with": [ a for a in authors if a != author ],
-                    **paperExpirationDates
-                })
+                        all_talks.append({
+                            **talk,
+                            "date": day.get("date"),
+                            "panel": event.get("title"),
+                            **paperExpirationDates
+                        })
 
     if jq_filter:
-        speakers = jq.compile(jq_filter).input(all_speakers).all()
+        talks = jq.compile(jq_filter).input(all_talks).all()
     else:
-        speakers = all_speakers
+        talks= all_talks
 
-    # Process each speaker and prepare data for rendering
-    for speaker in speakers:
-        processed_speakers.append((
-            f"relatori_invito_{normalize_filename(speaker['author_name'])}",
-            speaker
+    # Prepare data for rendering
+    for talk in talks:
+        if talk["authors"][0]['name'] == "Autore da definire":
+            continue
+        processed_talks.append((
+        f"relatori_invito_{normalize_filename(talk["authors"][0]['name'])}",
+            talk
         ))
 
-    return processed_speakers
+    return processed_talks
 
 if __name__ == "__main__":
     data = get_data()

@@ -66,6 +66,7 @@ def get_jinja_env() -> Environment:
     # Add custom filters to the Jinja2 environment
     env.filters["regex_replace"] = regex_replace
     env.filters["strip_cs"] = lambda value: value.strip(", ")
+    env.filters['split'] = lambda s, sep=' ': s.split(sep)
     env.filters["humanize_minutes"] = humanize_minutes
     env.filters["humanize_date"] = humanize_date
 

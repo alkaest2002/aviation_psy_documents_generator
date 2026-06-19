@@ -1,16 +1,16 @@
-Gentile {{ author_title }} {{ author_name }},
+{% if authors | length > 1 %}Gentili {% else %}Gentile {% endif %}{% for author in authors %}{{ author.title }} {{ author.name | split(" ") | reverse | join(" ") }}{% if not loop.last %}, {% endif %}{% endfor %}
 
-È con grande piacere che Le comunichiamo l'esito positivo della valutazione del Suo contributo da parte del Comitato Scientifico del III Convegno di Psicologia dell'Aviazione (Milano, 27 e 28 ottobre 2026): il Suo lavoro sarà incluso nel programma ufficiale del Convegno.
+È con grande piacere che {% if authors | length > 1 %}Vi{% else %}Le{% endif %} comunichiamo che il {% if authors | length > 1 %}Vostro{% else %}Suo{% endif %} lavoro sarà incluso nel programma ufficiale del III Convegno di Psicologia dell'Aviazione (Milano, 27 e 28 ottobre 2026).
 
-In allegato alla presente troverà l'invito ufficiale, che illustra nel dettaglio le fasi successive da seguire.
+In allegato alla presente {% if authors | length > 1 %}troverete{% else %}troverà{% endif %} l'invito ufficiale, che illustra nel dettaglio le fasi successive da seguire.
 
-La invitiamo a prenderne visione con attenzione.
+{% if authors | length > 1 %}Vi{% else %}La{% endif %} invitiamo a prenderne visione con attenzione.
 
 Tutta la documentazione richiesta dovrà pervenire al seguente indirizzo email:
 
-aeropsy@aeronautica.difesa.it
+pierpaolo.calanna@aeronautica.difesa.it
 
-La Segreteria Organizzativa resta a Sua completa disposizione per qualsiasi necessità, sia di natura organizzativa che scientifica, e sarà lieta di assisterLa in ogni fase del percorso.
+Resto a {% if authors | length > 1 %}Vostra{% else %}Sua{% endif %} completa disposizione per qualsiasi necessità, sia di natura organizzativa che scientifica, e sarò lieto di {% if authors | length > 1 %}assisterVi{% else %}assisterLa{% endif %} in ogni fase del percorso.
 
 Cordiali Saluti.
 

@@ -93,6 +93,7 @@
 
 .salutation {
     font-style: italic;
+    margin-top: var(--space-xl);
     margin-bottom: var(--space-md);
 }
 
