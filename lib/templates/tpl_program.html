@@ -9,7 +9,9 @@
     <div class="text-bold event-block__title">{{ event_data.title }}</div>
     {%- if event_data.authors is not none and event_data.authors | length > 0 %}
     <div class="text-sm event-block__authors">
-        {%- for author in event_data.authors %} {%- if author.name != "Autore da definire" %} {{ author.title }} {{ author.name }} ({{ author.role }} {{
+        {%- for author in event_data.authors %}
+            {%- if author.name != "Autore da definire" %}
+                {{ author.title | default("", true) }} {{ author.name }} ({%- if author.role %}{{ author.role + " " }}{%- endif %}{{
         author.affiliation }}) {%- if not loop.last %};{% else %}.{% endif %}
         {%- else %} {{ author.name }} {%- endif %} {%- endfor %}
     </div>
@@ -75,16 +77,16 @@
             </p>
 
             {% set counter = counter + 1 %}
-            <h2>{{ counter }}. Data e luogo</h2>
+            <h2>{{ counter }}. Data, luogo e numero di partecipanti</h2>
             <ul>
                 {% for day in days %}
                 <li>
                     <span class="text-bold"
                         >{{ day.date | humanize_date }} ({{ day.timeWindow
                         }})</span
-                    >: presso {{ day.venue.values() | join(", ") | replace("<br />",
+                    >: {{ day.venue.values() | join(", ") | replace("<br />",
                     " ") }} &mdash; {% if day.type == "inviteOnly"%}riservato
-                    agli invitati{% else%}aperto al pubblico{% endif %} {%- if
+                    agli invitati{% else%}aperto al pubblico{% endif %} (max {{ day.maxParticipants }}){%- if
                     not loop.last %};{% else %}.{% endif %}
                 </li>
                 {% endfor %}
@@ -149,7 +151,7 @@
                 <div class="day mb-2xl">
                     <p class="text-bold mb-0">
                         {{ counter }}.{{loop.index }} Attività del {{ day.date
-                        }} presso {{ day.venue.name }}
+                        }}{% if day.venue.name%} presso {{ day.venue.name }}{% endif %}
                     </p>
                     <p class="text-muted text-sm mb-md">
                         {%- if day.type == "inviteOnly"%}riservata agli
@@ -172,11 +174,10 @@
             <ul>
                 {%- for speaker in speakers %}
                 <li>
-                    {% if speaker.name != "Autore da definire" %} {{
-                    speaker.name }}, {{ speaker.title }} ({%- if speaker.role
-                    %}{{ speaker.role + " " }} {%- endif %}{{
-                    speaker.affiliation }}){% if not loop.last %};{% else %}.{%
-                    endif %} {% endif %}
+                    {% if speaker.title.find("definire") == -1  %}
+                        {{ speaker.name }}, {{ speaker.title }} ({%- if speaker.role %}{{ speaker.role + " " }}{%- endif %}
+                        {{ speaker.affiliation }}){% if not loop.last %};{% else %}.{%endif %}
+                    {% endif %}
                 </li>
                 {%- endfor %}
             </ul>
