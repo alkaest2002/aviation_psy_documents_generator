@@ -25,7 +25,6 @@ DATA_PROVIDERS: dict[str, Callable] = {
     "talks": talks_data,
 }
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Render a Jinja2 template to PDF.")
     parser.add_argument(
